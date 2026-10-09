@@ -1,0 +1,17 @@
+{
+    "name": "Rubezh.UI",
+    "rootNamespace": "Rubezh.UI",
+    "references": [
+        "Rubezh.Core",
+        "Rubezh.Gameplay"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
