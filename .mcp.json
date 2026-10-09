@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "unity": {
+      "command": "uvx",
+      "args": ["--from", "mcpforunityserver==10.3.0", "mcp-for-unity", "--transport", "stdio"]
+    },
+    "blender": {
+      "command": "uvx",
+      "args": ["--from", "git+https://projects.blender.org/lab/blender_mcp.git@v1.0.3#subdirectory=mcp", "blender-mcp"],
+      "env": {
+        "BLENDER_MCP_PORT": "9877",
+        "BLENDER_PATH": "${BLENDER_PATH:-blender}"
+      }
+    },
+    "blender-assets": {
+      "command": "uvx",
+      "args": ["mcp-for-blender@2.1.9"],
+      "env": {
+        "DISABLE_TELEMETRY": "true"
+      }
+    }
+  }
+}
