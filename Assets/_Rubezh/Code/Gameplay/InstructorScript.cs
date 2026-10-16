@@ -36,12 +36,13 @@ namespace Rubezh.Gameplay
         public bool HasHint(string id) => _hints.ContainsKey(id);
 
         // Фраза подсказки с кнопками по руке: {Eject} — A/X, {Safety} — B/Y.
-        public string Hint(string id, Hand hand)
-        {
-            if (!_hints.TryGetValue(id, out var text)) return string.Empty;
-            return text.Replace("{Eject}", hand == Hand.Left ? "X" : "A")
-                       .Replace("{Safety}", hand == Hand.Left ? "Y" : "B");
-        }
+        public string Hint(string id, Hand hand) => _hints.TryGetValue(id, out var text) ? WithButtons(text, hand) : string.Empty;
+
+        // Кнопки по руке в любой фразе (подсказки, онбординг NG-32): {Eject} — A/X, {Safety} — B/Y.
+        public static string WithButtons(string text, Hand hand) =>
+            text == null ? string.Empty
+                         : text.Replace("{Eject}", hand == Hand.Left ? "X" : "A")
+                               .Replace("{Safety}", hand == Hand.Left ? "Y" : "B");
 
         public bool HasFailReason(Violation v) => _fails.ContainsKey(v);
         public string FailTitle(Violation v) => _fails.TryGetValue(v, out var f) ? f.title : v.ToString();
