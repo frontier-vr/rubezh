@@ -480,6 +480,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474807713}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &679375207 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4785783223421214065, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+  m_PrefabInstance: {fileID: 1358593077}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &692483953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,6 +1589,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistol
       objectReference: {fileID: 0}
+    - target: {fileID: 4785783223421214065, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1594,6 +1603,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1893375914823482330, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1358593080}
+    - targetCorrespondingSourceObject: {fileID: 1893375914823482330, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1358593083}
+    - targetCorrespondingSourceObject: {fileID: 1893375914823482330, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1358593082}
+    - targetCorrespondingSourceObject: {fileID: 1893375914823482330, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1358593084}
+    - targetCorrespondingSourceObject: {fileID: 4785783223421214065, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2004339440}
   m_SourcePrefab: {fileID: 100100000, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
 --- !u!1 &1358593078 stripped
 GameObject:
@@ -1644,6 +1665,58 @@ MonoBehaviour:
   yawSpeed: 90
   runner: {fileID: 371393840}
   sector: {fileID: 1358593080}
+  headCamera: {fileID: 406704270}
+  muzzle: {fileID: 1358593079}
+  primaryHand: 1
+--- !u!114 &1358593082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358593078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f442066d484944caca2975464bda17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.Gameplay::Rubezh.Gameplay.TriggerDisciplineDetector
+  runner: {fileID: 371393840}
+  heldWeapon: {fileID: 1358593081}
+  leftTrigger: {fileID: 1358593083}
+  rightTrigger: {fileID: 1358593083}
+--- !u!114 &1358593083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358593078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e7cde2b90370a4fb0bcfee006e6cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.Sandbox::Rubezh.Sandbox.TriggerInputStub
+  touched: 0
+  press: 0
+--- !u!114 &1358593084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358593078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e9ac4b66f1840c49a115370c06b5e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.Gameplay::Rubezh.Gameplay.MuzzleLookDetector
+  runner: {fileID: 371393840}
+  headCamera: {fileID: 406704270}
+  muzzle: {fileID: 1358593079}
+  muzzleCollider: {fileID: 2004339440}
+  muzzleLayers:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &1670585502
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,6 +1941,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807987120}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!135 &2004339440
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679375207}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.025
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2037650018
 GameObject:
   m_ObjectHideFlags: 0

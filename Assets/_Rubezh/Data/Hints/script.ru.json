@@ -1,0 +1,200 @@
+{
+  "language": "ru",
+  "source": "docs/script.md",
+  "commands": [
+    {
+      "phase": "Receive",
+      "text": "Получить оружие в шкафу",
+      "voice": "cmd_receive"
+    },
+    {
+      "phase": "Inspect",
+      "text": "Контрольный осмотр: отделить магазин, затвор на задержку",
+      "voice": "cmd_inspect"
+    },
+    {
+      "phase": "Ppe",
+      "text": "Надеть наушники и очки",
+      "voice": "cmd_ppe"
+    },
+    {
+      "phase": "LoadMagazine",
+      "text": "Снарядить магазин: пять патронов",
+      "voice": "cmd_load_magazine"
+    },
+    {
+      "phase": "ToLine",
+      "text": "На рубеж. Оружие и магазин — на стойку, подать мишень",
+      "voice": "cmd_to_line"
+    },
+    {
+      "phase": "Load",
+      "text": "Заряжай",
+      "voice": "cmd_load"
+    },
+    {
+      "phase": "Fire",
+      "text": "Огонь",
+      "voice": "cmd_fire"
+    },
+    {
+      "phase": "Cease",
+      "text": "Стой! Оружие на предохранитель",
+      "voice": "cmd_cease"
+    },
+    {
+      "phase": "Unload",
+      "text": "Разряжай",
+      "voice": "cmd_unload"
+    },
+    {
+      "phase": "ShowClear",
+      "text": "Оружие к осмотру",
+      "voice": "cmd_show_clear"
+    },
+    {
+      "phase": "Return",
+      "text": "Сдать оружие в шкаф",
+      "voice": "cmd_return"
+    },
+    {
+      "phase": "Done",
+      "text": "Упражнение окончено",
+      "voice": "cmd_done"
+    },
+    {
+      "phase": "Failed",
+      "text": "Стоп! Упражнение прекращено",
+      "voice": "cmd_failed"
+    }
+  ],
+  "hints": [
+    {
+      "id": "hint_teleport_a1",
+      "text": "Стик вперёд: к шкафу"
+    },
+    {
+      "id": "hint_teleport_a2",
+      "text": "Стик вперёд: к столу снаряжения"
+    },
+    {
+      "id": "hint_teleport_a3",
+      "text": "Стик вперёд: на рубеж"
+    },
+    {
+      "id": "hint_take_pistol",
+      "text": "Grip: взять пистолет"
+    },
+    {
+      "id": "hint_eject_magazine",
+      "text": "{Eject}: отделить магазин"
+    },
+    {
+      "id": "hint_put_magazine_shelf",
+      "text": "Grip: магазин на полку осмотра"
+    },
+    {
+      "id": "hint_slide_lock",
+      "text": "Grip на затворе: отвести затвор"
+    },
+    {
+      "id": "hint_take_earmuffs",
+      "text": "Grip: взять наушники"
+    },
+    {
+      "id": "hint_take_glasses",
+      "text": "Grip: взять очки"
+    },
+    {
+      "id": "hint_magazine_table",
+      "text": "Grip: магазин на стол"
+    },
+    {
+      "id": "hint_take_round",
+      "text": "Grip: взять патрон"
+    },
+    {
+      "id": "hint_round_to_magazine",
+      "text": "Grip: патрон в магазин"
+    },
+    {
+      "id": "hint_pistol_to_stand",
+      "text": "Grip: пистолет на стойку стволом к мишени"
+    },
+    {
+      "id": "hint_magazine_to_stand",
+      "text": "Grip: магазин на стойку"
+    },
+    {
+      "id": "hint_target_button",
+      "text": "Нажать кнопку пульта: подать мишень"
+    },
+    {
+      "id": "hint_insert_magazine",
+      "text": "Grip: магазин в шахту"
+    },
+    {
+      "id": "hint_chamber",
+      "text": "Grip на затворе: дослать патрон"
+    },
+    {
+      "id": "hint_safety_off",
+      "text": "{Safety}: снять с предохранителя"
+    },
+    {
+      "id": "hint_fire",
+      "text": "Trigger: выстрел"
+    },
+    {
+      "id": "hint_clear_jam",
+      "text": "Grip на затворе: перезарядить"
+    },
+    {
+      "id": "hint_safety_on",
+      "text": "{Safety}: на предохранитель"
+    },
+    {
+      "id": "hint_unload_magazine",
+      "text": "{Eject}: отделить магазин"
+    },
+    {
+      "id": "hint_unload_slide",
+      "text": "Grip на затворе: затвор на задержку"
+    },
+    {
+      "id": "hint_show_clear",
+      "text": "Grip: пистолет и магазин на стойку"
+    },
+    {
+      "id": "hint_return_cabinet",
+      "text": "Grip: пистолет в шкаф"
+    }
+  ],
+  "failReasons": [
+    {
+      "violation": "MuzzleOutOfSector",
+      "title": "Ствол вне сектора",
+      "text": "Заряженное оружие дольше 1,5 с было направлено вне мишенного коридора."
+    },
+    {
+      "violation": "LookIntoMuzzle",
+      "title": "Взгляд в ствол",
+      "text": "Взгляд был направлен в дульный срез оружия."
+    },
+    {
+      "violation": "ShotBeforeFire",
+      "title": "Выстрел до команды «Огонь»",
+      "text": "Выстрел произведён до команды «Огонь»."
+    },
+    {
+      "violation": "ShotAfterCease",
+      "title": "Выстрел после команды «Стой»",
+      "text": "Выстрел произведён после команды «Стой»."
+    },
+    {
+      "violation": "ShotOutOfSector",
+      "title": "Выстрел вне сектора",
+      "text": "Выстрел произведён в направлении вне мишенного коридора."
+    }
+  ]
+}

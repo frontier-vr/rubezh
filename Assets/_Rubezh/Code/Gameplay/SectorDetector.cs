@@ -59,6 +59,9 @@ namespace Rubezh.Gameplay
             _rule.Tick(held, InSector, _held.State.IsLoaded);
         }
 
+        // Проверка сектора сейчас, вне Update: ShotResolver спрашивает в момент выстрела.
+        public bool CheckNow() => muzzle != null && Cast(out _);
+
         private bool Cast(out RaycastHit hit)
         {
             int mask = sectorLayers | blockerLayers;

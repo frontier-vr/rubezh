@@ -20,12 +20,68 @@ namespace Rubezh.Gameplay
         [Header("Палец на спуске (NG-05, VP-06)")]
         [Tooltip("Запасной порог касания, если у контроллера нет ёмкостного датчика: нажатие сильнее — палец на спуске. Ниже порога выстрела")]
         [Range(0f, 1f)] public float touchThreshold = 0.05f;
+        [Tooltip("Касание спуска короче этого вне «Огонь» нарушением не считается, с")]
+        [Min(0f)] public float triggerTouchMinSeconds = 0.15f;
+
+        [Header("Взгляд в ствол (VP-07)")]
+        [Tooltip("Взгляд в дульный срез дольше этого — грубое нарушение, с")]
+        [Min(0f)] public float muzzleLookSeconds = 0.2f;
+        [Tooltip("Дальность луча из камеры до дульного среза, м")]
+        [Min(0.1f)] public float muzzleLookMaxDistance = 0.7f;
+        [Tooltip("Камера в этом конусе вокруг оси ствола — смотрит «в ствол», а не сбоку, градусы")]
+        [Range(5f, 60f)] public float muzzleLookConeDegrees = 30f;
+
+        [Header("Осечка (VP-09)")]
+        [Tooltip("Осечка случается на выстреле из диапазона, выбирается генератором с зерном")]
+        [Min(1)] public int misfireShotMin = 3;
+        [Min(1)] public int misfireShotMax = 4;
+        [Tooltip("После осечки ждать, не уводя ствол из сектора, до перезарядки; раньше — JamMishandled, с")]
+        [Min(0f)] public float misfireWaitSeconds = 5f;
+
+        [Header("Пробоины (VP-23)")]
+        [Tooltip("Сколько пробоин держит пул; новая сверх пула занимает место самой старой")]
+        [Min(1)] public int bulletHolePoolSize = 10;
+        [Tooltip("Диаметр видимой пробоины с ободком, м: крупнее калибра, чтобы читалась с рубежа")]
+        [Min(0.005f)] public float bulletHoleDiameter = 0.03f;
+
+        [Header("Пистолет в руке (NG-08)")]
+        [Tooltip("Нажатие спуска сильнее — TriggerPull. Выше запасного порога касания")]
+        [Range(0f, 1f)] public float triggerPullThreshold = 0.75f;
+        [Tooltip("Нажатие спуска слабее — TriggerRelease; следующий выстрел только после отпускания")]
+        [Range(0f, 1f)] public float triggerReleaseThreshold = 0.4f;
+        [Tooltip("Полный ход затвора назад, м")]
+        [Min(0.005f)] public float slideTravel = 0.03f;
+        [Tooltip("Затвор отведён на эту долю хода — SlideBack")]
+        [Range(0.5f, 1f)] public float slideBackFraction = 0.9f;
+        [Tooltip("Отведённый затвор, вернувшийся рукой ближе этой доли хода, — SlideForward")]
+        [Range(0f, 0.5f)] public float slideForwardFraction = 0.2f;
+        [Tooltip("Положение затвора на задержке, доля хода")]
+        [Range(0.5f, 1f)] public float slideLockedFraction = 0.8f;
+
+        [Header("Магазин, патроны, места (NG-09)")]
+        [Tooltip("Предмет ниже этой высоты и не в руке — упал (все столешницы выше), м")]
+        [Min(0f)] public float dropHeight = 0.85f;
+        [Tooltip("Упавший предмет через столько секунд возвращается на своё место у текущего якоря, с")]
+        [Min(0f)] public float dropReturnSeconds = 1f;
+        [Tooltip("После выпуска магазина шахта не принимает его обратно столько секунд, с")]
+        [Min(0f)] public float ejectLockSeconds = 0.5f;
+        [Tooltip("Скорость, с которой выпущенный магазин выходит из шахты вниз, м/с")]
+        [Min(0f)] public float ejectSpeed = 0.6f;
+
+        [Header("СИЗ (NG-10)")]
+        [Tooltip("Переход между снапшотами «Уши открыты» и «Наушники», с")]
+        [Min(0f)] public float earmuffsTransitionSeconds = 0.4f;
 
         public ExerciseRules ToRules() => new ExerciseRules
         {
             SeriesRounds = seriesRounds,
             SectorGraceSeconds = sectorGraceSeconds,
-            SectorJitterSeconds = sectorJitterSeconds
+            SectorJitterSeconds = sectorJitterSeconds,
+            TriggerTouchMinSeconds = triggerTouchMinSeconds,
+            MuzzleLookSeconds = muzzleLookSeconds,
+            MisfireShotMin = misfireShotMin,
+            MisfireShotMax = misfireShotMax,
+            MisfireWaitSeconds = misfireWaitSeconds
         };
     }
 }

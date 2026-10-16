@@ -4,8 +4,13 @@
     "references": [
         "Rubezh.Core",
         "Rubezh.Gameplay",
+        "Rubezh.UI",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Unity.TextMeshPro",
+        "Rubezh.XR",
+        "Unity.XR.Interaction.Toolkit",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

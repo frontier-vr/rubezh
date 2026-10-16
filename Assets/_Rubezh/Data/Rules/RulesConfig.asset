@@ -16,3 +16,23 @@ MonoBehaviour:
   sectorGraceSeconds: 1.5
   sectorJitterSeconds: 0.1
   touchThreshold: 0.05
+  triggerTouchMinSeconds: 0.15
+  muzzleLookSeconds: 0.2
+  muzzleLookMaxDistance: 0.7
+  muzzleLookConeDegrees: 30
+  misfireShotMin: 3
+  misfireShotMax: 4
+  misfireWaitSeconds: 5
+  bulletHolePoolSize: 10
+  bulletHoleDiameter: 0.03
+  triggerPullThreshold: 0.75
+  triggerReleaseThreshold: 0.4
+  slideTravel: 0.03
+  slideBackFraction: 0.9
+  slideForwardFraction: 0.2
+  slideLockedFraction: 0.8
+  dropHeight: 0.85
+  dropReturnSeconds: 1
+  ejectLockSeconds: 0.5
+  ejectSpeed: 0.6
+  earmuffsTransitionSeconds: 0.4
