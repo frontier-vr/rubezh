@@ -3,8 +3,9 @@ using System;
 namespace Rubezh.Core
 {
     // Автомат состояний пистолета по таблице переходов из docs/objects.md.
-    // Осечка (строка 12) назначается на N-й выстрел через ScheduleMisfire (VP-09); прихват
-    // (строка 13) — VP-13. В состояниях с Jam != None спуск даёт только сухой щелчок.
+    // Осечка (строка 12) назначается на N-й выстрел через ScheduleMisfire (VP-09), прихват гильзы
+    // (строка 13) — через ScheduleStovePipe (VP-13). В состояниях с Jam != None спуск даёт только
+    // сухой щелчок.
     public sealed class Weapon : IWeapon
     {
         // Удержание затвора рукой сзади в WeaponState не входит: наружу оно не нужно.
@@ -19,6 +20,7 @@ namespace Rubezh.Core
         private bool _triggerPulled;
         private int _shotAttempts;      // спуски с досланным патроном с последнего ScheduleMisfire
         private int _misfireOnShot;     // 0 — осечки нет
+        private int _stovePipeOnShot;   // 0 — прихвата нет
 
         public event Action<WeaponState> Changed;
         public event Action Fired;
@@ -44,7 +46,15 @@ namespace Rubezh.Core
         {
             if (shotNumber < 0) throw new ArgumentOutOfRangeException(nameof(shotNumber));
             _misfireOnShot = shotNumber;
+            _stovePipeOnShot = 0;
             _shotAttempts = 0;
+        }
+
+        // Прихват гильзы на shotNumber-м спуске, счёт тот же, что у осечки (вызывать после ScheduleMisfire).
+        public void ScheduleStovePipe(int shotNumber)
+        {
+            if (shotNumber < 0) throw new ArgumentOutOfRangeException(nameof(shotNumber));
+            _stovePipeOnShot = shotNumber;
         }
 
         public int ShotAttempts => _shotAttempts;
@@ -161,6 +171,18 @@ namespace Rubezh.Core
                 _jam = Jam.Misfire;
                 DryFire?.Invoke();
                 Jammed?.Invoke(Jam.Misfire);
+                Changed?.Invoke(State);
+                return true;
+            }
+
+            if (_shotAttempts == _stovePipeOnShot)
+            {
+                // Строка 13: выстрел был, но гильзу зажало затвором — она торчит из окна, следующий
+                // патрон не дослан. Гильза вылетит при перезарядке (SlideBack).
+                _chamber = Chamber.Spent;
+                _jam = Jam.StovePipe;
+                Fired?.Invoke();
+                Jammed?.Invoke(Jam.StovePipe);
                 Changed?.Invoke(State);
                 return true;
             }
