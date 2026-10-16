@@ -4,6 +4,7 @@
     "references": [
         "Rubezh.Core",
         "Rubezh.Gameplay",
+        "Rubezh.XR",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
