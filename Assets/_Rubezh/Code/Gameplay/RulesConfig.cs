@@ -45,6 +45,13 @@ namespace Rubezh.Gameplay
         [Tooltip("После осечки ждать, не уводя ствол из сектора, до перезарядки; раньше — JamMishandled, с")]
         [Min(0f)] public float misfireWaitSeconds = 5f;
 
+        [Header("Прихват гильзы (VP-13)")]
+        [Tooltip("Вероятность прихвата за упражнение; 0 — без прихвата")]
+        [Range(0f, 1f)] public float stovePipeChance = 0.5f;
+        [Tooltip("Прихват на выстреле из диапазона (не на выстреле осечки), выбирается генератором с зерном")]
+        [Min(1)] public int stovePipeShotMin = 2;
+        [Min(1)] public int stovePipeShotMax = 5;
+
         [Header("Пробоины (VP-23)")]
         [Tooltip("Сколько пробоин держит пул; новая сверх пула занимает место самой старой")]
         [Min(1)] public int bulletHolePoolSize = 10;
@@ -71,6 +78,20 @@ namespace Rubezh.Gameplay
         [Header("Подсказки (VP-12)")]
         [Tooltip("Подсказка включается после стольких секунд без действий пользователя, с")]
         [Min(0f)] public float hintIdleSeconds = 5f;
+
+        [Header("Выноски у контроллера (NG-32)")]
+        [Tooltip("Сколько держится замечание о мелком нарушении, с")]
+        [Min(0.5f)] public float calloutRemarkSeconds = 3f;
+        [Tooltip("Выноска онбординга снимается действием или через столько секунд")]
+        [Min(0.5f)] public float calloutOnboardingSeconds = 8f;
+
+        [Header("Подсветка (VP-21)")]
+        [Tooltip("Частота пульсации подсветки, Гц")]
+        [Min(0.1f)] public float highlightPulseHz = 1.2f;
+        [Tooltip("Яркость подсветки в минимуме пульсации, доля от полной")]
+        [Range(0f, 1f)] public float highlightMinBrightness = 0.45f;
+        [Tooltip("Толщина контура вокруг предмета, м")]
+        [Min(0f)] public float highlightOutlineMeters = 0.007f;
 
         [Header("Экран результата (VP-20)")]
         [Tooltip("После грубого нарушения стоп-экран держится столько, затем на нём же результат с баллом 0, с")]
@@ -130,6 +151,9 @@ namespace Rubezh.Gameplay
             MisfireShotMin = misfireShotMin,
             MisfireShotMax = misfireShotMax,
             MisfireWaitSeconds = misfireWaitSeconds,
+            StovePipeChance = stovePipeChance,
+            StovePipeShotMin = stovePipeShotMin,
+            StovePipeShotMax = stovePipeShotMax,
             TimeLimitSeconds = timeLimitSeconds,
             OverTimeStepSeconds = overTimeStepSeconds,
             OverTimePenaltyPerStep = overTimePenaltyPerStep,
