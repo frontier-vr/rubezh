@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: 90912529}
   - component: {fileID: 90912528}
   - component: {fileID: 90912527}
+  - component: {fileID: 90912530}
   m_Layer: 0
   m_Name: O-05 WeaponSlot
   m_TagString: Untagged
@@ -527,6 +528,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.25, y: 0.2, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &90912530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90912525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acced901e881c24c93ef09ebbc366ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.XR::Rubezh.XR.CabinetSocket
+  runner: {fileID: 86666974}
+  weapon: {fileID: 184705498}
+  refuseAmplitude: 0.6
+  refuseSeconds: 0.12
 --- !u!1001 &115635216
 PrefabInstance:
   m_ObjectHideFlags: 0
