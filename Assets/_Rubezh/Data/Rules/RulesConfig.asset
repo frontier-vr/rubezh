@@ -55,6 +55,8 @@ MonoBehaviour:
   - violation: 12
     points: 10
   hintIdleSeconds: 5
+  calloutRemarkSeconds: 3
+  calloutOnboardingSeconds: 8
   highlightPulseHz: 1.2
   highlightMinBrightness: 0.45
   highlightOutlineMeters: 0.007
