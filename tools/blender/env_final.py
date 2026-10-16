@@ -39,7 +39,7 @@ MATS = {
 }
 
 BUDGET = {"Room": 6000, "Cabinet": 2000, "LineStand": 1500, "TargetRemote": 600,
-          "PrepTable": 1000, "PpeShelf": 1000, "AmmoTray": 1000}
+          "PrepTable": 1000, "PpeShelf": 1000, "AmmoTray": 1000, "Bench": 500}
 
 
 def srgb(h):
@@ -415,6 +415,24 @@ def line_stand():
     return c
 
 
+# ---------------------------------------------------------------- скамья O-13
+
+def bench():
+    c, r = collection("Bench")
+    # Имя меша — как у блок-модели («Bench.001»: корень уже зовётся Bench), за него держится коллайдер.
+    p = Part("Bench.001")
+    p.box((0, 0.43, 0), (0.6, 0.035, 0.36), "paint", bevel=0.006)                # сиденье, верх 0,45
+    for x in (-0.25, 0.25):
+        p.box((x, 0.21, 0.15), (0.035, 0.42, 0.035), "steel", bevel=0.004)      # ножки
+        p.box((x, 0.21, -0.15), (0.035, 0.42, 0.035), "steel", bevel=0.004)
+        p.box((x, 0.1, 0), (0.025, 0.025, 0.3), "steel")                       # перемычки
+        for z in (-0.15, 0.15):
+            p.box((x, 0.01, z), (0.045, 0.02, 0.045), "graphite")              # опоры
+    p.box((0, 0.1, 0), (0.48, 0.025, 0.025), "steel")
+    p.build(c, r)
+    return c
+
+
 # ---------------------------------------------------------------- пульт подачи мишени O-25
 
 def target_remote():
@@ -446,7 +464,7 @@ def build():
     sc.unit_settings.system = 'METRIC'
     sc.unit_settings.scale_length = 1.0
     makers = {"Room": room, "Cabinet": cabinet, "PpeShelf": ppe_shelf, "PrepTable": prep_table,
-              "AmmoTray": ammo_tray, "LineStand": line_stand, "TargetRemote": target_remote}
+              "AmmoTray": ammo_tray, "LineStand": line_stand, "TargetRemote": target_remote, "Bench": bench}
     for f in makers.values():
         f()
     # YG-12: все модели — на один атлас-палитру 2048 (Art/Atlas/Env_Atlas.png), материал ENV_Atlas
