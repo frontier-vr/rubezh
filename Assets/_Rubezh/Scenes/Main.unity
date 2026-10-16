@@ -374,6 +374,7 @@ MonoBehaviour:
   magazinePlace: {fileID: 1768221717}
   wearables: {fileID: 86666978}
   target: {fileID: 0}
+  casings: {fileID: 1060556490}
 --- !u!114 &86666977
 MonoBehaviour:
   m_ObjectHideFlags: 0
