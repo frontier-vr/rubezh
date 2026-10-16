@@ -3,7 +3,8 @@
     "rootNamespace": "Rubezh.UI",
     "references": [
         "Rubezh.Core",
-        "Rubezh.Gameplay"
+        "Rubezh.Gameplay",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
