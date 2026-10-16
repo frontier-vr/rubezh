@@ -8,6 +8,8 @@ namespace Rubezh.Gameplay
     // Команды приходят от интерактивного пистолета (NG-08) через Apply; IHeldWeapon — для детекторов
     // VP-05, VP-06. На Restart — новое оружие в состоянии шкафа и новая осечка, подписки на события
     // контроллера сохраняются.
+    // Раньше компонентов сцены, которые читают State в OnEnable (шахта магазина, детекторы).
+    [DefaultExecutionOrder(-50)]
     public sealed class WeaponController : MonoBehaviour, IWeapon, IHeldWeapon
     {
         [SerializeField] private ExerciseRunner runner;
