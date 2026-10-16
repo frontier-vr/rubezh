@@ -912,8 +912,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Rubezh.Gameplay::Rubezh.Gameplay.WeaponAudio
   weapon: {fileID: 2753239614958404071}
-  shot: {fileID: 0}
-  dryFire: {fileID: 0}
+  shot: {fileID: 8300000, guid: 78ee05a5bc71eb44681bc2265afac658, type: 3}
+  dryFire: {fileID: 8300000, guid: 39102121a39f0b74db9a0e6bb04d278d, type: 3}
+  slideBack: {fileID: 8300000, guid: 88987bb2ffe22b8478e742e57c327478, type: 3}
+  slideForward: {fileID: 8300000, guid: 3d5df3ec1c60dbe40bd765a4db552bbf, type: 3}
+  safety: {fileID: 8300000, guid: b213ab6761484d64087974ed4dea2ae6, type: 3}
+  magazineInsert: {fileID: 8300000, guid: 8bda348b42052a14e98137fa680d3940, type: 3}
+  magazineDrop: {fileID: 8300000, guid: 18aaf8c50d35dbc4b948a6c9c817b4d2, type: 3}
 --- !u!1 &7991102761852829391 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2160650894464839994, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}

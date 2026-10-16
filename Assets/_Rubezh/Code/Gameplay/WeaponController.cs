@@ -25,6 +25,9 @@ namespace Rubezh.Gameplay
         public event Action CasingEjected;
         // Пистолет взят или отпущен; рука — на Grip_Primary.
         public event Action<bool, Hand> HeldChanged;
+        // Команда принята автоматом (звук затвора, предохранителя, выпадения магазина — MM-09).
+        public event Action<WeaponCommand> Applied;
+        public event Action<int> MagazineInserted;
 
         public bool IsHeld { get; private set; }
         public Hand PrimaryHand { get; private set; } = Hand.Right;
@@ -53,9 +56,19 @@ namespace Rubezh.Gameplay
             if (shotResolver != null) shotResolver.Bind(null);
         }
 
-        public bool Apply(WeaponCommand command) => _weapon.Apply(command);
+        public bool Apply(WeaponCommand command)
+        {
+            if (!_weapon.Apply(command)) return false;
+            Applied?.Invoke(command);
+            return true;
+        }
 
-        public bool InsertMagazine(int rounds) => _weapon.InsertMagazine(rounds);
+        public bool InsertMagazine(int rounds)
+        {
+            if (!_weapon.InsertMagazine(rounds)) return false;
+            MagazineInserted?.Invoke(rounds);
+            return true;
+        }
 
         public void SetHeld(bool held, Hand hand)
         {
