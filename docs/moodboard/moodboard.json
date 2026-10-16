@@ -1,0 +1,210 @@
+[
+ {
+  "file": "ph_concrete_block_wall.png",
+  "category": "Стены",
+  "title": "бетонные блоки стен",
+  "source": "https://polyhaven.com/a/concrete_block_wall",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_grey_plaster.png",
+  "category": "Стены",
+  "title": "серая штукатурка",
+  "source": "https://polyhaven.com/a/grey_plaster",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_plaster_grey_04.png",
+  "category": "Стены",
+  "title": "светлая штукатурка",
+  "source": "https://polyhaven.com/a/plaster_grey_04",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_garage_floor.png",
+  "category": "Пол",
+  "title": "бетонный пол гаража",
+  "source": "https://polyhaven.com/a/garage_floor",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_hangar_concrete_floor.png",
+  "category": "Пол",
+  "title": "пол ангара",
+  "source": "https://polyhaven.com/a/hangar_concrete_floor",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_anti_slip_concrete.png",
+  "category": "Пол",
+  "title": "противоскользящий бетон у рубежа",
+  "source": "https://polyhaven.com/a/anti_slip_concrete",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_concrete_floor_painted.png",
+  "category": "Разметка",
+  "title": "крашеный бетон: основа разметки",
+  "source": "https://polyhaven.com/a/concrete_floor_painted",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_metal_plate.png",
+  "category": "Металл",
+  "title": "стальной лист: щиты коридора",
+  "source": "https://polyhaven.com/a/metal_plate",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_blue_metal_plate.png",
+  "category": "Металл",
+  "title": "крашеный металл: шкаф",
+  "source": "https://polyhaven.com/a/blue_metal_plate",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_painted_metal_shutter.png",
+  "category": "Металл",
+  "title": "крашеные рольставни",
+  "source": "https://polyhaven.com/a/painted_metal_shutter",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_corrugated_iron_02.png",
+  "category": "Металл",
+  "title": "профлист: пулеулавливатель",
+  "source": "https://polyhaven.com/a/corrugated_iron_02",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_empty_warehouse_01.png",
+  "category": "Свет",
+  "title": "ровный искусственный свет склада",
+  "source": "https://polyhaven.com/a/empty_warehouse_01",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_parking_garage.png",
+  "category": "Свет",
+  "title": "низкий потолок, линейный свет",
+  "source": "https://polyhaven.com/a/parking_garage",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_newman_locker_room.png",
+  "category": "Свет",
+  "title": "раздевалка: холодный свет, кафель",
+  "source": "https://polyhaven.com/a/newman_locker_room",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_mounted_fluorescent_lights.png",
+  "category": "Свет",
+  "title": "люминесцентные светильники",
+  "source": "https://polyhaven.com/a/mounted_fluorescent_lights",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_industrial_caged_sconce.png",
+  "category": "Свет",
+  "title": "светильник в решётке",
+  "source": "https://polyhaven.com/a/industrial_caged_sconce",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_metal_tool_chest.png",
+  "category": "Мебель",
+  "title": "металлический шкаф с ящиками",
+  "source": "https://polyhaven.com/a/metal_tool_chest",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_industrial_storage_cart.png",
+  "category": "Мебель",
+  "title": "стальная тележка-стол",
+  "source": "https://polyhaven.com/a/industrial_storage_cart",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_metal_office_desk.png",
+  "category": "Мебель",
+  "title": "металлический стол",
+  "source": "https://polyhaven.com/a/metal_office_desk",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_korean_fire_extinguisher_01.png",
+  "category": "Таблички и безопасность",
+  "title": "огнетушитель O-14",
+  "source": "https://polyhaven.com/a/korean_fire_extinguisher_01",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_fire_alarm.png",
+  "category": "Таблички и безопасность",
+  "title": "пожарная кнопка",
+  "source": "https://polyhaven.com/a/fire_alarm",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "ph_WetFloorSign_01.png",
+  "category": "Таблички и безопасность",
+  "title": "предупреждающая табличка",
+  "source": "https://polyhaven.com/a/WetFloorSign_01",
+  "license": "CC0",
+  "author": "Poly Haven"
+ },
+ {
+  "file": "wc_01.jpg",
+  "category": "Тир целиком",
+  "title": "галерея тира: скамьи, ограждения, верхний свет",
+  "source": "https://commons.wikimedia.org/wiki/File:25m_shooting_range_Pilsen.jpg",
+  "license": "CC BY 3.0",
+  "author": "Jakub Sochor"
+ },
+ {
+  "file": "wc_02.jpg",
+  "category": "Тир целиком",
+  "title": "спортивный тир 10 м: жёлтая линия огня на полу",
+  "source": "https://commons.wikimedia.org/wiki/File:10_metre_indoor_range_by_Gun_For_Glory_Shooting_Academy_Jabalpur.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Nishantp10"
+ },
+ {
+  "file": "wc_04.jpg",
+  "category": "Тир целиком",
+  "title": "рубеж за перегородкой, табло результатов",
+  "source": "https://commons.wikimedia.org/wiki/File:Meari_Shooting_Range_(13204953155).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Uri Tours"
+ },
+ {
+  "file": "wc_06.jpg",
+  "category": "Таблички и безопасность",
+  "title": "табличка безопасности на перфорированном металле",
+  "source": "https://commons.wikimedia.org/wiki/File:Warning_sign_posted_indoor_firing_range_to_prevent_Lead_exposure.jpg",
+  "license": "Public domain",
+  "author": "NIOSH"
+ }
+]
