@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c2507d8c79b183f469595b287718fedb
+guid: e1eecadc85e6d4b428ed0e42cae193a5
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,23 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Blockout_Concrete
-    second: {fileID: 2100000, guid: acf12d78e0fe54c3a99218029228dcb6, type: 2}
+      name: ENV_Graphite
+    second: {fileID: 2100000, guid: 09833b101ca1ff94e859013d6c34a17e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Blockout_Metal
-    second: {fileID: 2100000, guid: e2feb0ddee18c4f409b0bdc4d445ab42, type: 2}
+      name: ENV_PaintedMetal
+    second: {fileID: 2100000, guid: 38273e3f86a807f4f858281fe2520c5a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Blockout_Paper
-    second: {fileID: 2100000, guid: 7a18a6b9ab67a44b38568343477542ae, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Blockout_Yellow
-    second: {fileID: 2100000, guid: b55f322a171d144e980b3ec4aa1dbb3e, type: 2}
+      name: ENV_Steel
+    second: {fileID: 2100000, guid: 91ab472ab6cc9504a90c0eac4d757eef, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
