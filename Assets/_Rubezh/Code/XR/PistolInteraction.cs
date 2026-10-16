@@ -114,7 +114,10 @@ namespace Rubezh.XR
 
         private void OnSelectChanged(BaseInteractionEventArgs _)
         {
-            var first = _grab.interactorsSelecting.Count > 0 ? _grab.interactorsSelecting[0] : null;
+            // Рука на Grip_Primary — первая из держащих рук; сокет места (шкаф, стойка) рукой не считается.
+            IXRSelectInteractor first = null;
+            foreach (var interactor in _grab.interactorsSelecting)
+                if (!(interactor is XRSocketInteractor)) { first = interactor; break; }
             bool held = first != null;
             var hand = held ? ToHand(first.handedness) : _weapon.PrimaryHand;
             if (held == _weapon.IsHeld && hand == _weapon.PrimaryHand) return;
