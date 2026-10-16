@@ -72,6 +72,14 @@ namespace Rubezh.Gameplay
         [Tooltip("Подсказка включается после стольких секунд без действий пользователя, с")]
         [Min(0f)] public float hintIdleSeconds = 5f;
 
+        [Header("Подсветка (VP-21)")]
+        [Tooltip("Частота пульсации подсветки, Гц")]
+        [Min(0.1f)] public float highlightPulseHz = 1.2f;
+        [Tooltip("Яркость подсветки в минимуме пульсации, доля от полной")]
+        [Range(0f, 1f)] public float highlightMinBrightness = 0.45f;
+        [Tooltip("Толщина контура вокруг предмета, м")]
+        [Min(0f)] public float highlightOutlineMeters = 0.007f;
+
         [Header("Экран результата (VP-20)")]
         [Tooltip("После грубого нарушения стоп-экран держится столько, затем на нём же результат с баллом 0, с")]
         [Min(0f)] public float failResultDelaySeconds = 4f;
