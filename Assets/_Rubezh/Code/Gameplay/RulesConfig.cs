@@ -92,6 +92,16 @@ namespace Rubezh.Gameplay
         [Tooltip("Скорость, с которой выпущенный магазин выходит из шахты вниз, м/с")]
         [Min(0f)] public float ejectSpeed = 0.6f;
 
+        [Header("Гильзы (VP-19)")]
+        [Tooltip("Сколько гильз держит пул; новая сверх пула занимает место самой старой")]
+        [Min(1)] public int casingPoolSize = 10;
+        [Tooltip("Время полёта гильзы до гильзоуловителя O-22, с")]
+        [Min(0.1f)] public float casingFlightSeconds = 0.45f;
+        [Tooltip("Дальше этого от гильзоуловителя гильза летит просто вправо, м")]
+        [Min(0.1f)] public float casingAimMaxDistance = 2f;
+        [Tooltip("Гильза на полу дольше этого появляется на полочке O-21, с")]
+        [Min(0f)] public float casingReturnSeconds = 1f;
+
         [Header("СИЗ (NG-10)")]
         [Tooltip("Переход между снапшотами «Уши открыты» и «Наушники», с")]
         [Min(0f)] public float earmuffsTransitionSeconds = 0.4f;

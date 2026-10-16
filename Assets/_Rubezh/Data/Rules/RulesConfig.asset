@@ -61,4 +61,8 @@ MonoBehaviour:
   dropReturnSeconds: 1
   ejectLockSeconds: 0.5
   ejectSpeed: 0.6
+  casingPoolSize: 10
+  casingFlightSeconds: 0.45
+  casingAimMaxDistance: 2
+  casingReturnSeconds: 1
   earmuffsTransitionSeconds: 0.4
