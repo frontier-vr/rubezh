@@ -102,6 +102,12 @@ namespace Rubezh.Gameplay
         [Tooltip("Гильза на полу дольше этого появляется на полочке O-21, с")]
         [Min(0f)] public float casingReturnSeconds = 1f;
 
+        [Header("Мишенный механизм (NG-12)")]
+        [Tooltip("Скорость каретки вдоль направляющей, м/с")]
+        [Min(0.1f)] public float targetCarriageSpeed = 1.5f;
+        [Tooltip("Поворот рамки из положения ребром к стрелку, с")]
+        [Min(0f)] public float targetTurnSeconds = 0.6f;
+
         [Header("СИЗ (NG-10)")]
         [Tooltip("Переход между снапшотами «Уши открыты» и «Наушники», с")]
         [Min(0f)] public float earmuffsTransitionSeconds = 0.4f;
