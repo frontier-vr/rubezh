@@ -18,6 +18,7 @@ namespace Rubezh.Core
         private double _endTime;
         private bool _timerStarted;
         private bool _inspectionReported;
+        private bool _ppeChecked;
         private int _shots;
         private int _hits;
 
@@ -86,6 +87,8 @@ namespace Rubezh.Core
                     break;
                 case ExerciseAction.Teleport:
                     if (Phase == Phase.Inspect && anchor != Anchor.A1) RaiseIncompleteInspection();
+                    // Выход на рубеж (VP-11): после шага СИЗ на A3 без наушников или очков — нарушение.
+                    if (anchor == Anchor.A3 && Phase >= Phase.ToLine && Phase <= Phase.ShowClear) CheckPpe();
                     break;
             }
         }
@@ -118,6 +121,7 @@ namespace Rubezh.Core
             _stepOrderRaised.Clear();
             _timerStarted = false;
             _inspectionReported = false;
+            _ppeChecked = false;
             _startTime = _endTime = 0;
             _shots = _hits = 0;
             Result = null;
@@ -152,6 +156,9 @@ namespace Rubezh.Core
 
         private void Advance(Phase to)
         {
+            if (Phase == Phase.ToLine) CheckPpe();            // вышел на рубеж: проверка СИЗ (FR-34)
+            if (to == Phase.Done && _facts.CasingsOutsideCatcher > 0)
+                Raise(Violation.CasingLeft, Severity.Minor);  // гильзы вне уловителя при сдаче (FR-38)
             var from = Phase;
             Phase = to;
             PhaseChanged?.Invoke(from, to);
@@ -170,17 +177,21 @@ namespace Rubezh.Core
         {
             _endTime = _clock.Now;
             bool failed = failReason.HasValue;
-            // Балл и вердикт по FR-40, FR-41 считает VP-10; до него — заглушка без штрафов.
+            var violations = _violations.ToArray();
+            var score = ExerciseScoring.Calculate(_rules, violations, _shots, _hits, Elapsed, failed);
             Result = new ExerciseResult
             {
                 TotalTime = Elapsed,
                 Shots = _shots,
                 Hits = _hits,
-                Score = failed ? 0 : 100,
-                Verdict = failed ? Verdict.NotPassed : Verdict.Passed,
+                Score = score.Score,
+                Verdict = score.Verdict,
                 FailedCritical = failed,
                 FailReason = failReason,
-                Violations = _violations.ToArray()
+                Violations = violations,
+                ViolationPenalty = score.Violations,
+                MissPenalty = score.Misses,
+                OverTimePenalty = score.OverTime
             };
             Finished?.Invoke(Result);
         }
@@ -188,6 +199,15 @@ namespace Rubezh.Core
         private void RaiseStepOrder(ExerciseAction action)
         {
             if (_stepOrderRaised.Add((Phase, action))) Raise(Violation.StepOrder, Severity.Minor);
+        }
+
+        // Наушники и очки на рубеже проверяются один раз за упражнение.
+        private void CheckPpe()
+        {
+            if (_ppeChecked) return;
+            _ppeChecked = true;
+            if (!_facts.EarmuffsOn) Raise(Violation.NoEarmuffs, Severity.Minor);
+            if (!_facts.GlassesOn) Raise(Violation.NoGlasses, Severity.Minor);
         }
 
         private void RaiseIncompleteInspection()

@@ -47,9 +47,9 @@ namespace Rubezh.Tests.EditMode
             yield return Row("03 SlideBack: стреляная гильза выброшена, прихват снят",
                 S(true, 3, Chamber.Spent, false, false, Jam.StovePipe), None, Back, true,
                 S(true, 3, Chamber.Empty, false, false), "CasingEjected,Changed");
-            yield return Row("03 SlideBack: осечка снята, патрон извлечён",
+            yield return Row("03 SlideBack: осечка снята, осечный патрон вылетел как гильза",
                 S(true, 2, Chamber.Loaded, false, false, Jam.Misfire), None, Back, true,
-                S(true, 2, Chamber.Empty, false, false), "Changed");
+                S(true, 2, Chamber.Empty, false, false), "CasingEjected,Changed");
             yield return Row("03 SlideBack: с задержки при патронах в магазине",
                 S(true, 5, Chamber.Empty, true, true), None, Back, true,
                 S(true, 5, Chamber.Empty, false, true), "Changed");

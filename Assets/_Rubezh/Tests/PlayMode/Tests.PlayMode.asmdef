@@ -10,7 +10,8 @@
         "Unity.TextMeshPro",
         "Rubezh.XR",
         "Unity.XR.Interaction.Toolkit",
-        "Unity.InputSystem"
+        "Unity.InputSystem",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

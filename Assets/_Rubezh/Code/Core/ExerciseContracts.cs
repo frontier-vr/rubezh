@@ -43,6 +43,10 @@ namespace Rubezh.Core
         public bool FailedCritical;
         public Violation? FailReason;       // для стоп-экрана, заполнено при FailedCritical
         public IReadOnlyList<ViolationRecord> Violations;
+        // Из чего сложился балл (экран результата, VP-20): штрафы нарушений, промахов, времени.
+        public int ViolationPenalty;
+        public int MissPenalty;
+        public int OverTimePenalty;
     }
 
     public interface IClock { double Now { get; } }   // в тестах подменяется

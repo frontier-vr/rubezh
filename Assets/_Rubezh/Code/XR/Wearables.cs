@@ -81,6 +81,7 @@ namespace Rubezh.XR
             // Чашки у ушей камера не видит; прячем, чтобы не резались ближней плоскостью.
             SetVisible(args.interactableObject.transform, false, lensesOnly: false);
             Report(ExerciseAction.PutOnEarmuffs);
+            PulseHands();
             ApplySnapshot(TransitionSeconds);
             Changed?.Invoke();
         }
@@ -96,6 +97,7 @@ namespace Rubezh.XR
         {
             SetVisible(args.interactableObject.transform, false, lensesOnly: true);
             Report(ExerciseAction.PutOnGlasses);
+            PulseHands();
             Changed?.Invoke();
         }
 
@@ -103,6 +105,14 @@ namespace Rubezh.XR
         {
             SetVisible(args.interactableObject.transform, true, lensesOnly: true);
             Changed?.Invoke();
+        }
+
+        // СИЗ надет — короткий импульс обеим рукам: руку, что поднесла предмет, сокет уже отпустил (NG-15).
+        private void PulseHands()
+        {
+            if (ItemReturn.IsPlacing) return;
+            foreach (var player in FindObjectsByType<UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticImpulsePlayer>(FindObjectsSortMode.None))
+                player.SendHapticImpulse(0.3f, 0.05f);
         }
 
         private void Report(ExerciseAction action)

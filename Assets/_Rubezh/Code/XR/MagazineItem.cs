@@ -114,6 +114,7 @@ namespace Rubezh.XR
                 if (_rounds < Capacity) _rounds++;
                 if (runner != null) runner.ReportAction(ExerciseAction.InsertRound);
                 if (clickSource != null && roundInsert != null) clickSource.PlayOneShot(roundInsert);
+                Haptics.ToHolders(_grab, 0.35f, 0.03f);     // щелчок патрона в ладонь (NG-15)
             }
             _seated.Clear();
             Refresh();
