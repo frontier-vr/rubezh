@@ -35,3 +35,4 @@ MonoBehaviour:
   dropReturnSeconds: 1
   ejectLockSeconds: 0.5
   ejectSpeed: 0.6
+  earmuffsTransitionSeconds: 0.4
