@@ -26,5 +26,30 @@ FPS по редактору не оценивается — для этого н
 
 ## Решения
 
-- Динамическое разрешение OpenXR — `NG-21`.
+- **Динамическое разрешение OpenXR — включено** (`NG-21`, 16.10). Подробности ниже.
+
+### Динамическое разрешение (`NG-21`)
+
+**Проверено, что есть в нашей связке.** В пакете Unity OpenXR 1.18 (Unity 6000.3, URP 17, Vulkan)
+есть своя функция **Automatic Viewport Dynamic Resolution** (`AutomaticDynamicResolutionFeature`,
+группа Android, `All Features`). Она живёт в самом пакете OpenXR: сама запрашивает у рантайма
+расширение `XR_META_recommended_layer_resolution` (Quest) или `XR_ANDROID_recommended_resolution`
+и меняет область вывода каждый кадр по рекомендации рантайма. Пакет Unity OpenXR: Meta для неё не
+нужен — его в проект не ставим (тянет AR Foundation и Composition Layers, ТЗ). Раньше, до
+Unity 6.3, динамическое разрешение на OpenXR давали только Meta XR SDK (`OVRManager`) или пакет
+OpenXR: Meta — обе дороги нам закрыты.
+
+**Решение: включить сейчас**, как советует Meta, а не перед сдачей.
+- `Project Settings → XR Plug-in Management → OpenXR → Android → All Features →
+  Automatic Viewport Dynamic Resolution` включена; Min Resolution Scalar **0,7**, Max **1,0**.
+  Ниже 0,7 текст табличек и табло на 2 м мылится; 0,5 — нижний предел движка.
+- На `Main Camera` включён `Allow Dynamic Resolution` (рекомендация Unity для URP).
+- Режим совместимости URP не используем — в нём функция не работает.
+
+**Что остаётся проверить на шлеме** (строка замера выше, ждёт APK `NG-01`): что рантайм Quest 2
+сообщает поддержку расширения (`AutomaticDynamicResolutionFeature.IsAutomaticDynamicResolutionScalingSupported()`)
+и что в OVR Metrics виден масштаб ниже 1,0 под нагрузкой при стрельбе. Если расширения нет,
+функция ничего не делает и кадр рендерится в полном разрешении — сборка не ломается. Запасной путь
+без расширения — `XRSettings.renderViewportScale` из своего скрипта по времени кадра; его
+делаем, только если замер покажет просадку ниже 72 Гц.
 - Свет запечённый, Static Batching, SRP Batcher — `NG-17`.
