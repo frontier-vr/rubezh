@@ -68,6 +68,10 @@ namespace Rubezh.Gameplay
         [Tooltip("Штрафы мелких нарушений; грубое нарушение — 0 баллов и «не зачёт»")]
         public ViolationPenalty[] penalties = DefaultPenalties();
 
+        [Header("Подсказки (VP-12)")]
+        [Tooltip("Подсказка включается после стольких секунд без действий пользователя, с")]
+        [Min(0f)] public float hintIdleSeconds = 5f;
+
         [Header("Экран результата (VP-20)")]
         [Tooltip("После грубого нарушения стоп-экран держится столько, затем на нём же результат с баллом 0, с")]
         [Min(0f)] public float failResultDelaySeconds = 4f;
