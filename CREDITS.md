@@ -38,3 +38,12 @@ CC-BY (или лицензии, разрешающие такое использ
 
 | Что | Автор | Источник | Лицензия | Где |
 |---|---|---|---|---|
+| выстрел (`Pistol_Shot.wav`) | команда «Рубеж» (Маша) — синтез, без чужих записей | `tools/audio/sfx_synth.py` | CC0 | `Assets/_Rubezh/Audio/SFX/` |
+| отвод затвора (`Pistol_SlideBack.wav`) | команда «Рубеж» (Маша) — синтез, без чужих записей | `tools/audio/sfx_synth.py` | CC0 | `Assets/_Rubezh/Audio/SFX/` |
+| возврат затвора (`Pistol_SlideForward.wav`) | команда «Рубеж» (Маша) — синтез, без чужих записей | `tools/audio/sfx_synth.py` | CC0 | `Assets/_Rubezh/Audio/SFX/` |
+| щелчок вставки магазина (`Magazine_Insert.wav`) | команда «Рубеж» (Маша) — синтез, без чужих записей | `tools/audio/sfx_synth.py` | CC0 | `Assets/_Rubezh/Audio/SFX/` |
+| выпадение магазина (`Magazine_Drop.wav`) | команда «Рубеж» (Маша) — синтез, без чужих записей | `tools/audio/sfx_synth.py` | CC0 | `Assets/_Rubezh/Audio/SFX/` |
+| сухой щелчок при осечке (`Pistol_DryFire.wav`) | команда «Рубеж» (Маша) — синтез, без чужих записей | `tools/audio/sfx_synth.py` | CC0 | `Assets/_Rubezh/Audio/SFX/` |
+| щелчок предохранителя (`Pistol_Safety.wav`) | команда «Рубеж» (Маша) — синтез, без чужих записей | `tools/audio/sfx_synth.py` | CC0 | `Assets/_Rubezh/Audio/SFX/` |
+| падение гильзы на бетон (`Casing_Concrete.wav`) | команда «Рубеж» (Маша) — синтез, без чужих записей | `tools/audio/sfx_synth.py` | CC0 | `Assets/_Rubezh/Audio/SFX/` |
+| щелчок патрона в магазине (`Round_Insert.wav`) | команда «Рубеж» (Маша) — синтез, без чужих записей | `tools/audio/sfx_synth.py` | CC0 | `Assets/_Rubezh/Audio/SFX/` |
