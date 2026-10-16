@@ -52,7 +52,20 @@
     const d = document.createElement('div'); d.className = 'card c4 ' + cls;
     d.innerHTML = `<h2>${t}</h2><img src="${src}">`; board.appendChild(d);
   }
-  if (window.MOOD) window.MOOD();
+  // мудборд и палитра (YG-03)
+  const mood = document.getElementById('mood');
+  try {
+    const items = await (await fetch('moodboard/moodboard.json')).json();
+    const cats = [...new Set(items.map(x => x.category))];
+    let html = '<div class="grid">';
+    for (const c of cats) for (const x of items.filter(i => i.category === c))
+      html += `<figure><img src="moodboard/${x.file}"><figcaption><b>${c}</b> · ${x.title}</figcaption></figure>`;
+    html += '</div>';
+    const pal = await (await fetch('palette.md')).text();
+    const sw = [...pal.matchAll(/^\| `(#[0-9A-Fa-f]{6})` \| ([^|]+)\|/gm)].map(m => `<div class="sw"><b style="background:${m[1]}"></b>${m[1]} · ${m[2].replace(/**/g, "").trim()}</div>`);
+    html += '<h3>Палитра проекта (docs/palette.md)</h3><div class="swatches">' + sw.join('') + '</div>';
+    mood.insertAdjacentHTML('beforeend', html);
+  } catch (e) { mood.insertAdjacentHTML('beforeend', '<p>мудборд не найден</p>'); }
   await Promise.all([...document.images].map(i => i.complete ? 1 : new Promise(r => { i.onload = i.onerror = r; })));
   window.DONE = 1;
 })();
