@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="680" viewBox="0 0 700 680" font-family="Segoe UI, Arial, sans-serif" font-size="11">
+<rect width="700" height="680" fill="#ffffff"/>
+<text x="60" y="24" font-size="16" font-weight="bold">Рубеж · планировка тира 8 × 14 м (вид сверху)</text>
+<text x="60" y="42" fill="#555">Координаты Unity: X вправо, Z к мишеням, 1 клетка = 1 м</text>
+<rect x="60.0" y="476.0" width="100.0" height="144.0" fill="#dbe7f3" stroke="none"/>
+<rect x="280.0" y="476.0" width="100.0" height="144.0" fill="#e3f0dc" stroke="none"/>
+<rect x="160.0" y="452.0" width="120.0" height="64.0" fill="#f7ecd0" stroke="none"/>
+<rect x="156.0" y="60.0" width="128.0" height="392.0" fill="#f1e1e1" stroke="none"/>
+<line x1="60" y1="620" x2="60" y2="60" stroke="#e3e3e3"/>
+<line x1="100" y1="620" x2="100" y2="60" stroke="#e3e3e3"/>
+<line x1="140" y1="620" x2="140" y2="60" stroke="#e3e3e3"/>
+<line x1="180" y1="620" x2="180" y2="60" stroke="#e3e3e3"/>
+<line x1="220" y1="620" x2="220" y2="60" stroke="#e3e3e3"/>
+<line x1="260" y1="620" x2="260" y2="60" stroke="#e3e3e3"/>
+<line x1="300" y1="620" x2="300" y2="60" stroke="#e3e3e3"/>
+<line x1="340" y1="620" x2="340" y2="60" stroke="#e3e3e3"/>
+<line x1="380" y1="620" x2="380" y2="60" stroke="#e3e3e3"/>
+<line x1="60" y1="620" x2="380" y2="620" stroke="#e3e3e3"/>
+<text x="52" y="624" text-anchor="end" fill="#888">0</text>
+<line x1="60" y1="580" x2="380" y2="580" stroke="#e3e3e3"/>
+<text x="52" y="584" text-anchor="end" fill="#888">1</text>
+<line x1="60" y1="540" x2="380" y2="540" stroke="#e3e3e3"/>
+<text x="52" y="544" text-anchor="end" fill="#888">2</text>
+<line x1="60" y1="500" x2="380" y2="500" stroke="#e3e3e3"/>
+<text x="52" y="504" text-anchor="end" fill="#888">3</text>
+<line x1="60" y1="460" x2="380" y2="460" stroke="#e3e3e3"/>
+<text x="52" y="464" text-anchor="end" fill="#888">4</text>
+<line x1="60" y1="420" x2="380" y2="420" stroke="#e3e3e3"/>
+<text x="52" y="424" text-anchor="end" fill="#888">5</text>
+<line x1="60" y1="380" x2="380" y2="380" stroke="#e3e3e3"/>
+<text x="52" y="384" text-anchor="end" fill="#888">6</text>
+<line x1="60" y1="340" x2="380" y2="340" stroke="#e3e3e3"/>
+<text x="52" y="344" text-anchor="end" fill="#888">7</text>
+<line x1="60" y1="300" x2="380" y2="300" stroke="#e3e3e3"/>
+<text x="52" y="304" text-anchor="end" fill="#888">8</text>
+<line x1="60" y1="260" x2="380" y2="260" stroke="#e3e3e3"/>
+<text x="52" y="264" text-anchor="end" fill="#888">9</text>
+<line x1="60" y1="220" x2="380" y2="220" stroke="#e3e3e3"/>
+<text x="52" y="224" text-anchor="end" fill="#888">10</text>
+<line x1="60" y1="180" x2="380" y2="180" stroke="#e3e3e3"/>
+<text x="52" y="184" text-anchor="end" fill="#888">11</text>
+<line x1="60" y1="140" x2="380" y2="140" stroke="#e3e3e3"/>
+<text x="52" y="144" text-anchor="end" fill="#888">12</text>
+<line x1="60" y1="100" x2="380" y2="100" stroke="#e3e3e3"/>
+<text x="52" y="104" text-anchor="end" fill="#888">13</text>
+<line x1="60" y1="60" x2="380" y2="60" stroke="#e3e3e3"/>
+<text x="52" y="64" text-anchor="end" fill="#888">14</text>
+<text x="60" y="636" text-anchor="middle" fill="#888">-4</text>
+<text x="100" y="636" text-anchor="middle" fill="#888">-3</text>
+<text x="140" y="636" text-anchor="middle" fill="#888">-2</text>
+<text x="180" y="636" text-anchor="middle" fill="#888">-1</text>
+<text x="220" y="636" text-anchor="middle" fill="#888">0</text>
+<text x="260" y="636" text-anchor="middle" fill="#888">1</text>
+<text x="300" y="636" text-anchor="middle" fill="#888">2</text>
+<text x="340" y="636" text-anchor="middle" fill="#888">3</text>
+<text x="380" y="636" text-anchor="middle" fill="#888">4</text>
+<rect x="60" y="60" width="320" height="560" fill="none" stroke="#333" stroke-width="3"/>
+<polygon points="192.0,452.0 248.0,452.0 280.0,83.99999999999999 160.0,83.99999999999999" fill="#e04848" fill-opacity="0.12" stroke="#e04848" stroke-dasharray="4 3"/>
+<text x="220" y="380.0" text-anchor="middle" fill="#c03030">сектор стрельбы</text>
+<rect x="168.0" y="617.6" width="40.0" height="2.4" fill="#7d8d9c" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="188.0" y="622.8000000000001" text-anchor="middle" font-weight="bold" fill="#111">01</text>
+<rect x="72.00000000000001" y="540.0" width="24.0" height="40.0" fill="#7d8d9c" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="84.0" y="564.0" text-anchor="middle" font-weight="bold" fill="#111">03</text>
+<rect x="96.0" y="542.0" width="12.0" height="36.0" fill="#7d8d9c" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="102.0" y="564.0" text-anchor="middle" font-weight="bold" fill="#111">07</text>
+<rect x="67.99999999999999" y="506.0" width="16.0" height="28.0" fill="#7d8d9c" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="76.0" y="524.0" text-anchor="middle" font-weight="bold" fill="#111">09</text>
+<rect x="61.99999999999999" y="476.0" width="16.0" height="24.0" fill="#7d8d9c" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="70.0" y="492.0" text-anchor="middle" font-weight="bold" fill="#111">13</text>
+<rect x="62.400000000000006" y="602.4" width="7.199999999999999" height="7.199999999999999" fill="#7d8d9c" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="66.0" y="610.0" text-anchor="middle" font-weight="bold" fill="#111">14</text>
+<rect x="340.0" y="508.0" width="32.0" height="64.0" fill="#7d8d9c" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="356.0" y="544.0" text-anchor="middle" font-weight="bold" fill="#111">17</text>
+<rect x="348.0" y="550.0" width="12.0" height="16.0" fill="#7d8d9c" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="354.0" y="562.0" text-anchor="middle" font-weight="bold" fill="#111">18</text>
+<rect x="250.0" y="452.0" width="16.0" height="20.0" fill="#7d8d9c" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="258.0" y="466.0" text-anchor="middle" font-weight="bold" fill="#111">22</text>
+<rect x="192.0" y="452.0" width="56.0" height="20.0" fill="#7d8d9c" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="220.0" y="466.0" text-anchor="middle" font-weight="bold" fill="#111">24</text>
+<rect x="208.0" y="88.00000000000004" width="24.0" height="348.0" fill="#9aa6b2" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="238.0" y="260.0" text-anchor="middle" font-weight="bold" fill="#111">26</text>
+<rect x="158.0" y="450.0" width="124.0" height="4.0" fill="#f2c200" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="170.0" y="448.0" text-anchor="middle" font-weight="bold" fill="#111">29</text>
+<rect x="196.0" y="447.2" width="48.0" height="2" fill="#7d8d9c" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="268.0" y="442.0" text-anchor="middle" font-weight="bold" fill="#111">31</text>
+<rect x="154.0" y="83.99999999999999" width="4.0" height="352.0" fill="#9aa6b2" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="156.0" y="264.0" text-anchor="middle" font-weight="bold" fill="#111">33</text>
+<rect x="282.0" y="83.99999999999999" width="4.0" height="352.0" fill="#9aa6b2" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="284.0" y="264.0" text-anchor="middle" font-weight="bold" fill="#111">34</text>
+<rect x="160.0" y="60.0" width="120.0" height="24.0" fill="#9aa6b2" fill-opacity="0.85" stroke="#333" stroke-width="0.6"/>
+<text x="220.0" y="76.00000000000003" text-anchor="middle" font-weight="bold" fill="#111">35</text>
+<circle cx="124.0" cy="552.0" r="16.0" fill="#ffd84a" stroke="#a07c00" stroke-width="1.5"/>
+<line x1="124.0" y1="552.0" x2="100.0" y2="552.0" stroke="#a07c00" stroke-width="2"/>
+<text x="124.0" y="556.0" text-anchor="middle" font-weight="bold">A1</text>
+<circle cx="312.0" cy="540.0" r="16.0" fill="#ffd84a" stroke="#a07c00" stroke-width="1.5"/>
+<line x1="312.0" y1="540.0" x2="336.0" y2="540.0" stroke="#a07c00" stroke-width="2"/>
+<text x="312.0" y="544.0" text-anchor="middle" font-weight="bold">A2</text>
+<circle cx="220.0" cy="490.0" r="16.0" fill="#ffd84a" stroke="#a07c00" stroke-width="1.5"/>
+<line x1="220.0" y1="490.0" x2="220.0" y2="466.0" stroke="#a07c00" stroke-width="2"/>
+<text x="220.0" y="494.0" text-anchor="middle" font-weight="bold">A3</text>
+<rect x="70.0" y="600.0" width="20" height="12" fill="#3d7bd9" stroke="#1d4f99"/>
+<text x="80.0" y="610.0" text-anchor="middle" fill="#fff" font-size="9">R1</text>
+<rect x="354.0" y="594.0" width="20" height="12" fill="#3d7bd9" stroke="#1d4f99"/>
+<text x="364.0" y="604.0" text-anchor="middle" fill="#fff" font-size="9">R2</text>
+<rect x="210.0" y="414.0" width="20" height="12" fill="#3d7bd9" stroke="#1d4f99"/>
+<text x="220.0" y="424.0" text-anchor="middle" fill="#fff" font-size="9">R3</text>
+<text x="102.0" y="490.0" fill="#335" font-style="italic">1 · Выдача</text>
+<text x="284.0" y="490.0" fill="#335" font-style="italic">2 · Подготовка</text>
+<text x="162.0" y="511.0" fill="#335" font-style="italic">3 · Огневой рубеж</text>
+<text x="160.0" y="74.0" fill="#335" font-style="italic">4 · Мишенный коридор</text>
+<text x="410" y="60" font-size="13" font-weight="bold">Объекты (номера O-xx)</text>
+<text x="410" y="78"><tspan font-weight="bold">01</tspan> Входная дверь</text>
+<text x="410" y="93"><tspan font-weight="bold">03</tspan> Оружейный шкаф</text>
+<text x="410" y="108"><tspan font-weight="bold">07</tspan> Полка осмотра</text>
+<text x="410" y="123"><tspan font-weight="bold">09</tspan> Полка СИЗ</text>
+<text x="410" y="138"><tspan font-weight="bold">13</tspan> Скамья</text>
+<text x="410" y="153"><tspan font-weight="bold">14</tspan> Огнетушитель</text>
+<text x="410" y="168"><tspan font-weight="bold">17</tspan> Стол снаряжения</text>
+<text x="410" y="183"><tspan font-weight="bold">18</tspan> Лоток с патронами, Spawn</text>
+<text x="410" y="198"><tspan font-weight="bold">22</tspan> Гильзоуловитель, CatcherZone</text>
+<text x="410" y="213"><tspan font-weight="bold">24</tspan> Стойка рубежа</text>
+<text x="410" y="228"><tspan font-weight="bold">26</tspan> Мишенный механизм</text>
+<text x="410" y="243"><tspan font-weight="bold">29</tspan> Линия огня</text>
+<text x="410" y="258"><tspan font-weight="bold">31</tspan> Табло команд</text>
+<text x="410" y="273"><tspan font-weight="bold">33</tspan> Боковой щит левый</text>
+<text x="410" y="288"><tspan font-weight="bold">34</tspan> Боковой щит правый</text>
+<text x="410" y="303"><tspan font-weight="bold">35</tspan> Пулеулавливатель (задник)</text>
+<text x="410" y="328" fill="#444">A1–A3 — якоря телепорта, стрелка — взгляд</text>
+<text x="410" y="343" fill="#444">R1–R3 — экраны результата и стопа</text>
+<text x="410" y="358" fill="#444">жёлтая полоса — линия огня Z 4,2</text>
+<text x="410" y="373" fill="#444">красный клин — сектор стрельбы</text>
+</svg>
