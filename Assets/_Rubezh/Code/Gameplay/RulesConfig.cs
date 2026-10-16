@@ -14,6 +14,8 @@ namespace Rubezh.Gameplay
         [Header("Сектор (VP-05)")]
         [Tooltip("Занос ствола вне сектора, после которого при снаряжённом оружии — грубое нарушение, с")]
         [Min(0f)] public float sectorGraceSeconds = 1.5f;
+        [Tooltip("Выход из сектора короче этого — дрожание руки на границе, не нарушение, с")]
+        [Min(0f)] public float sectorJitterSeconds = 0.1f;
 
         [Header("Палец на спуске (NG-05, VP-06)")]
         [Tooltip("Запасной порог касания, если у контроллера нет ёмкостного датчика: нажатие сильнее — палец на спуске. Ниже порога выстрела")]
@@ -22,7 +24,8 @@ namespace Rubezh.Gameplay
         public ExerciseRules ToRules() => new ExerciseRules
         {
             SeriesRounds = seriesRounds,
-            SectorGraceSeconds = sectorGraceSeconds
+            SectorGraceSeconds = sectorGraceSeconds,
+            SectorJitterSeconds = sectorJitterSeconds
         };
     }
 }
