@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Rubezh.Core;
 using Rubezh.Gameplay;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -9,7 +10,8 @@ namespace Rubezh.XR
     // гильза летит по дуге в гильзоуловитель O-22 (CatcherZone), дальше от него — просто вправо.
     // Упавшая на пол гильза через casingReturnSeconds появляется на полочке O-21 (ошибка
     // управления прощается), оттуда её можно взять и бросить в уловитель. ICasingCounter считает
-    // гильзы вне уловителя для CasingLeft при сдаче (VP-11).
+    // гильзы вне уловителя для CasingLeft при сдаче (VP-11). При прихвате (VP-13) гильза торчит из
+    // окна выброса до перезарядки и вылетает вместе с ней.
     public sealed class CasingEjector : MonoBehaviour, ICasingCounter
     {
         [SerializeField] private ExerciseRunner runner;
@@ -23,7 +25,10 @@ namespace Rubezh.XR
         [Tooltip("Полочка поднятых гильз O-21")]
         [SerializeField] private Transform floorShelf;
 
+        private static readonly Vector3 StuckOffset = new Vector3(0.006f, 0.009f, 0f);
+
         private readonly List<Casing> _active = new List<Casing>();
+        private Casing _stuck;
         private readonly Stack<Casing> _free = new Stack<Casing>();
         private int _created;
 
@@ -87,15 +92,41 @@ namespace Rubezh.XR
         private void Hook()
         {
             Unhook();
-            if (weapon != null) weapon.CasingEjected += Eject;
+            if (weapon != null)
+            {
+                weapon.CasingEjected += Eject;
+                weapon.Jammed += OnJammed;
+            }
             if (runner != null) runner.Restarted += ResetAll;
         }
 
         private void Unhook()
         {
-            if (weapon != null) weapon.CasingEjected -= Eject;
+            if (weapon != null)
+            {
+                weapon.CasingEjected -= Eject;
+                weapon.Jammed -= OnJammed;
+            }
             if (runner != null) runner.Restarted -= ResetAll;
         }
+
+        // Прихват гильзы (VP-13): гильза торчит из окна выброса, пока затвор не перезарядят.
+        private void OnJammed(Jam jam)
+        {
+            if (jam != Jam.StovePipe || casingPrefab == null || ejectionPort == null || _stuck != null) return;
+            var c = Take();
+            c.body.isKinematic = true;
+            if (c.grab != null) c.grab.enabled = false;
+            c.go.transform.SetParent(ejectionPort, false);
+            c.go.transform.localPosition = StuckOffset;
+            // Ось гильзы — локальная Z: ставим её торчком из окна с наклоном наружу, вправо.
+            c.go.transform.localRotation = Quaternion.AngleAxis(-25f, Vector3.forward) * Quaternion.AngleAxis(-90f, Vector3.right);
+            c.go.SetActive(true);
+            _stuck = c;
+        }
+
+        public bool HasStuckCasing => _stuck != null;
+        public Transform StuckCasing => _stuck != null ? _stuck.go.transform : null;
 
         public bool InCatcher(Vector3 position) =>
             catcherZone != null && new Bounds(catcherZone.position, catcherSize).Contains(position);
@@ -120,7 +151,9 @@ namespace Rubezh.XR
         public void Eject()
         {
             if (casingPrefab == null || ejectionPort == null) return;
-            var c = Take();
+            // При прихвате вылетает та самая гильза, что торчала из окна.
+            var c = _stuck ?? Take();
+            Unstick();
             c.go.transform.SetPositionAndRotation(ejectionPort.position, ejectionPort.rotation);
             c.body.position = ejectionPort.position;
             c.body.rotation = ejectionPort.rotation;
@@ -155,11 +188,21 @@ namespace Rubezh.XR
             c.go.SetActive(false);
         }
 
+        // Зажатую гильзу отпустить из окна (на перезарядке или Restart).
+        private void Unstick()
+        {
+            if (_stuck == null) return;
+            _stuck.go.transform.SetParent(null, true);
+            if (_stuck.grab != null) _stuck.grab.enabled = true;
+            _stuck = null;
+        }
+
         private void Update()
         {
             float now = Time.time;
             foreach (var c in _active)
             {
+                if (c == _stuck) continue;
                 var p = c.go.transform.position;
                 bool held = c.grab != null && c.grab.isSelected;
                 bool inCatcher = InCatcher(p);
@@ -200,6 +243,7 @@ namespace Rubezh.XR
 
         private void ResetAll()
         {
+            Unstick();
             foreach (var c in _active)
             {
                 Release(c);
