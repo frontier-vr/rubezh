@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru"><meta charset="utf-8">
+<title>Rubezh design board</title>
+<style>
+  body { margin: 0; background: #e9e6df; font: 15px/1.45 "Segoe UI", Arial, sans-serif; color: #1d2228; }
+  header { padding: 28px 36px 8px; display: flex; align-items: baseline; gap: 18px; }
+  header h1 { margin: 0; font-size: 34px; letter-spacing: .5px; }
+  header .tag { background: #f2c200; padding: 3px 10px; font-weight: 600; border-radius: 3px; }
+  header .sub { color: #555; }
+  .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; padding: 18px 36px 36px; align-items: start; }
+  .card { background: #fff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,.18); padding: 14px 18px; border-top: 6px solid #4a5560; }
+  .card.c1 { border-top-color: #f2c200; } .card.c2 { border-top-color: #3d7bd9; } .card.c3 { border-top-color: #d8562b; }
+  .card.c4 { border-top-color: #5a8f3a; } .card.c5 { border-top-color: #8a5bb6; }
+  .card h2 { margin: 2px 0 8px; font-size: 19px; }
+  .card h3 { margin: 10px 0 4px; font-size: 15px; }
+  .card table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  .card td, .card th { border-top: 1px solid #e3e0da; padding: 4px 6px; vertical-align: top; text-align: left; }
+  .card img { width: 100%; border: 1px solid #ddd; border-radius: 3px; }
+  .card ul { padding-left: 18px; margin: 6px 0; }
+  .span2 { grid-column: span 2; } .span4 { grid-column: span 4; }
+  code { background: #f1efe9; padding: 0 3px; border-radius: 2px; font-size: 12px; }
+  #mood .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  #mood .grid figure { margin: 0; } #mood .grid img { height: 92px; object-fit: cover; }
+  #mood figcaption { font-size: 11px; color: #666; }
+  .swatches { display: flex; gap: 8px; flex-wrap: wrap; } .sw { width: 112px; font-size: 12px; }
+  .sw b { display: block; height: 48px; border-radius: 4px; border: 1px solid rgba(0,0,0,.15); margin-bottom: 3px; }
+</style>
+<header><h1>РУБЕЖ</h1><span class="tag">VR · Quest 2</span><span class="sub">дизайн-документ · тренажёр состояния постоянного контроля</span></header>
+<div class="board" id="board"></div>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script>
+(async () => {
+  const md = await (await fetch('design-doc.md')).text();
+  const parts = md.split(/\n(?=## )/).slice(1);
+  const style = ['c1','c2','c3','c4','c5','c2','c3','c1'];
+  const wide = { '3': 'span2', '7': 'span2', '6': 'span4' };
+  const board = document.getElementById('board');
+  parts.forEach((p, i) => {
+    const num = (p.match(/^## (\d+)/) || [])[1];
+    if (num === '8') return;
+    const div = document.createElement('div');
+    div.className = 'card ' + style[i % style.length] + ' ' + (wide[num] || '');
+    if (num === '6') div.id = 'mood';
+    div.innerHTML = marked.parse(p.replace(/`([^`]+)`/g, '<code>$1</code>'));
+    board.appendChild(div);
+  });
+  const extra = [
+    ['Путь пользователя', 'user-flow.png', 'span2'],
+    ['Планировка тира 8 × 14 м', 'layout.svg', 'span2'],
+  ];
+  for (const [t, src, cls] of extra) {
+    const d = document.createElement('div'); d.className = 'card c4 ' + cls;
+    d.innerHTML = `<h2>${t}</h2><img src="${src}">`; board.appendChild(d);
+  }
+  if (window.MOOD) window.MOOD();
+  await Promise.all([...document.images].map(i => i.complete ? 1 : new Promise(r => { i.onload = i.onerror = r; })));
+  window.DONE = 1;
+})();
+</script>
+</html>
