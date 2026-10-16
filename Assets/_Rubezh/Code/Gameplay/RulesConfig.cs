@@ -45,6 +45,13 @@ namespace Rubezh.Gameplay
         [Tooltip("После осечки ждать, не уводя ствол из сектора, до перезарядки; раньше — JamMishandled, с")]
         [Min(0f)] public float misfireWaitSeconds = 5f;
 
+        [Header("Прихват гильзы (VP-13)")]
+        [Tooltip("Вероятность прихвата за упражнение; 0 — без прихвата")]
+        [Range(0f, 1f)] public float stovePipeChance = 0.5f;
+        [Tooltip("Прихват на выстреле из диапазона (не на выстреле осечки), выбирается генератором с зерном")]
+        [Min(1)] public int stovePipeShotMin = 2;
+        [Min(1)] public int stovePipeShotMax = 5;
+
         [Header("Пробоины (VP-23)")]
         [Tooltip("Сколько пробоин держит пул; новая сверх пула занимает место самой старой")]
         [Min(1)] public int bulletHolePoolSize = 10;
@@ -138,6 +145,9 @@ namespace Rubezh.Gameplay
             MisfireShotMin = misfireShotMin,
             MisfireShotMax = misfireShotMax,
             MisfireWaitSeconds = misfireWaitSeconds,
+            StovePipeChance = stovePipeChance,
+            StovePipeShotMin = stovePipeShotMin,
+            StovePipeShotMax = stovePipeShotMax,
             TimeLimitSeconds = timeLimitSeconds,
             OverTimeStepSeconds = overTimeStepSeconds,
             OverTimePenaltyPerStep = overTimePenaltyPerStep,
