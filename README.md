@@ -127,6 +127,7 @@ docs/              план проекта, путь пользователя, �
 
 | Файл | О чём |
 |---|---|
+| [`docs/design-doc.md`](docs/design-doc.md) · доска [`docs/design-doc.png`](docs/design-doc.png) | дизайн-документ: концепция, аудитория, механика, аналоги, этика, мудборд, объекты |
 | [`docs/team.md`](docs/team.md) | кто в команде и за что отвечает |
 | [`docs/decisions.md`](docs/decisions.md) | решения команды по репозиторию и процессу |
 | [`docs/backlog.md`](docs/backlog.md) | все задачи по ролям: вехи, приоритеты, спринты |
