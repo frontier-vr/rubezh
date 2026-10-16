@@ -27,6 +27,24 @@ namespace Rubezh.Gameplay
         WeaponState State { get; }
     }
 
+    // Где предмет сейчас (NG-09): место-сокет, рука, шахта пистолета или пол.
+    public interface IPlaced
+    {
+        Place Place { get; }
+    }
+
+    // Магазин: патронов в нём, где бы он ни был (в шахте — по автомату оружия).
+    public interface IMagazine
+    {
+        int Rounds { get; }
+    }
+
+    // Мишень подана на дистанцию (NG-12).
+    public interface ITargetSupply
+    {
+        bool Supplied { get; }
+    }
+
     public interface ICasingCounter
     {
         int CasingsOutsideCatcher { get; }
