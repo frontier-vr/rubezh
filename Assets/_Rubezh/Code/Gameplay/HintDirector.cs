@@ -31,6 +31,8 @@ namespace Rubezh.Gameplay
 
         public string CurrentTarget { get; private set; }
         public string CurrentPhrase { get; private set; }
+        // ID фразы из сценария (hint_*): по нему голос инструктора берёт озвучку (VP-14).
+        public string CurrentHintId { get; private set; }
 
         // Рука держит патрон (условие правила «патрон в магазин»); ставит слой XR.
         public bool RoundInHand { get; set; }
@@ -153,6 +155,7 @@ namespace Rubezh.Gameplay
         {
             var hand = weapon != null ? weapon.PrimaryHand : Hand.Right;
             CurrentTarget = target;
+            CurrentHintId = hintId;
             CurrentPhrase = _script != null ? _script.Hint(hintId, hand) : hintId;
             HintShown?.Invoke(CurrentTarget, CurrentPhrase);
         }
@@ -160,6 +163,7 @@ namespace Rubezh.Gameplay
         private void OnCleared()
         {
             CurrentTarget = null;
+            CurrentHintId = null;
             CurrentPhrase = null;
             HintCleared?.Invoke();
         }
