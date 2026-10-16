@@ -1,0 +1,273 @@
+{
+  "language": "ru",
+  "source": "docs/hints.md",
+  "idleSecondsKey": "RulesConfig.hintIdleSeconds",
+  "highlightColor": "#1FB6C9",
+  "rules": [
+    {
+      "step": "1. Получение",
+      "phase": "Receive",
+      "condition": "not_at:A1",
+      "target": "Anchor_A1",
+      "hint": "hint_teleport_a1"
+    },
+    {
+      "step": "1. Получение",
+      "phase": "Receive",
+      "condition": "at:A1",
+      "target": "Pistol",
+      "hint": "hint_take_pistol"
+    },
+    {
+      "step": "2. Осмотр",
+      "phase": "Inspect",
+      "condition": "mag_in_weapon",
+      "target": "MagRelease",
+      "hint": "hint_eject_magazine"
+    },
+    {
+      "step": "2. Осмотр",
+      "phase": "Inspect",
+      "condition": "mag_not_on:InspectShelf",
+      "target": "InspectShelf",
+      "hint": "hint_put_magazine_shelf"
+    },
+    {
+      "step": "2. Осмотр",
+      "phase": "Inspect",
+      "condition": "slide_not_locked",
+      "target": "Slide",
+      "hint": "hint_slide_lock"
+    },
+    {
+      "step": "3. СИЗ",
+      "phase": "Ppe",
+      "condition": "not_at:A1",
+      "target": "Anchor_A1",
+      "hint": "hint_teleport_a1"
+    },
+    {
+      "step": "3. СИЗ",
+      "phase": "Ppe",
+      "condition": "no_earmuffs",
+      "target": "Earmuffs",
+      "hint": "hint_take_earmuffs"
+    },
+    {
+      "step": "3. СИЗ",
+      "phase": "Ppe",
+      "condition": "no_glasses",
+      "target": "Glasses",
+      "hint": "hint_take_glasses"
+    },
+    {
+      "step": "4. Снаряжение",
+      "phase": "LoadMagazine",
+      "condition": "not_at:A2",
+      "target": "Anchor_A2",
+      "hint": "hint_teleport_a2"
+    },
+    {
+      "step": "4. Снаряжение",
+      "phase": "LoadMagazine",
+      "condition": "mag_not_on:PrepTable",
+      "target": "PlaceMagazineTable",
+      "hint": "hint_magazine_table"
+    },
+    {
+      "step": "4. Снаряжение",
+      "phase": "LoadMagazine",
+      "condition": "no_round_in_hand",
+      "target": "AmmoTray",
+      "hint": "hint_take_round"
+    },
+    {
+      "step": "4. Снаряжение",
+      "phase": "LoadMagazine",
+      "condition": "round_in_hand",
+      "target": "Magazine",
+      "hint": "hint_round_to_magazine"
+    },
+    {
+      "step": "5. Рубеж",
+      "phase": "ToLine",
+      "condition": "not_at:A3",
+      "target": "Anchor_A3",
+      "hint": "hint_teleport_a3"
+    },
+    {
+      "step": "5. Рубеж",
+      "phase": "ToLine",
+      "condition": "pistol_not_on:LineStand",
+      "target": "PlacePistolStand",
+      "hint": "hint_pistol_to_stand"
+    },
+    {
+      "step": "5. Рубеж",
+      "phase": "ToLine",
+      "condition": "mag_not_on:LineStand",
+      "target": "PlaceMagazineStand",
+      "hint": "hint_magazine_to_stand"
+    },
+    {
+      "step": "5. Рубеж",
+      "phase": "ToLine",
+      "condition": "target_not_supplied",
+      "target": "TargetButton",
+      "hint": "hint_target_button"
+    },
+    {
+      "step": "6. Стрельба",
+      "phase": "Load",
+      "condition": "mag_not_in_weapon",
+      "target": "Magazine",
+      "hint": "hint_insert_magazine"
+    },
+    {
+      "step": "6. Стрельба",
+      "phase": "Fire",
+      "condition": "chamber_empty_no_jam",
+      "target": "Slide",
+      "hint": "hint_chamber"
+    },
+    {
+      "step": "6. Стрельба",
+      "phase": "Fire",
+      "condition": "safety_on",
+      "target": "SafetyLever",
+      "hint": "hint_safety_off"
+    },
+    {
+      "step": "6. Стрельба",
+      "phase": "Fire",
+      "condition": "no_shots_yet",
+      "target": "TargetPlane",
+      "hint": "hint_fire"
+    },
+    {
+      "step": "7. Задержка",
+      "phase": "Fire",
+      "condition": "jam_wait_elapsed",
+      "target": "Slide",
+      "hint": "hint_clear_jam"
+    },
+    {
+      "step": "8. Разряжание",
+      "phase": "Cease",
+      "condition": "safety_off",
+      "target": "SafetyLever",
+      "hint": "hint_safety_on"
+    },
+    {
+      "step": "8. Разряжание",
+      "phase": "Unload",
+      "condition": "mag_in_weapon",
+      "target": "MagRelease",
+      "hint": "hint_unload_magazine"
+    },
+    {
+      "step": "8. Разряжание",
+      "phase": "Unload",
+      "condition": "not_clear",
+      "target": "Slide",
+      "hint": "hint_unload_slide"
+    },
+    {
+      "step": "8. Разряжание",
+      "phase": "ShowClear",
+      "condition": "pistol_or_mag_not_on:LineStand",
+      "target": "PlacePistolStand",
+      "hint": "hint_show_clear"
+    },
+    {
+      "step": "9. Сдача",
+      "phase": "Return",
+      "condition": "not_at:A1",
+      "target": "Anchor_A1",
+      "hint": "hint_teleport_a1"
+    },
+    {
+      "step": "9. Сдача",
+      "phase": "Return",
+      "condition": "at:A1",
+      "target": "WeaponSlot",
+      "hint": "hint_return_cabinet"
+    }
+  ],
+  "onboarding": [
+    {
+      "id": "onb_teleport",
+      "when": "старт сцены у A1",
+      "text": "Стик вперёд: телепорт на жёлтый круг"
+    },
+    {
+      "id": "onb_grab",
+      "when": "первая наводка руки на предмет",
+      "text": "Grip: взять предмет"
+    },
+    {
+      "id": "onb_pistol_buttons",
+      "when": "пистолет впервые в руке",
+      "text": "{Eject}: выпустить магазин · {Safety}: предохранитель"
+    },
+    {
+      "id": "onb_slide",
+      "when": "впервые нужна работа затвором",
+      "text": "Grip на затворе: отвести затвор"
+    }
+  ],
+  "violationNames": [
+    {
+      "violation": "MuzzleOutOfSector",
+      "name": "Ствол вне сектора"
+    },
+    {
+      "violation": "FingerOnTrigger",
+      "name": "Палец на спуске"
+    },
+    {
+      "violation": "LookIntoMuzzle",
+      "name": "Взгляд в ствол"
+    },
+    {
+      "violation": "NoEarmuffs",
+      "name": "Без наушников на рубеже"
+    },
+    {
+      "violation": "NoGlasses",
+      "name": "Без очков на рубеже"
+    },
+    {
+      "violation": "StepOrder",
+      "name": "Нарушен порядок шагов"
+    },
+    {
+      "violation": "IncompleteInspection",
+      "name": "Осмотр не завершён"
+    },
+    {
+      "violation": "ShotBeforeFire",
+      "name": "Выстрел до команды «Огонь»"
+    },
+    {
+      "violation": "ShotAfterCease",
+      "name": "Выстрел после команды «Стой»"
+    },
+    {
+      "violation": "ShotOutOfSector",
+      "name": "Выстрел вне сектора"
+    },
+    {
+      "violation": "ReturnedLoaded",
+      "name": "Сдача неразряженного оружия"
+    },
+    {
+      "violation": "CasingLeft",
+      "name": "Гильзы вне гильзоуловителя"
+    },
+    {
+      "violation": "JamMishandled",
+      "name": "Задержка устранена раньше 5 с"
+    }
+  ]
+}
