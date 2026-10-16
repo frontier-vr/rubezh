@@ -168,5 +168,20 @@ namespace Rubezh.Tests.EditMode
             Shoot();
             Assert.AreEqual(Jam.Misfire, _weapon.State.Jam);
         }
+
+        [Test]
+        public void ClearingMisfire_EjectsTheDud_AsCasing()
+        {
+            int casings = 0;
+            _weapon.CasingEjected += () => casings++;
+            _rule.Arm(new FixedRandom(3));
+            Shoot(); Shoot();
+            casings = 0;
+            Shoot();                            // осечка
+            Assert.AreEqual(0, casings, "осечка — гильзы нет");
+            _clock.Now = 30;
+            ClearJam();
+            Assert.AreEqual(1, casings, "осечный патрон вылетает и считается гильзой (VP-19)");
+        }
     }
 }
