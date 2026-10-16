@@ -132,6 +132,26 @@ def build_earmuffs():
     return [shell, pads]
 
 
+def curve(x):
+    """Изгиб линзы: к краям уходит назад (+Y)."""
+    return 9.0 * x * x
+
+
+def curved_strip(bm, x0, x1, segments, z0, z1, thickness, y_offset):
+    """Гнутая полоса по кривой curve(x) от z0 до z1, толщина по Y."""
+    cols = []
+    for i in range(segments + 1):
+        x = x0 + (x1 - x0) * i / segments
+        y = curve(x) + y_offset
+        cols.append([bm.verts.new((x, y + dy, z)) for dy, z in ((0, z0), (0, z1), (thickness, z1), (thickness, z0))])
+    for c0, c1 in zip(cols, cols[1:]):
+        for k in range(4):
+            l = (k + 1) % 4
+            bm.faces.new((c0[k], c1[k], c1[l], c0[l]))
+    bm.faces.new(cols[0])
+    bm.faces.new(list(reversed(cols[-1])))
+
+
 def build_glasses():
     scene = new_file()
     frame_m = material('PPE_GlassesFrame', '#23272B', 0.5)
@@ -147,19 +167,21 @@ def build_glasses():
     cg.objects.link(anchor_g)
     anchor_g.parent = root_g
 
+    # Стрелковые очки: цельная гнутая линза с боковой защитой (docs/refs/weapon.md).
     bm = bmesh.new()
+    curved_strip(bm, -0.068, 0.068, 12, 0.0185, 0.025, 0.004, 0.0035)             # верхняя планка оправы
     for s in (-1, 1):
-        ring_y(bm, Vector((s * 0.034, 0, 0)), 0.026, 0.02, 0.004, 0.006, 16)        # ободки
-        box(bm, Vector((s * 0.066, 0.003, 0.006)), (0.006, 0.008, 0.012))          # петли
-        box(bm, Vector((s * 0.068, 0.068, 0.006)), (0.004, 0.13, 0.006))           # дужки
-        box(bm, Vector((s * 0.068, 0.138, -0.008)), (0.004, 0.02, 0.022))          # заушники
-    box(bm, Vector((0, 0, 0.008)), (0.016, 0.005, 0.005))                           # мост
+        x = s * 0.068
+        y = curve(x)
+        box(bm, Vector((s * 0.0695, y + 0.012, -0.002)), (0.003, 0.026, 0.042))    # боковой щиток
+        box(bm, Vector((s * 0.0695, y + 0.085, 0.017)), (0.004, 0.12, 0.006))      # дужки
+        box(bm, Vector((s * 0.0695, y + 0.15, 0.004)), (0.004, 0.018, 0.024))      # заушники
+    box(bm, Vector((0, 0.008, -0.012)), (0.014, 0.008, 0.006))                      # носоупор за линзой
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
     frame = new_object('Glasses_Frame', bm, frame_m, cg, root_g)
 
     bm = bmesh.new()
-    for s in (-1, 1):
-        lens_y(bm, Vector((s * 0.034, 0, 0)), 0.0265, 0.0205, 0.002, 16)
+    curved_strip(bm, -0.068, 0.068, 12, -0.024, 0.0185, 0.002, 0.0)               # цельная линза
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
     lenses = new_object('Glasses_Lenses', bm, lens_m, cg, root_g)
 
@@ -170,6 +192,7 @@ def build_glasses():
 # Каждая модель — свой .blend (имя пустышки HeadAnchor в файле уникально) и свой FBX.
 exec(open(r"B:\Project-1\tools\blender\rubezh_fbx.py", encoding="utf-8").read())
 result = {}
-for build, name in ((build_earmuffs, "Earmuffs"), (build_glasses, "Glasses")):
+ONLY_GLASSES = globals().get("ONLY_GLASSES", False)
+for build, name in ((build_glasses, "Glasses"),) if ONLY_GLASSES else ((build_earmuffs, "Earmuffs"), (build_glasses, "Glasses")):
     build()
     result[name] = export_collection(name, "//../Equipment/%s.fbx" % name)
