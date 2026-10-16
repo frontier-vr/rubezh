@@ -25,3 +25,9 @@ MonoBehaviour:
   misfireWaitSeconds: 5
   bulletHolePoolSize: 10
   bulletHoleDiameter: 0.03
+  triggerPullThreshold: 0.75
+  triggerReleaseThreshold: 0.4
+  slideTravel: 0.03
+  slideBackFraction: 0.9
+  slideForwardFraction: 0.2
+  slideLockedFraction: 0.8
