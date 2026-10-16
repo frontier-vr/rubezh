@@ -39,7 +39,7 @@ File → Export → FBX (.fbx), или скрипт `tools/blender/rubezh_fbx.py
 
 ```python
 exec(open(r"<репозиторий>/tools/blender/rubezh_fbx.py", encoding="utf-8").read())
-export_collection("Pistol", "//../Weapon/Pistol_Blockout.fbx")   # → число треугольников
+export_collection("Pistol", "//../Weapon/Pistol.fbx")   # → число треугольников
 ```
 
 ## 3. Иерархия, имена, пивоты
