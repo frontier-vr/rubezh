@@ -53,6 +53,8 @@ namespace Rubezh.XR
         private float AimMaxDistance => rules != null ? rules.casingAimMaxDistance : 2f;
         private float ReturnSeconds => rules != null ? rules.casingReturnSeconds : 1f;
         private float DropHeight => rules != null ? rules.dropHeight : 0.85f;
+        private const float SettledSpeedSqr = 0.0025f;   // 5 см/с: гильза улеглась на поддон
+        private const float CatcherNetHeight = 0.2f;     // сетка над коробом — от центра CatcherZone, м
 
         public void Configure(ExerciseRunner exerciseRunner, RulesConfig rulesConfig, WeaponController weaponController,
                               Transform port, GameObject prefab, Transform catcher, Transform shelf)
@@ -163,9 +165,15 @@ namespace Rubezh.XR
                 bool inCatcher = InCatcher(p);
                 if (!held)
                 {
-                    // Влетела в уловитель — остаётся там (в блок-модели уловитель сплошной, гильза
-                    // не должна скатиться с крышки); вне уловителя снова падает.
-                    bool landed = inCatcher && p.y < catcherZone.position.y + 0.02f && c.body.linearVelocity.y <= 0f;
+                    // Влетела в уловитель — падает на его поддон (YG-10) и, улёгшись, остаётся там;
+                    // вне уловителя снова падает.
+                    // Над коробом гильзу гасит сетка: дальше она падает отвесно, не отскакивая от отбойника.
+                    if (inCatcher && !c.body.isKinematic && p.y < catcherZone.position.y + CatcherNetHeight)
+                    {
+                        var v = c.body.linearVelocity;
+                        if (v.x != 0f || v.z != 0f) c.body.linearVelocity = new Vector3(0f, Mathf.Min(v.y, 0f), 0f);
+                    }
+                    bool landed = inCatcher && p.y < catcherZone.position.y && c.body.linearVelocity.sqrMagnitude < SettledSpeedSqr;
                     if (landed && !c.body.isKinematic) { c.body.linearVelocity = Vector3.zero; c.body.angularVelocity = Vector3.zero; c.body.isKinematic = true; }
                     else if (!inCatcher && c.body.isKinematic) c.body.isKinematic = false;
                 }
