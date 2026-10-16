@@ -23,6 +23,9 @@ MonoBehaviour:
   misfireShotMin: 3
   misfireShotMax: 4
   misfireWaitSeconds: 5
+  stovePipeChance: 0.5
+  stovePipeShotMin: 2
+  stovePipeShotMax: 5
   bulletHolePoolSize: 10
   bulletHoleDiameter: 0.03
   timeLimitSeconds: 360
