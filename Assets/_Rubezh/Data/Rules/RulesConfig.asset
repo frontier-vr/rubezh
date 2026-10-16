@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Rubezh.Gameplay::Rubezh.Gameplay.RulesConfig
   seriesRounds: 5
   sectorGraceSeconds: 1.5
+  sectorJitterSeconds: 0.1
   touchThreshold: 0.05
