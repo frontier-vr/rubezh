@@ -3,8 +3,8 @@ using System;
 namespace Rubezh.Core
 {
     // Автомат состояний пистолета по таблице переходов из docs/objects.md.
-    // Задержки (строки 12-13 таблицы) назначаются в VP-09 и VP-13; здесь автомат
-    // только корректно ведёт себя в состояниях с Jam != None.
+    // Осечка (строка 12) назначается на N-й выстрел через ScheduleMisfire (VP-09); прихват
+    // (строка 13) — VP-13. В состояниях с Jam != None спуск даёт только сухой щелчок.
     public sealed class Weapon : IWeapon
     {
         // Удержание затвора рукой сзади в WeaponState не входит: наружу оно не нужно.
@@ -17,13 +17,13 @@ namespace Rubezh.Core
         private bool _safetyOn;
         private Jam _jam;
         private bool _triggerPulled;
+        private int _shotAttempts;      // спуски с досланным патроном с последнего ScheduleMisfire
+        private int _misfireOnShot;     // 0 — осечки нет
 
         public event Action<WeaponState> Changed;
         public event Action Fired;
         public event Action DryFire;
-#pragma warning disable CS0067 // поднимается с назначением задержек в VP-09, VP-13
         public event Action<Jam> Jammed;
-#pragma warning restore CS0067
         public event Action CasingEjected;
 
         // Состояние в шкафу на шаге 1: пустой магазин вставлен, затвор впереди, предохранитель включён.
@@ -38,6 +38,16 @@ namespace Rubezh.Core
             _safetyOn = state.SafetyOn;
             _jam = state.Jam;
         }
+
+        // Осечка на shotNumber-м спуске с досланным патроном (считая от этого вызова); 0 — без осечки.
+        public void ScheduleMisfire(int shotNumber)
+        {
+            if (shotNumber < 0) throw new ArgumentOutOfRangeException(nameof(shotNumber));
+            _misfireOnShot = shotNumber;
+            _shotAttempts = 0;
+        }
+
+        public int ShotAttempts => _shotAttempts;
 
         public WeaponState State =>
             new WeaponState(_magazineInserted, _rounds, _chamber, _slide == Slide.Locked, _safetyOn, _jam);
@@ -139,6 +149,17 @@ namespace Rubezh.Core
             if (_chamber != Chamber.Loaded || _jam != Jam.None)
             {
                 DryFire?.Invoke();
+                return true;
+            }
+
+            _shotAttempts++;
+            if (_shotAttempts == _misfireOnShot)
+            {
+                // Строка 12: патрон не воспламенился, остаётся в патроннике, отдачи нет.
+                _jam = Jam.Misfire;
+                DryFire?.Invoke();
+                Jammed?.Invoke(Jam.Misfire);
+                Changed?.Invoke(State);
                 return true;
             }
 
