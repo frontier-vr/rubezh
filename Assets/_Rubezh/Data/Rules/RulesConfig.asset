@@ -52,6 +52,9 @@ MonoBehaviour:
   - violation: 12
     points: 10
   hintIdleSeconds: 5
+  highlightPulseHz: 1.2
+  highlightMinBrightness: 0.45
+  highlightOutlineMeters: 0.007
   failResultDelaySeconds: 4
   triggerPullThreshold: 0.75
   triggerReleaseThreshold: 0.4
