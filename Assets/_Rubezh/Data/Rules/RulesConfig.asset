@@ -17,3 +17,6 @@ MonoBehaviour:
   sectorJitterSeconds: 0.1
   touchThreshold: 0.05
   triggerTouchMinSeconds: 0.15
+  muzzleLookSeconds: 0.2
+  muzzleLookMaxDistance: 0.7
+  muzzleLookConeDegrees: 30
