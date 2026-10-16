@@ -160,9 +160,10 @@
 | Слой | Назначение |
 |---|---|
 | Interaction Layer 31 `Teleport` | якоря телепорта |
-| Interaction Layer `Pistol` | пистолет: принимают O-05, O-08, O-20, O-27 |
-| Interaction Layer `Magazine` | магазин: принимают шахта `MagWell`, O-08, O-19, O-28 |
-| Interaction Layer `Round` | патрон: принимают `Round_01`…`Round_05` магазина |
-| Interaction Layer `Earmuffs`, `Glasses` | СИЗ: слоты у головы и O-10, O-12 |
+| Interaction Layer 1 `Pistol` | пистолет: принимают O-05, O-08, O-20, O-27 |
+| Interaction Layer 2 `Magazine` | магазин: принимают шахта `MagWell`, O-08, O-19, O-28 |
+| Interaction Layer 3 `Round` | патрон: принимают `Round_01`…`Round_05` магазина |
+| Interaction Layer 4 `Earmuffs`, 5 `Glasses` | СИЗ: слоты у головы и O-10, O-12 |
+| Near-Far Interactor рук | видит слои 0–5 (Default и предметы), телепорт — только 31 |
 | Physics Layer `Sector` | объём сектора §5, только для лучей детектора |
 | Physics Layer `Target` | плоскость мишени, только для луча выстрела |
