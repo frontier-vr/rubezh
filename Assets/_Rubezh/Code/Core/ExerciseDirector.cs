@@ -170,17 +170,21 @@ namespace Rubezh.Core
         {
             _endTime = _clock.Now;
             bool failed = failReason.HasValue;
-            // Балл и вердикт по FR-40, FR-41 считает VP-10; до него — заглушка без штрафов.
+            var violations = _violations.ToArray();
+            var score = ExerciseScoring.Calculate(_rules, violations, _shots, _hits, Elapsed, failed);
             Result = new ExerciseResult
             {
                 TotalTime = Elapsed,
                 Shots = _shots,
                 Hits = _hits,
-                Score = failed ? 0 : 100,
-                Verdict = failed ? Verdict.NotPassed : Verdict.Passed,
+                Score = score.Score,
+                Verdict = score.Verdict,
                 FailedCritical = failed,
                 FailReason = failReason,
-                Violations = _violations.ToArray()
+                Violations = violations,
+                ViolationPenalty = score.Violations,
+                MissPenalty = score.Misses,
+                OverTimePenalty = score.OverTime
             };
             Finished?.Invoke(Result);
         }
