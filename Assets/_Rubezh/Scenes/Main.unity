@@ -321,6 +321,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   maxDistance: 20
+  anchors: {fileID: 86666977}
+  rules: {fileID: 11400000, guid: 816dcb8f7ad65f54dbdbf047b15c7444, type: 2}
 --- !u!114 &86666974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,6 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ae8d2a2282fb44cb350fae388f484f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Rubezh.Gameplay::Rubezh.Gameplay.AnchorLocator
+  runner: {fileID: 86666974}
   rig: {fileID: 1145216029}
   a1: {fileID: 1491230178}
   a2: {fileID: 625134522}

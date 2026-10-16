@@ -20,6 +20,7 @@ MonoBehaviour:
   muzzleLookSeconds: 0.2
   muzzleLookMaxDistance: 0.7
   muzzleLookConeDegrees: 30
+  safeDownDegrees: 30
   misfireShotMin: 3
   misfireShotMax: 4
   misfireWaitSeconds: 5
