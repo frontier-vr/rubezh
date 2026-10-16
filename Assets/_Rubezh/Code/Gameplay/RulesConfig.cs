@@ -31,13 +31,23 @@ namespace Rubezh.Gameplay
         [Tooltip("Камера в этом конусе вокруг оси ствола — смотрит «в ствол», а не сбоку, градусы")]
         [Range(5f, 60f)] public float muzzleLookConeDegrees = 30f;
 
+        [Header("Осечка (VP-09)")]
+        [Tooltip("Осечка случается на выстреле из диапазона, выбирается генератором с зерном")]
+        [Min(1)] public int misfireShotMin = 3;
+        [Min(1)] public int misfireShotMax = 4;
+        [Tooltip("После осечки ждать, не уводя ствол из сектора, до перезарядки; раньше — JamMishandled, с")]
+        [Min(0f)] public float misfireWaitSeconds = 5f;
+
         public ExerciseRules ToRules() => new ExerciseRules
         {
             SeriesRounds = seriesRounds,
             SectorGraceSeconds = sectorGraceSeconds,
             SectorJitterSeconds = sectorJitterSeconds,
             TriggerTouchMinSeconds = triggerTouchMinSeconds,
-            MuzzleLookSeconds = muzzleLookSeconds
+            MuzzleLookSeconds = muzzleLookSeconds,
+            MisfireShotMin = misfireShotMin,
+            MisfireShotMax = misfireShotMax,
+            MisfireWaitSeconds = misfireWaitSeconds
         };
     }
 }
