@@ -17,6 +17,8 @@
 *.mp3     filter=lfs diff=lfs merge=lfs -text
 *.ogg     filter=lfs diff=lfs merge=lfs -text
 *.mp4     filter=lfs diff=lfs merge=lfs -text
+*.pptx    filter=lfs diff=lfs merge=lfs -text
+*.pdf     filter=lfs diff=lfs merge=lfs -text
 
 # Запечённый свет бинарный (проверено запеканием на 6000.3.24f1),
 # строка стоит последней, чтобы перебить правило *.asset
