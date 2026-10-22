@@ -8,8 +8,9 @@ namespace Rubezh.XR
     // Демо детекторов для финальной защиты (VP-18): то, что система «видит», становится видно
     // и пользователю. Луч сектора из дульного среза до первой поверхности — зелёный в секторе,
     // красный вне его; конус взгляда в ствол — белый, красный, когда камера в нём; табличка с
-    // тремя состояниями над левой рукой; пистолет не в руке — луч белый, сектор не судится. Включается кнопкой Menu левого контроллера (в редакторе — F2),
-    // в обычном упражнении выключено. На правила и счёт не влияет: только читает детекторы.
+    // тремя состояниями над пистолетом; пистолет не в руке — луч белый, сектор не судится.
+    // Включается кнопкой Menu левого контроллера (в редакторе — F2), в обычном упражнении
+    // выключено. На правила и счёт не влияет: только читает детекторы.
     public sealed class DetectorDemo : MonoBehaviour
     {
         [SerializeField] private SectorDetector sector;
@@ -18,7 +19,7 @@ namespace Rubezh.XR
         [SerializeField] private RulesConfig rules;
         [SerializeField] private Transform muzzle;
         [SerializeField] private Transform head;
-        [Tooltip("Табличка состояний: у левого контроллера")]
+        [Tooltip("Над чем висит табличка состояний: пистолет — туда и так смотрят")]
         [SerializeField] private Transform labelAnchor;
         [SerializeField] private GameObject view;
         [SerializeField] private LineRenderer sectorRay;
