@@ -153,6 +153,14 @@ def curved_strip(bm, x0, x1, segments, z0, z1, thickness, y_offset):
     bm.faces.new(list(reversed(cols[-1])))
 
 
+def nose_notch(bm):
+    """Вырез под нос: нижний край линзы у переносицы поднят на 16 мм, по бокам — меньше.
+    Без него линза читалась спереди сплошной полосой-козырьком (силуэт, 22.10)."""
+    for v in bm.verts:
+        if v.co.z < -0.0235 and abs(v.co.x) < 0.015:
+            v.co.z += max(0.0, 0.016 - abs(v.co.x) * 0.8)
+
+
 def build_glasses():
     scene = new_file()
     frame_m = material('PPE_GlassesFrame', '#23272B', 0.5)
@@ -183,6 +191,7 @@ def build_glasses():
 
     bm = bmesh.new()
     curved_strip(bm, -0.068, 0.068, 12, -0.024, 0.0185, 0.002, 0.0)               # цельная линза
+    nose_notch(bm)
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
     lenses = new_object('Glasses_Lenses', bm, lens_m, cg, root_g)
 
