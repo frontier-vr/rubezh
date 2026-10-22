@@ -38,7 +38,8 @@ def new_object(name, bm, mat, coll, parent=None):
 
 def cylinder_x(bm, center, radius, depth, segments, scale_z=1.0):
     """Цилиндр вдоль оси X."""
-    res = bmesh.ops.create_cone(bm, cap_ends=True, segments=segments, radius1=radius, radius2=radius, depth=depth)
+    # Крышки веером треугольников: без н-гонов (MM-14, #171).
+    res = bmesh.ops.create_cone(bm, cap_ends=True, cap_tris=True, segments=segments, radius1=radius, radius2=radius, depth=depth)
     rot = Matrix.Rotation(math.radians(90), 4, 'Y')
     sc = Matrix.Diagonal((1, 1, scale_z, 1))
     bmesh.ops.transform(bm, matrix=Matrix.Translation(center) @ sc @ rot, verts=res['verts'])
