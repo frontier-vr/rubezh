@@ -181,7 +181,7 @@ namespace Rubezh.Tests.PlayMode
                 TotalTime = 30, Verdict = Verdict.NotPassed, FailedCritical = true, FailReason = Violation.MuzzleOutOfSector,
                 Violations = new[]
                 {
-                    new ViolationRecord(Violation.NoGlasses, Severity.Minor, 8, 0),
+                    new ViolationRecord(Violation.FingerOnTrigger, Severity.Minor, 8, 0),
                     new ViolationRecord(Violation.MuzzleOutOfSector, Severity.Critical, 25, 1.5)
                 }
             };
@@ -247,12 +247,50 @@ namespace Rubezh.Tests.PlayMode
             screen.Show(new ExerciseResult
             {
                 TotalTime = 5, Verdict = Verdict.PassedWithRemarks,
-                Violations = new[] { new ViolationRecord(Violation.CasingLeft, Severity.Minor, 4, 0) }
+                Violations = new[] { new ViolationRecord(Violation.StepOrder, Severity.Minor, 4, 0) }
             }, Anchor.A1);
             var block = _screenGo.transform.Find("Panel/ReplayBlock");
             Assert.IsTrue(block.gameObject.activeSelf);
             Assert.IsFalse(block.Find("ReplayNext").gameObject.activeSelf);
             StringAssert.DoesNotContain("из", block.Find("ReplayCaption").GetComponent<TMPro.TMP_Text>().text.Split('\n')[0]);
+        }
+
+        // #176: СИЗ и гильзы движением не видны — их не повторяем, «N из M» и «Следующее» — без них.
+        [Test]
+        public void ResultScreen_SkipsViolationsNotVisibleByMotion()
+        {
+            var screen = _screenGo.GetComponent<ResultScreen>();
+            screen.ConfigureReplay(_replay);
+            Record(0, 60);
+            var block = _screenGo.transform.Find("Panel/ReplayBlock");
+            var caption = block.Find("ReplayCaption").GetComponent<TMPro.TMP_Text>();
+
+            screen.Show(new ExerciseResult
+            {
+                TotalTime = 60, Verdict = Verdict.PassedWithRemarks,
+                Violations = new[] { new ViolationRecord(Violation.NoGlasses, Severity.Minor, 5, 0), new ViolationRecord(Violation.CasingLeft, Severity.Minor, 59, 0) }
+            }, Anchor.A1);
+            Assert.IsFalse(block.gameObject.activeSelf, "показывать нечего — блока нет");
+            screen.Hide();
+
+            screen.Show(new ExerciseResult
+            {
+                TotalTime = 60, Verdict = Verdict.PassedWithRemarks,
+                Violations = new[]
+                {
+                    new ViolationRecord(Violation.NoGlasses, Severity.Minor, 5, 0),
+                    new ViolationRecord(Violation.FingerOnTrigger, Severity.Minor, 9, 0.4),
+                    new ViolationRecord(Violation.NoEarmuffs, Severity.Minor, 10, 0),
+                    new ViolationRecord(Violation.StepOrder, Severity.Minor, 20, 0)
+                }
+            }, Anchor.A1);
+            Assert.AreEqual(1, screen.ReplayIndex, "первым — палец на спуске, а не очки");
+            StringAssert.Contains("1 из 2", caption.text);
+            screen.NextReplay();
+            Assert.AreEqual(3, screen.ReplayIndex, "наушники пропущены");
+            StringAssert.Contains("2 из 2", caption.text);
+            screen.NextReplay();
+            Assert.AreEqual(1, screen.ReplayIndex, "по кругу");
         }
     }
 }
