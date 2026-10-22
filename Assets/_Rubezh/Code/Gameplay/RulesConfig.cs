@@ -101,6 +101,22 @@ namespace Rubezh.Gameplay
         [Tooltip("После грубого нарушения стоп-экран держится столько, затем на нём же результат с баллом 0, с")]
         [Min(0f)] public float failResultDelaySeconds = 4f;
 
+        [Header("Повтор эпизода нарушения (VP-17)")]
+        [Tooltip("Частота записи головы, рук, пистолета и магазина, кадров в секунду")]
+        [Min(1f)] public float replaySampleRate = 30f;
+        [Tooltip("Сколько секунд упражнения держит запись; старое вытесняется. С запасом на лимит цикла")]
+        [Min(10f)] public float replayBufferSeconds = 720f;
+        [Tooltip("Повтор начинается за столько секунд до начала эпизода, с")]
+        [Min(0f)] public float replayBeforeSeconds = 2f;
+        [Tooltip("Повтор идёт ещё столько секунд после того, как нарушение засчитано, с")]
+        [Min(0f)] public float replayAfterSeconds = 1.5f;
+        [Tooltip("Повтор не длиннее этого: у длинного эпизода остаётся конец, с")]
+        [Min(1f)] public float replayMaxSeconds = 8f;
+        [Tooltip("Пауза перед повтором по кругу, с")]
+        [Min(0f)] public float replayLoopPauseSeconds = 1f;
+        [Tooltip("Длина луча из дульного среза призрака, м")]
+        [Min(0.1f)] public float replayMuzzleRayMeters = 3f;
+
         [Header("Пистолет в руке (NG-08)")]
         [Tooltip("Нажатие спуска сильнее — TriggerPull. Выше запасного порога касания")]
         [Range(0f, 1f)] public float triggerPullThreshold = 0.75f;
