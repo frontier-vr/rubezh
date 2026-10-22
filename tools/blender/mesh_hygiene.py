@@ -96,6 +96,10 @@ def clean_mesh(me):
     boundary_before = _boundary(me)
     bm = bmesh.new()
     bm.from_mesh(me)
+    # Микротреугольники после булевых операций: сварить вершины ближе WELD и схлопнуть вырожденное.
+    # Сварка — до разделения кусков, иначе она склеит их обратно (#172).
+    bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=WELD)
+    bmesh.ops.dissolve_degenerate(bm, dist=WELD, edges=bm.edges[:])
     # Рёбра на 3+ гранях — отделить склеенные куски друг от друга, каждый остаётся замкнутым.
     fins = {e for e in bm.edges if len(e.link_faces) > 2}
     if fins:
@@ -103,9 +107,6 @@ def clean_mesh(me):
             edges = {e for f in group for e in f.edges}
             verts = {v for f in group for v in f.verts}
             bmesh.ops.split(bm, geom=list(group) + list(edges) + list(verts), use_only_faces=False)
-    # Микротреугольники после булевых операций: сварить вершины ближе WELD и схлопнуть вырожденное.
-    bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=WELD)
-    bmesh.ops.dissolve_degenerate(bm, dist=WELD, edges=bm.edges[:])
     # Н-гоны.
     ngons = [f for f in bm.faces if len(f.verts) > 4]
     if ngons:
