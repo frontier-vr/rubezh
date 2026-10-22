@@ -38,6 +38,10 @@ namespace Rubezh.Gameplay
         [Tooltip("Камера в этом конусе вокруг оси ствола — смотрит «в ствол», а не сбоку, градусы")]
         [Range(5f, 60f)] public float muzzleLookConeDegrees = 30f;
 
+        [Header("Безопасное направление вне рубежа (#164)")]
+        [Tooltip("У шкафа и стола ствол, опущенный ниже горизонта больше чем на столько градусов, — в безопасном направлении")]
+        [Range(5f, 85f)] public float safeDownDegrees = 30f;
+
         [Header("Осечка (VP-09)")]
         [Tooltip("Осечка случается на выстреле из диапазона, выбирается генератором с зерном")]
         [Min(1)] public int misfireShotMin = 3;
@@ -96,6 +100,28 @@ namespace Rubezh.Gameplay
         [Header("Экран результата (VP-20)")]
         [Tooltip("После грубого нарушения стоп-экран держится столько, затем на нём же результат с баллом 0, с")]
         [Min(0f)] public float failResultDelaySeconds = 4f;
+
+        [Header("Повтор эпизода нарушения (VP-17)")]
+        [Tooltip("Частота записи головы, рук, пистолета и магазина, кадров в секунду")]
+        [Min(1f)] public float replaySampleRate = 30f;
+        [Tooltip("Сколько секунд упражнения держит запись; старое вытесняется. С запасом на лимит цикла")]
+        [Min(10f)] public float replayBufferSeconds = 720f;
+        [Tooltip("Повтор начинается за столько секунд до начала эпизода, с")]
+        [Min(0f)] public float replayBeforeSeconds = 2f;
+        [Tooltip("Повтор идёт ещё столько секунд после того, как нарушение засчитано, с")]
+        [Min(0f)] public float replayAfterSeconds = 1.5f;
+        [Tooltip("Повтор не длиннее этого: у длинного эпизода остаётся конец, с")]
+        [Min(1f)] public float replayMaxSeconds = 8f;
+        [Tooltip("Пауза перед повтором по кругу, с")]
+        [Min(0f)] public float replayLoopPauseSeconds = 1f;
+        [Tooltip("Длина луча из дульного среза призрака, м")]
+        [Min(0.1f)] public float replayMuzzleRayMeters = 3f;
+
+        [Header("Оттенок очков (NG-30)")]
+        [Tooltip("Оттенок стёкол при надетых очках; выключить, если на Quest 2 не держатся 72 Гц")]
+        public bool glassesTintEnabled = true;
+        [Tooltip("Переход оттенка при надевании и снятии очков, с")]
+        [Min(0f)] public float glassesTintSeconds = 0.2f;
 
         [Header("Пистолет в руке (NG-08)")]
         [Tooltip("Нажатие спуска сильнее — TriggerPull. Выше запасного порога касания")]

@@ -10,11 +10,15 @@ namespace Rubezh.UI
 {
     // Экран результата (VP-20, FR-42) по макету YG-09 (docs/result-screen.md): вердикт со значком и
     // словом, балл, время, точность, мишень с пробоинами, нарушения со временем и штрафом, «Повторить».
+    // Под таблицей — повтор эпизода нарушения (VP-17): первым грубое, «Следующее» листает по кругу.
     // Во время упражнения скрыт. Done — сразу у шкафа (R1), лицом к A1. Failed — через N с
     // (RulesConfig) у текущего якоря, на месте стоп-экрана VP-22, с баллом 0.
     public sealed class ResultScreen : MonoBehaviour
     {
         private const int MaxRows = 8;
+        private const int MaxRowsWithReplay = 4;      // под таблицей — окно повтора (VP-17)
+        private const float TableHeight = 460f;
+        private const float TableHeightWithReplay = 210f;
 
         [SerializeField] private ExerciseRunner runner;
         [SerializeField] private RulesConfig rules;
@@ -32,13 +36,21 @@ namespace Rubezh.UI
         [SerializeField] private Camera targetCamera;
         [SerializeField] private Transform targetPlane;
         [SerializeField] private Button repeat;
+        [Header("Повтор эпизода нарушения (VP-17)")]
+        [SerializeField] private EpisodeReplay replay;
+        [SerializeField] private GameObject replayBlock;
+        [SerializeField] private RawImage replayView;
+        [SerializeField] private TMP_Text replayCaption;
+        [SerializeField] private Button replayNext;
 
         private HintRules _names;
         private RenderTexture _targetTexture;
         private Coroutine _delayed;
+        private int _replayIndex = -1;
 
         public bool Visible => panel != null && panel.activeSelf;
         public ExerciseResult Shown { get; private set; }
+        public int ReplayIndex => _replayIndex;
 
         private float FailDelay => rules != null ? rules.failResultDelaySeconds : 4f;
 
@@ -51,6 +63,8 @@ namespace Rubezh.UI
             r1 = screen1; r2 = screen2; r3 = screen3; a1 = anchor1; a2 = anchor2; a3 = anchor3; targetPlane = plane;
             OnEnable();
         }
+
+        public void ConfigureReplay(EpisodeReplay episodeReplay) => replay = episodeReplay;
 
         private void Awake()
         {
@@ -66,6 +80,7 @@ namespace Rubezh.UI
                 runner.Restarted += Hide;
             }
             if (repeat != null) repeat.onClick.AddListener(Repeat);
+            if (replayNext != null) replayNext.onClick.AddListener(NextReplay);
         }
 
         private void OnDisable()
@@ -76,6 +91,7 @@ namespace Rubezh.UI
                 runner.Restarted -= Hide;
             }
             if (repeat != null) repeat.onClick.RemoveListener(Repeat);
+            if (replayNext != null) replayNext.onClick.RemoveListener(NextReplay);
         }
 
         private void OnDestroy()
@@ -101,15 +117,59 @@ namespace Rubezh.UI
         {
             Shown = result;
             Place(at);
+            if (panel != null) panel.SetActive(true);
+            ShowReplay(ReplayWindow.DefaultIndex(result.Violations));   // до Fill: от повтора зависит высота таблицы
             Fill(result);
             CaptureTarget();
-            if (panel != null) panel.SetActive(true);
         }
 
         public void Hide()
         {
             if (_delayed != null) { StopCoroutine(_delayed); _delayed = null; }
+            StopReplay();
             if (panel != null) panel.SetActive(false);
+        }
+
+        // Повтор нарушения index из показанного результата; −1 или нет записи — блок скрыт.
+        public bool ShowReplay(int index)
+        {
+            var list = Shown != null ? Shown.Violations : null;
+            bool ok = replay != null && list != null && index >= 0 && index < list.Count
+                      && ReplayWindow.Shows(list[index].Type) && replay.Play(list[index]);
+            _replayIndex = ok ? index : -1;
+            if (replayBlock != null) replayBlock.SetActive(ok);
+            if (!ok) return false;
+            int count = ReplayWindow.Count(list, index, out int ordinal);
+            if (replayView != null) replayView.texture = replay.Texture;
+            if (replayCaption != null) replayCaption.text = ReplayCaption(list[index], ordinal - 1, count);
+            if (replayNext != null) replayNext.gameObject.SetActive(count > 1);
+            return true;
+        }
+
+        // «Следующее»: по кругу по нарушениям, которые видны в повторе (#176).
+        public void NextReplay()
+        {
+            var list = Shown != null ? Shown.Violations : null;
+            int next = ReplayWindow.NextIndex(list, _replayIndex);
+            if (next >= 0) ShowReplay(next);
+        }
+
+        public string ReplayCaption(in ViolationRecord v, int index, int count)
+        {
+            var sb = new StringBuilder("Повтор нарушения");
+            if (count > 1) sb.Append(' ').Append(index + 1).Append(" из ").Append(count);
+            sb.Append('\n');
+            if (v.Severity == Severity.Critical) sb.Append("<color=#D23A2A>");
+            sb.Append(FormatTime(v.Start)).Append(" · ").Append(Name(v.Type));
+            if (v.Severity == Severity.Critical) sb.Append("</color>");
+            return sb.ToString();
+        }
+
+        private void StopReplay()
+        {
+            if (replay != null) replay.Stop();
+            _replayIndex = -1;
+            if (replayBlock != null) replayBlock.SetActive(false);
         }
 
         // «Повторить»: директор с начала; предметы, СИЗ и телепорт возвращают подписчики Restarted.
@@ -151,19 +211,26 @@ namespace Rubezh.UI
                 if (violationsCaption != null) violationsCaption.text = "нарушения";
                 if (violationsValue != null) { violationsValue.text = count.ToString(); violationsValue.color = Hex("#F2F0EA"); }
             }
-            if (table != null) table.text = Table(r);
+            if (table != null)
+            {
+                var size = table.rectTransform.sizeDelta;
+                table.rectTransform.sizeDelta = new Vector2(size.x, _replayIndex >= 0 ? TableHeightWithReplay : TableHeight);
+                table.text = Table(r);
+            }
         }
+
+        private int Rows => _replayIndex >= 0 ? MaxRowsWithReplay : MaxRows;
 
         public string Table(ExerciseResult r)
         {
             if (r.Violations == null || r.Violations.Count == 0) return "Нарушений нет";
             var rules = runner != null && runner.Director != null ? runner.Director.Rules : new ExerciseRules();
             var sb = new StringBuilder();
-            int shown = Mathf.Min(MaxRows, r.Violations.Count);
+            int shown = Mathf.Min(Rows, r.Violations.Count);
             for (int i = 0; i < shown; i++)
             {
                 var v = r.Violations[i];
-                string t = FormatTime(v.Time);
+                string t = FormatTime(v.Start);         // начало эпизода: у длящихся — на длительность раньше (VP-15)
                 if (v.Severity == Severity.Critical)
                     sb.Append("<color=#D23A2A>× грубое · ").Append(t).Append(" · ").Append(Name(v.Type)).Append(" · стоп</color>");
                 else
@@ -174,7 +241,7 @@ namespace Rubezh.UI
                 }
                 if (i < shown - 1) sb.Append('\n');
             }
-            if (r.Violations.Count > MaxRows) sb.Append("\nещё ").Append(r.Violations.Count - MaxRows);
+            if (r.Violations.Count > shown) sb.Append("\nещё ").Append(r.Violations.Count - shown);
             return sb.ToString();
         }
 
