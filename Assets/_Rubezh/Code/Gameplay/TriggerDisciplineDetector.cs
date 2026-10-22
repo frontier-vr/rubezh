@@ -19,6 +19,8 @@ namespace Rubezh.Gameplay
         private Core.TriggerDisciplineRule _rule;
 
         public Core.TriggerDisciplineRule Rule => _rule;
+        // Палец на спуске у руки на рукоятке, пока пистолет в руке (демо детекторов, VP-18).
+        public bool FingerOnTrigger { get; private set; }
 
         public void Configure(ExerciseRunner exerciseRunner, IHeldWeapon held, ITriggerInput left, ITriggerInput right)
         {
@@ -48,6 +50,7 @@ namespace Rubezh.Gameplay
         {
             if (_rule == null || _held == null) return;
             var input = _held.PrimaryHand == Hand.Left ? _left : _right;
+            FingerOnTrigger = _held.IsHeld && input != null && input.IsTouched;
             _rule.Tick(_held.IsHeld, input != null && input.IsTouched);
         }
     }
