@@ -29,6 +29,7 @@ namespace Rubezh.Tests.PlayMode
         private IXRSelectInteractor _right, _left;
         private readonly List<ViolationRecord> _violations = new List<ViolationRecord>();
         private readonly List<string> _log = new List<string>();
+        private VideoCapture _video;      // запись видео прогона (NG-20), только по EditorPrefs
 
         [UnitySetUp]
         public IEnumerator SetUp()
@@ -48,6 +49,7 @@ namespace Rubezh.Tests.PlayMode
             _log.Clear();
             _runner.ViolationRaised += OnViolation;
             _runner.PhaseChanged += OnPhase;
+            _video = VideoCapture.StartIfRequested(GameObject.Find("XR Origin (XR Rig)").transform, ((Component)_right).transform);
         }
 
         [UnityTearDown]
@@ -59,6 +61,7 @@ namespace Rubezh.Tests.PlayMode
                 _runner.PhaseChanged -= OnPhase;
             }
             Debug.Log("[FullRun]\n" + string.Join("\n", _log));
+            if (_video != null) Object.Destroy(_video.gameObject);
             var unload = SceneManager.UnloadSceneAsync(_scene);
             while (unload != null && !unload.isDone) yield return null;
             yield return null;
@@ -159,7 +162,9 @@ namespace Rubezh.Tests.PlayMode
                 destinationRotation = Quaternion.Euler(0, yaw, 0),
                 matchOrientation = MatchOrientation.TargetUpAndForward
             });
-            for (int i = 0; i < 4; i++) yield return null;
+            // Рука с пистолетом переезжает вместе с ригом и сразу целится по новому месту: при записи
+            // видео кадр — 1/30 с, и четыре кадра без прицела дали бы занос вне сектора.
+            for (int i = 0; i < 4; i++) { yield return null; if (_weapon.IsHeld) AimDownrange(); }
         }
 
         private IEnumerator WaitPhase(Phase phase, float seconds = 2f)
@@ -167,6 +172,7 @@ namespace Rubezh.Tests.PlayMode
             float t = 0;
             while (_runner.Phase != phase && t < seconds) { t += Time.deltaTime; yield return null; }
             Assert.AreEqual(phase, _runner.Phase, "ждали фазу " + phase + "; " + Report());
+            if (_video != null) yield return new WaitForSeconds(1.5f);   // в ролике видно табло и шкалу
         }
 
         private string Report() =>
@@ -329,6 +335,11 @@ namespace Rubezh.Tests.PlayMode
             yield return Take(_right, pistol);
             yield return Put(pistol, Object.FindFirstObjectByType<CabinetSocket>().GetComponent<XRSocketInteractor>());
             yield return WaitPhase(Phase.Done, 3f);
+            if (_video != null)
+            {
+                _video.Focus(GameObject.Find("R1").transform);
+                yield return new WaitForSeconds(6f);                       // экран результата у шкафа
+            }
 
             var result = _runner.Director.Result;
             _log.Add($"итог: {result.Verdict} {result.Score} время {result.TotalTime:0.0} попаданий {result.Hits}/{result.Shots}; {Report()}");
