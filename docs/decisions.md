@@ -72,3 +72,21 @@ found», а правило «проект открывается без ошиб
 
 **Следствие.** Подсказка `onb_pistol_buttons` (`docs/hints.md`) дополняется «стик: затвор с
 задержки» при правке сценария (`YG-14`).
+
+## Р-06 · 25.09 · Сборка под Quest — платформа Android с настройками профиля Meta Quest
+
+**Решение.** Активная платформа проекта — Android. Настройки, которые задаёт профиль сборки
+Meta Quest, выставлены в Player Settings явно: Vulkan, min API 29, target API 32, IL2CPP,
+ARM64, Stereo Rendering Path — Instancing; XR Plug-in Management → Android → OpenXR, группа
+Meta Quest Support (`MetaQuestFeature`, список устройств quest…quest3s), профиль контроллеров
+Oculus Touch, Automatic Dynamic Resolution. Пакет Unity OpenXR: Meta не ставим.
+
+**Почему.** Отдельный ассет профиля Meta Quest в Build Profiles создаётся, только если Unity Hub
+отметил платформу как установленную. У части команды Unity 6000.3.24f1 стоит без Hub (нет прав
+администратора), и такой профиль не создаётся, а настройки платформы Android с теми же значениями
+дают тот же APK: манифест с `com.oculus.intent.category.VR`, `android.hardware.vr.headtracking` и
+`com.oculus.supportedDevices`. Значения не зависят от того, у кого какой Hub.
+
+**Следствие.** Для сборки Android SDK Platform 32 обязателен (target API). Без Hub его ставит
+`sdkmanager "platforms;android-32"` из `AndroidPlayer/SDK/cmdline-tools`. Проверка APK:
+`aapt dump badging Builds/Rubezh.apk` — sdkVersion 29, targetSdkVersion 32.
