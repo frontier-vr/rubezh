@@ -31,3 +31,7 @@ MonoBehaviour:
   slideBackFraction: 0.9
   slideForwardFraction: 0.2
   slideLockedFraction: 0.8
+  dropHeight: 0.85
+  dropReturnSeconds: 1
+  ejectLockSeconds: 0.5
+  ejectSpeed: 0.6
