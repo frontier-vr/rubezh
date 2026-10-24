@@ -68,6 +68,10 @@ namespace Rubezh.Gameplay
         [Tooltip("Скорость, с которой выпущенный магазин выходит из шахты вниз, м/с")]
         [Min(0f)] public float ejectSpeed = 0.6f;
 
+        [Header("СИЗ (NG-10)")]
+        [Tooltip("Переход между снапшотами «Уши открыты» и «Наушники», с")]
+        [Min(0f)] public float earmuffsTransitionSeconds = 0.4f;
+
         public ExerciseRules ToRules() => new ExerciseRules
         {
             SeriesRounds = seriesRounds,
