@@ -31,6 +31,9 @@ namespace Rubezh.Core
         {
             Type = type; Severity = severity; Time = time; Duration = duration;
         }
+
+        // Начало эпизода: длящееся нарушение сообщается в конце, начало — на Duration раньше (VP-15, VP-17).
+        public double Start => System.Math.Max(0, Time - Duration);
     }
 
     public sealed class ExerciseResult

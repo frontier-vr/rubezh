@@ -163,7 +163,7 @@ namespace Rubezh.UI
             for (int i = 0; i < shown; i++)
             {
                 var v = r.Violations[i];
-                string t = FormatTime(v.Time);
+                string t = FormatTime(v.Start);         // начало эпизода: у длящихся — на длительность раньше (VP-15)
                 if (v.Severity == Severity.Critical)
                     sb.Append("<color=#D23A2A>× грубое · ").Append(t).Append(" · ").Append(Name(v.Type)).Append(" · стоп</color>");
                 else
