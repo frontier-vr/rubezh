@@ -8,9 +8,9 @@
 
 Детали описываются в осях Unity относительно корня (X вправо, Y вверх, Z — лицом к пользователю)
 и переводятся в Blender: (x, y, z) → (−x, −z, y). Мебель — лицевой стороной к −Y Blender.
-UV0 — кубическая проекция 1 м = 1 единица (под атлас YG-12), второй UV для lightmap — Generate
-Lightmap UVs в импорте Unity. Прозрачности нет; рассеиватель светильника — непрозрачный
-материал с эмиссией.
+UV0 — в ячейке атласа-палитры своего материала (YG-12, tools/blender/atlas.py): у всего окружения
+один материал ENV_Atlas и одна текстура 2048; второй UV для lightmap — Generate Lightmap UVs в
+импорте Unity. Прозрачности нет; рассеиватель светильника светится картой эмиссии атласа.
 
 Запуск: exec(open(r"B:\\Project-1\\tools\\blender\\env_final.py", encoding="utf-8").read())
 """
@@ -20,6 +20,7 @@ import bpy
 from mathutils import Matrix, Vector
 
 exec(open(r"B:\Project-1\tools\blender\rubezh_fbx.py", encoding="utf-8").read())
+exec(open(r"B:\Project-1\tools\blender\atlas.py", encoding="utf-8").read())
 
 SRC = r"B:\Project-1\Assets\_Rubezh\Art\Source~\Environment.blend"
 OUT = r"B:\Project-1\Assets\_Rubezh\Art\Environment"
@@ -38,7 +39,7 @@ MATS = {
 }
 
 BUDGET = {"Room": 6000, "Cabinet": 2000, "LineStand": 1500, "TargetRemote": 600,
-          "PrepTable": 1000, "PpeShelf": 1000, "AmmoTray": 1000}
+          "PrepTable": 1000, "PpeShelf": 1000, "AmmoTray": 1000, "Bench": 500}
 
 
 def srgb(h):
@@ -414,6 +415,24 @@ def line_stand():
     return c
 
 
+# ---------------------------------------------------------------- скамья O-13
+
+def bench():
+    c, r = collection("Bench")
+    # Имя меша — как у блок-модели («Bench.001»: корень уже зовётся Bench), за него держится коллайдер.
+    p = Part("Bench.001")
+    p.box((0, 0.43, 0), (0.6, 0.035, 0.36), "paint", bevel=0.006)                # сиденье, верх 0,45
+    for x in (-0.25, 0.25):
+        p.box((x, 0.21, 0.15), (0.035, 0.42, 0.035), "steel", bevel=0.004)      # ножки
+        p.box((x, 0.21, -0.15), (0.035, 0.42, 0.035), "steel", bevel=0.004)
+        p.box((x, 0.1, 0), (0.025, 0.025, 0.3), "steel")                       # перемычки
+        for z in (-0.15, 0.15):
+            p.box((x, 0.01, z), (0.045, 0.02, 0.045), "graphite")              # опоры
+    p.box((0, 0.1, 0), (0.48, 0.025, 0.025), "steel")
+    p.build(c, r)
+    return c
+
+
 # ---------------------------------------------------------------- пульт подачи мишени O-25
 
 def target_remote():
@@ -445,9 +464,12 @@ def build():
     sc.unit_settings.system = 'METRIC'
     sc.unit_settings.scale_length = 1.0
     makers = {"Room": room, "Cabinet": cabinet, "PpeShelf": ppe_shelf, "PrepTable": prep_table,
-              "AmmoTray": ammo_tray, "LineStand": line_stand, "TargetRemote": target_remote}
+              "AmmoTray": ammo_tray, "LineStand": line_stand, "TargetRemote": target_remote, "Bench": bench}
     for f in makers.values():
         f()
+    # YG-12: все модели — на один атлас-палитру 2048 (Art/Atlas/Env_Atlas.png), материал ENV_Atlas
+    missing = atlasize([o for o in bpy.data.objects if o.type == 'MESH'], ENV_CELLS, "ENV_Atlas")
+    assert not missing, missing
     bpy.context.view_layer.update()
     bpy.ops.wm.save_as_mainfile(filepath=SRC)
     report = {}

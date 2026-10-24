@@ -14,6 +14,9 @@ namespace Rubezh.Core
         public int MisfireShotMin = 3;              // осечка на выстреле из диапазона [Min, Max]
         public int MisfireShotMax = 4;
         public double MisfireWaitSeconds = 5;       // ждать после осечки до перезарядки, иначе JamMishandled
+        public double StovePipeChance = 0;          // вероятность прихвата гильзы за упражнение (VP-13); 0 — без него
+        public int StovePipeShotMin = 2;            // прихват на выстреле из диапазона [Min, Max], не на осечке
+        public int StovePipeShotMax = 5;
 
         // Балл и вердикт (FR-40, FR-41, VP-10)
         public double TimeLimitSeconds = 360;       // лимит цикла 6 минут
