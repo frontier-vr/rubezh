@@ -44,6 +44,20 @@ namespace Rubezh.Gameplay
         [Tooltip("Диаметр видимой пробоины с ободком, м: крупнее калибра, чтобы читалась с рубежа")]
         [Min(0.005f)] public float bulletHoleDiameter = 0.03f;
 
+        [Header("Пистолет в руке (NG-08)")]
+        [Tooltip("Нажатие спуска сильнее — TriggerPull. Выше запасного порога касания")]
+        [Range(0f, 1f)] public float triggerPullThreshold = 0.75f;
+        [Tooltip("Нажатие спуска слабее — TriggerRelease; следующий выстрел только после отпускания")]
+        [Range(0f, 1f)] public float triggerReleaseThreshold = 0.4f;
+        [Tooltip("Полный ход затвора назад, м")]
+        [Min(0.005f)] public float slideTravel = 0.03f;
+        [Tooltip("Затвор отведён на эту долю хода — SlideBack")]
+        [Range(0.5f, 1f)] public float slideBackFraction = 0.9f;
+        [Tooltip("Отведённый затвор, вернувшийся рукой ближе этой доли хода, — SlideForward")]
+        [Range(0f, 0.5f)] public float slideForwardFraction = 0.2f;
+        [Tooltip("Положение затвора на задержке, доля хода")]
+        [Range(0.5f, 1f)] public float slideLockedFraction = 0.8f;
+
         public ExerciseRules ToRules() => new ExerciseRules
         {
             SeriesRounds = seriesRounds,
