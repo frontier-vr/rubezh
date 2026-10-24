@@ -25,6 +25,34 @@ MonoBehaviour:
   misfireWaitSeconds: 5
   bulletHolePoolSize: 10
   bulletHoleDiameter: 0.03
+  timeLimitSeconds: 360
+  overTimeStepSeconds: 10
+  overTimePenaltyPerStep: 2
+  overTimePenaltyMax: 20
+  missPenalty: 3
+  passScore: 80
+  remarksScore: 60
+  penalties:
+  - violation: 0
+    points: 10
+  - violation: 1
+    points: 10
+  - violation: 3
+    points: 15
+  - violation: 4
+    points: 15
+  - violation: 5
+    points: 5
+  - violation: 6
+    points: 10
+  - violation: 10
+    points: 15
+  - violation: 11
+    points: 5
+  - violation: 12
+    points: 10
+  hintIdleSeconds: 5
+  failResultDelaySeconds: 4
   triggerPullThreshold: 0.75
   triggerReleaseThreshold: 0.4
   slideTravel: 0.03
@@ -35,4 +63,10 @@ MonoBehaviour:
   dropReturnSeconds: 1
   ejectLockSeconds: 0.5
   ejectSpeed: 0.6
+  casingPoolSize: 10
+  casingFlightSeconds: 0.45
+  casingAimMaxDistance: 2
+  casingReturnSeconds: 1
+  targetCarriageSpeed: 1.5
+  targetTurnSeconds: 0.6
   earmuffsTransitionSeconds: 0.4

@@ -39,10 +39,11 @@ namespace Rubezh.Core
         public readonly bool EarmuffsOn;
         public readonly bool GlassesOn;
         public readonly bool TargetSupplied;
+        public readonly int CasingsOutsideCatcher;  // гильзы вне гильзоуловителя (VP-19), для CasingLeft при сдаче
 
         public ExerciseFacts(bool pistolInHand, WeaponState weapon, int magazineRounds,
                              Place pistolPlace, Place magazinePlace,
-                             bool earmuffsOn, bool glassesOn, bool targetSupplied)
+                             bool earmuffsOn, bool glassesOn, bool targetSupplied, int casingsOutsideCatcher = 0)
         {
             PistolInHand = pistolInHand;
             Weapon = weapon;
@@ -52,6 +53,7 @@ namespace Rubezh.Core
             EarmuffsOn = earmuffsOn;
             GlassesOn = glassesOn;
             TargetSupplied = targetSupplied;
+            CasingsOutsideCatcher = casingsOutsideCatcher;
         }
 
         // Стартовое состояние упражнения: пистолет в шкафу с пустым магазином.

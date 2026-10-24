@@ -94,7 +94,9 @@ namespace Rubezh.Core
         {
             if (_slide == Slide.HeldBack) return false;
 
-            bool casing = _chamber == Chamber.Spent;
+            // Гильза — стреляная (прихват) или осечный патрон: он тоже вылетает и считается гильзой
+            // для CasingLeft (VP-19). Живой патрон при разряжании просто уходит из патронника.
+            bool casing = _chamber == Chamber.Spent || (_chamber == Chamber.Loaded && _jam == Jam.Misfire);
             // Подаватель пустого магазина поднимает задержку сам; без магазина по VP-03 — тоже.
             Slide target = _magazineInserted && _rounds > 0 ? Slide.HeldBack : Slide.Locked;
             bool changed = _slide != target || _chamber != Chamber.Empty || _jam != Jam.None;
