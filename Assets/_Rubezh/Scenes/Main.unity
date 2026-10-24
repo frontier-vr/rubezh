@@ -254,6 +254,8 @@ GameObject:
   - component: {fileID: 86666976}
   - component: {fileID: 86666978}
   - component: {fileID: 86666979}
+  - component: {fileID: 86666981}
+  - component: {fileID: 86666980}
   m_Layer: 0
   m_Name: Exercise
   m_TagString: Untagged
@@ -427,6 +429,40 @@ MonoBehaviour:
   runner: {fileID: 86666974}
   teleportation: {fileID: 1068494049}
   anchorA1: {fileID: 1491230178}
+--- !u!114 &86666980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86666970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7c254b0d934fb468f563c2e6ce8b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.XR::Rubezh.XR.HintActivityFeed
+  manager: {fileID: 467654925}
+  hints: {fileID: 86666981}
+  roundLayer: 3
+--- !u!114 &86666981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86666970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53c49adfe4ce77344b6ce92ff4b1f4d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.Gameplay::Rubezh.Gameplay.HintDirector
+  runner: {fileID: 86666974}
+  rules: {fileID: 11400000, guid: 816dcb8f7ad65f54dbdbf047b15c7444, type: 2}
+  hintRules: {fileID: 4900000, guid: 05b0dab378a9e874b960f9c4e7ae5d29, type: 3}
+  script: {fileID: 4900000, guid: 6aae39083bab8bb45a55e598f61ac111, type: 3}
+  facts: {fileID: 86666976}
+  anchors: {fileID: 86666977}
+  weapon: {fileID: 184705498}
 --- !u!1 &90912525
 GameObject:
   m_ObjectHideFlags: 0
