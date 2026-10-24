@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Rubezh.Gameplay
 {
     // Снимок мира для директора (user-flow.md §4.1) раз в кадр, после ввода и интеракций:
-    // пистолет в руке и его состояние, магазин и его место, СИЗ (NG-10), мишень (NG-12).
+    // пистолет в руке и его состояние, магазин и его место, СИЗ (NG-10), мишень (NG-12), гильзы (VP-19).
     // Источник, которого ещё нет в сцене, даёт «нет».
     [DefaultExecutionOrder(100)]
     public sealed class ExerciseFactsCollector : MonoBehaviour
@@ -21,6 +21,8 @@ namespace Rubezh.Gameplay
         [SerializeField] private MonoBehaviour wearables;
         [Tooltip("ITargetSupply (NG-12)")]
         [SerializeField] private MonoBehaviour target;
+        [Tooltip("ICasingCounter (VP-19)")]
+        [SerializeField] private MonoBehaviour casings;
 
         public ExerciseFacts Last { get; private set; }
 
@@ -35,6 +37,8 @@ namespace Rubezh.Gameplay
             wearables = wear as MonoBehaviour;
             target = targetSupply as MonoBehaviour;
         }
+
+        public void SetCasings(ICasingCounter counter) => casings = counter as MonoBehaviour;
 
         private void LateUpdate()
         {
@@ -55,7 +59,8 @@ namespace Rubezh.Gameplay
                 magazinePlace is IPlaced m ? m.Place : Place.Unknown,
                 wear != null && wear.EarmuffsOn,
                 wear != null && wear.GlassesOn,
-                target is ITargetSupply t && t.Supplied);
+                target is ITargetSupply t && t.Supplied,
+                casings is ICasingCounter c ? c.CasingsOutsideCatcher : 0);
         }
     }
 }
