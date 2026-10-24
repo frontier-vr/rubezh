@@ -78,6 +78,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1893375914823482330, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3454189113070292244}
+    - targetCorrespondingSourceObject: {fileID: 1893375914823482330, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1370871683542630731}
     - targetCorrespondingSourceObject: {fileID: 4780158813348293858, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1175994597946158594}
@@ -87,6 +90,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7031196483599162964, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7539597344602372364}
+    - targetCorrespondingSourceObject: {fileID: 2160650894464839994, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2510447643375685082}
+    - targetCorrespondingSourceObject: {fileID: 2160650894464839994, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 845632270729308980}
+    - targetCorrespondingSourceObject: {fileID: 2160650894464839994, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8509782166307943375}
+    - targetCorrespondingSourceObject: {fileID: 2160650894464839994, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5456138759596998595}
     - targetCorrespondingSourceObject: {fileID: 4785783223421214065, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1392626094307790356}
@@ -298,6 +313,11 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.025
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &5621541581550951097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4402707741160445260, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+  m_PrefabInstance: {fileID: 8294000032157634549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6107519752051384810 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2871169896528604703, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
@@ -384,7 +404,7 @@ MonoBehaviour:
   - {fileID: 1175994597946158594}
   - {fileID: 7539597344602372364}
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 2
   m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_FocusMode: 1
@@ -759,3 +779,123 @@ MonoBehaviour:
       m_ManualQueueTargetFrame: 0
     locomotionManager: {fileID: 0}
     stickActions: []
+--- !u!114 &1370871683542630731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7592130302860915759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a3029d3b5335b0448b3619d6c2b8ac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.XR::Rubezh.XR.ItemReturn
+  runner: {fileID: 0}
+  rules: {fileID: 11400000, guid: 816dcb8f7ad65f54dbdbf047b15c7444, type: 2}
+  anchors: {fileID: 0}
+  start: {fileID: 0}
+  homes: []
+--- !u!1 &7991102761852829391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2160650894464839994, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+  m_PrefabInstance: {fileID: 8294000032157634549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &2510447643375685082
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7991102761852829391}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.04
+  m_Center: {x: 0, y: -0.07, z: 0}
+--- !u!114 &845632270729308980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7991102761852829391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor
+  m_InteractionManager: {fileID: 0}
+  m_InteractionLayers:
+    m_Bits: 4
+  m_Handedness: 0
+  m_AttachTransform: {fileID: 5621541581550951097}
+  m_KeepSelectedTargetValid: 1
+  m_DisableVisualsWhenBlockedInGroup: 1
+  m_StartingSelectedInteractable: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 0}
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_ShowInteractableHoverMeshes: 0
+  m_InteractableHoverMeshMaterial: {fileID: 0}
+  m_InteractableCantHoverMeshMaterial: {fileID: 0}
+  m_SocketActive: 1
+  m_InteractableHoverScale: 1
+  m_RecycleDelayTime: 1
+  m_HoverSocketSnapping: 1
+  m_SocketSnappingRadius: 0.1
+  m_SocketScaleMode: 0
+  m_FixedScale: {x: 1, y: 1, z: 1}
+  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+--- !u!114 &8509782166307943375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7991102761852829391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d40fa0acd92dd34d819144a5ca54858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.XR::Rubezh.XR.MagWell
+  weapon: {fileID: 2753239614958404071}
+  runner: {fileID: 0}
+  rules: {fileID: 11400000, guid: 816dcb8f7ad65f54dbdbf047b15c7444, type: 2}
+--- !u!114 &5456138759596998595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7991102761852829391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b98101ce0d85cd41ba680ae3cb27855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.XR::Rubezh.XR.PlaceSocket
+  place: 6
+  anchor: 0
