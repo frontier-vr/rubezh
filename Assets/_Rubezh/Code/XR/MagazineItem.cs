@@ -23,6 +23,9 @@ namespace Rubezh.XR
         [SerializeField] private XRSocketInteractor[] roundSockets = new XRSocketInteractor[0];
         [SerializeField] private GameObject[] roundVisuals = new GameObject[0];
         [SerializeField] private Transform follower;
+        [Tooltip("Щелчок патрона в магазине (MM-09), в группе SFX")]
+        [SerializeField] private AudioSource clickSource;
+        [SerializeField] private AudioClip roundInsert;
 
         private XRGrabInteractable _grab;
         private WeaponController _inWeapon;
@@ -110,6 +113,7 @@ namespace Rubezh.XR
                 else round.transform.gameObject.SetActive(false);
                 if (_rounds < Capacity) _rounds++;
                 if (runner != null) runner.ReportAction(ExerciseAction.InsertRound);
+                if (clickSource != null && roundInsert != null) clickSource.PlayOneShot(roundInsert);
             }
             _seated.Clear();
             Refresh();
