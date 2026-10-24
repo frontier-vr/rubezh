@@ -15,6 +15,7 @@ _PALETTE = r"B:\Project-1\tools\art\palette_atlas.py"
 _pal = {"__file__": _PALETTE}
 exec(open(_PALETTE, encoding="utf-8").read().split("def rgb")[0], _pal)
 ENV_CELLS = [c[0] for c in _pal["ENV_CELLS"]]
+WEAPON_CELLS = [c[0] for c in _pal["WEAPON_CELLS"]]
 GRID = _pal["GRID"]
 
 
@@ -33,20 +34,34 @@ def atlas_material(name):
     return m
 
 
-def atlasize(objects, cells, material_name, pad=0.04):
-    """Все грани objects — в ячейки атласа по имени их материала; один материал material_name."""
+def atlasize(objects, cells, material_name, pad=0.04, keep=()):
+    """Все грани objects — в ячейки атласа по имени их материала; один материал material_name.
+    Материалы из keep (свои текстуры: мишенный лист, вспышка) остаются отдельными слотами, их UV не трогаем."""
     mat = atlas_material(material_name)
     missing = set()
+    done = set()
     for ob in objects:
-        if ob.type != 'MESH':
+        if ob.type != 'MESH' or ob.data.name in done:
             continue
         me = ob.data
+        done.add(me.name)          # общий меш (патроны магазина) — один раз
         names = [s.material.name if s.material else '' for s in ob.material_slots]
         bm = bmesh.new()
         bm.from_mesh(me)
         uv = bm.loops.layers.uv.active or bm.loops.layers.uv.new('UVMap')
+        kept = [n for n in dict.fromkeys(names) if n in keep]
+        # Слот атласа — первым, если на атлас идёт хоть одна грань (лист мишени — целиком свой).
+        face_names = [names[f.material_index] if f.material_index < len(names) else '' for f in bm.faces]
+        uses_atlas = any(n not in keep for n in face_names)
+        first = 1 if uses_atlas else 0
         for f in bm.faces:
             name = names[f.material_index] if f.material_index < len(names) else ''
+            if name in keep:
+                f.material_index = first + kept.index(name)
+                continue
+            if name == material_name:          # уже на атласе (повторный прогон) — UV не трогаем
+                f.material_index = 0
+                continue
             if name not in cells:
                 missing.add(name)
                 index = 0
@@ -65,6 +80,10 @@ def atlasize(objects, cells, material_name, pad=0.04):
             f.material_index = 0
         bm.to_mesh(me)
         bm.free()
+        old = {s.material.name: s.material for s in ob.material_slots if s.material}
         me.materials.clear()
-        me.materials.append(mat)
+        if uses_atlas:
+            me.materials.append(mat)
+        for n in kept:
+            me.materials.append(old[n])
     return sorted(missing)

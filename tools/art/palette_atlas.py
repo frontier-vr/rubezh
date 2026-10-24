@@ -1,4 +1,4 @@
-"""Атласы-палитры Рубежа (YG-12: окружение 2048).
+"""Атласы-палитры Рубежа (YG-12: окружение 2048; MM-13: оружие и снаряжение 1024).
 
 Атлас — сетка ячеек, в каждой цвет палитры (docs/palette.md) с лёгкой фактурой: бетон — крапом,
 сталь — шлифовкой, краска — едва заметным шумом. Грани моделей получают UV внутри «своей»
@@ -31,6 +31,23 @@ ENV_CELLS = [
     ('ENV_Graphite', '#1D2228', 'paint'),
     ('ENV_LampDiffuser', '#F2F0EA', 'flat'),
 ]
+# MM-13: оружие и снаряжение, 1024. Мишенный лист и вспышка — свои материалы (печать и эмиссия).
+WEAPON_CELLS = [
+    ('MM_Pistol_Polymer', '#1E2124', 'paint'),
+    ('MM_Pistol_Steel', '#5C636B', 'brushed'),
+    ('MM_Pistol_Control', '#C8691E', 'paint'),
+    ('MM_Brass', '#C79A44', 'brushed'),
+    ('MM_Copper', '#B5653A', 'brushed'),
+    ('MM_Magazine_Follower', '#C8691E', 'paint'),
+    ('PPE_Earmuffs', '#2B2F33', 'paint'),
+    ('PPE_Cushion', '#1E2124', 'plaster'),
+    ('PPE_GlassesFrame', '#23272B', 'paint'),
+    ('PPE_GlassesLens', '#6E7E86', 'lens'),
+    ('MM_Target_Steel', '#A3AAB0', 'brushed'),
+    ('MM_Target_Dark', '#4B535B', 'paint'),
+    ('MM_Target_Cable', '#1E2124', 'paint'),
+]
+
 
 def rgb(h):
     h = h.lstrip('#')
@@ -49,9 +66,10 @@ def texel(kind, base, x, y, n, rng_cache):
     elif kind == 'brushed':
         k = 1.0 + rng_cache[(y * 31) % len(rng_cache)] * 0.06 + rng_cache[(x * 3 + y * 17) % len(rng_cache)] * 0.015
     elif kind == 'lens':
-        # Непрозрачное стекло с бликом по диагонали (YG-10: блик на текстуре вместо прозрачности).
-        d = (x + y) / (2.0 * n)
-        k = 0.9 + 0.5 * max(0.0, 1.0 - abs(d - 0.35) * 14) + 0.25 * max(0.0, 1.0 - abs(d - 0.5) * 30)
+        # Непрозрачное стекло с бликом (YG-10: блик на текстуре вместо прозрачности): горизонтальная
+        # светлая полоса в верхней трети — на гнутой линзе из узких граней она идёт сплошной лентой.
+        d = y / float(n)
+        k = 0.85 + 0.55 * max(0.0, 1.0 - abs(d - 0.3) * 9) + 0.15 * (1.0 - d)
     else:   # paint
         k = 1.0 + rng_cache[(x * 5 + y * 9) % len(rng_cache)] * 0.02
     return [max(0, min(255, int(c * k))) for c in base]
@@ -105,6 +123,7 @@ def emission(cells, size, lit):
 def main():
     write_png(os.path.join(ROOT, 'Env_Atlas.png'), 2048, 2048, atlas(ENV_CELLS, 2048, 12))
     write_png(os.path.join(ROOT, 'Env_Atlas_Emission.png'), 256, 256, emission(ENV_CELLS, 256, {'ENV_LampDiffuser'}))
+    write_png(os.path.join(ROOT, 'Weapon_Atlas.png'), 1024, 1024, atlas(WEAPON_CELLS, 1024, 13))
     print('ok')
 
 
