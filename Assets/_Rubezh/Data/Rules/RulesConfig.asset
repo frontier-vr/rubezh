@@ -16,3 +16,4 @@ MonoBehaviour:
   sectorGraceSeconds: 1.5
   sectorJitterSeconds: 0.1
   touchThreshold: 0.05
+  triggerTouchMinSeconds: 0.15
