@@ -8,9 +8,9 @@
 
 Детали описываются в осях Unity относительно корня (X вправо, Y вверх, Z — лицом к пользователю)
 и переводятся в Blender: (x, y, z) → (−x, −z, y). Мебель — лицевой стороной к −Y Blender.
-UV0 — кубическая проекция 1 м = 1 единица (под атлас YG-12), второй UV для lightmap — Generate
-Lightmap UVs в импорте Unity. Прозрачности нет; рассеиватель светильника — непрозрачный
-материал с эмиссией.
+UV0 — в ячейке атласа-палитры своего материала (YG-12, tools/blender/atlas.py): у всего окружения
+один материал ENV_Atlas и одна текстура 2048; второй UV для lightmap — Generate Lightmap UVs в
+импорте Unity. Прозрачности нет; рассеиватель светильника светится картой эмиссии атласа.
 
 Запуск: exec(open(r"B:\\Project-1\\tools\\blender\\env_final.py", encoding="utf-8").read())
 """
@@ -20,6 +20,7 @@ import bpy
 from mathutils import Matrix, Vector
 
 exec(open(r"B:\Project-1\tools\blender\rubezh_fbx.py", encoding="utf-8").read())
+exec(open(r"B:\Project-1\tools\blender\atlas.py", encoding="utf-8").read())
 
 SRC = r"B:\Project-1\Assets\_Rubezh\Art\Source~\Environment.blend"
 OUT = r"B:\Project-1\Assets\_Rubezh\Art\Environment"
@@ -448,6 +449,9 @@ def build():
               "AmmoTray": ammo_tray, "LineStand": line_stand, "TargetRemote": target_remote}
     for f in makers.values():
         f()
+    # YG-12: все модели — на один атлас-палитру 2048 (Art/Atlas/Env_Atlas.png), материал ENV_Atlas
+    missing = atlasize([o for o in bpy.data.objects if o.type == 'MESH'], ENV_CELLS, "ENV_Atlas")
+    assert not missing, missing
     bpy.context.view_layer.update()
     bpy.ops.wm.save_as_mainfile(filepath=SRC)
     report = {}
