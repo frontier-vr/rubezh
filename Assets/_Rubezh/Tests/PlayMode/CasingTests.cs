@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using NUnit.Framework;
 using Rubezh.Core;
 using Rubezh.Gameplay;
@@ -155,6 +156,29 @@ namespace Rubezh.Tests.PlayMode
             Assert.Less(Vector3.Distance(first.transform.position, _shelf.position), 0.12f, "гильза с пола — на полочке O-21");
             Assert.AreEqual(second.transform.position, _catcher.position, "гильзу в уловителе не трогаем");
             Assert.AreEqual(1, _casings.CasingsOutsideCatcher, "вне уловителя — только гильза на полочке");
+        }
+
+        // Финальный гильзоуловитель YG-10 — короб с поддоном на 0,73: гильза падает на поддон,
+        // остаётся там и считается в уловителе.
+        [UnityTest]
+        public IEnumerator Casing_SettlesOnCatcherTray()
+        {
+            var tray = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            tray.transform.SetParent(_root.transform, false);
+            tray.transform.position = new Vector3(0.95f, 0.72f, 3.95f);
+            tray.transform.localScale = new Vector3(0.36f, 0.02f, 0.46f);
+            foreach (var x in new[] { 0.76f, 1.14f })                         // стенки короба
+            {
+                var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                wall.transform.SetParent(_root.transform, false);
+                wall.transform.position = new Vector3(x, x > 1f ? 0.6f : 0.42f, 3.95f);
+                wall.transform.localScale = new Vector3(0.02f, x > 1f ? 1.12f : 0.76f, 0.5f);
+            }
+            LoadAndFire(1);
+            yield return new WaitForSeconds(2f);
+            Assert.AreEqual(0, _casings.CasingsOutsideCatcher, "гильза в уловителе");
+            var casing = Object.FindObjectsByType<Rigidbody>(FindObjectsSortMode.None).First(r => r.name.StartsWith("Casing") && r.gameObject.activeSelf);
+            Assert.That(casing.position.y, Is.InRange(0.72f, 0.8f), "лежит на поддоне, а не висит над ним");
         }
 
         [UnityTest]
