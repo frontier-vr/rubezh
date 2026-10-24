@@ -58,6 +58,16 @@ namespace Rubezh.Gameplay
         [Tooltip("Положение затвора на задержке, доля хода")]
         [Range(0.5f, 1f)] public float slideLockedFraction = 0.8f;
 
+        [Header("Магазин, патроны, места (NG-09)")]
+        [Tooltip("Предмет ниже этой высоты и не в руке — упал (все столешницы выше), м")]
+        [Min(0f)] public float dropHeight = 0.85f;
+        [Tooltip("Упавший предмет через столько секунд возвращается на своё место у текущего якоря, с")]
+        [Min(0f)] public float dropReturnSeconds = 1f;
+        [Tooltip("После выпуска магазина шахта не принимает его обратно столько секунд, с")]
+        [Min(0f)] public float ejectLockSeconds = 0.5f;
+        [Tooltip("Скорость, с которой выпущенный магазин выходит из шахты вниз, м/с")]
+        [Min(0f)] public float ejectSpeed = 0.6f;
+
         public ExerciseRules ToRules() => new ExerciseRules
         {
             SeriesRounds = seriesRounds,

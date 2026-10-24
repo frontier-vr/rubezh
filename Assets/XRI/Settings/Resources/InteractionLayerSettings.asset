@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.InteractionLayerSettings
   m_LayerNames:
   - Default
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Pistol
+  - Magazine
+  - Round
+  - Earmuffs
+  - Glasses
   - 
   - 
   - 
