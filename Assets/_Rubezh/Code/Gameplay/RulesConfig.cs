@@ -38,6 +38,12 @@ namespace Rubezh.Gameplay
         [Tooltip("После осечки ждать, не уводя ствол из сектора, до перезарядки; раньше — JamMishandled, с")]
         [Min(0f)] public float misfireWaitSeconds = 5f;
 
+        [Header("Пробоины (VP-23)")]
+        [Tooltip("Сколько пробоин держит пул; новая сверх пула занимает место самой старой")]
+        [Min(1)] public int bulletHolePoolSize = 10;
+        [Tooltip("Диаметр видимой пробоины с ободком, м: крупнее калибра, чтобы читалась с рубежа")]
+        [Min(0.005f)] public float bulletHoleDiameter = 0.03f;
+
         public ExerciseRules ToRules() => new ExerciseRules
         {
             SeriesRounds = seriesRounds,
