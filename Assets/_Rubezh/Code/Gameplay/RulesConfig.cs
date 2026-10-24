@@ -79,6 +79,12 @@ namespace Rubezh.Gameplay
         [Tooltip("Подсказка включается после стольких секунд без действий пользователя, с")]
         [Min(0f)] public float hintIdleSeconds = 5f;
 
+        [Header("Выноски у контроллера (NG-32)")]
+        [Tooltip("Сколько держится замечание о мелком нарушении, с")]
+        [Min(0.5f)] public float calloutRemarkSeconds = 3f;
+        [Tooltip("Выноска онбординга снимается действием или через столько секунд")]
+        [Min(0.5f)] public float calloutOnboardingSeconds = 8f;
+
         [Header("Подсветка (VP-21)")]
         [Tooltip("Частота пульсации подсветки, Гц")]
         [Min(0.1f)] public float highlightPulseHz = 1.2f;
