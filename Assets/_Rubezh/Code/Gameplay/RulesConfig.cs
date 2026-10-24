@@ -23,12 +23,21 @@ namespace Rubezh.Gameplay
         [Tooltip("Касание спуска короче этого вне «Огонь» нарушением не считается, с")]
         [Min(0f)] public float triggerTouchMinSeconds = 0.15f;
 
+        [Header("Взгляд в ствол (VP-07)")]
+        [Tooltip("Взгляд в дульный срез дольше этого — грубое нарушение, с")]
+        [Min(0f)] public float muzzleLookSeconds = 0.2f;
+        [Tooltip("Дальность луча из камеры до дульного среза, м")]
+        [Min(0.1f)] public float muzzleLookMaxDistance = 0.7f;
+        [Tooltip("Камера в этом конусе вокруг оси ствола — смотрит «в ствол», а не сбоку, градусы")]
+        [Range(5f, 60f)] public float muzzleLookConeDegrees = 30f;
+
         public ExerciseRules ToRules() => new ExerciseRules
         {
             SeriesRounds = seriesRounds,
             SectorGraceSeconds = sectorGraceSeconds,
             SectorJitterSeconds = sectorJitterSeconds,
-            TriggerTouchMinSeconds = triggerTouchMinSeconds
+            TriggerTouchMinSeconds = triggerTouchMinSeconds,
+            MuzzleLookSeconds = muzzleLookSeconds
         };
     }
 }
