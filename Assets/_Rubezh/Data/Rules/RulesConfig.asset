@@ -65,4 +65,6 @@ MonoBehaviour:
   casingFlightSeconds: 0.45
   casingAimMaxDistance: 2
   casingReturnSeconds: 1
+  targetCarriageSpeed: 1.5
+  targetTurnSeconds: 0.6
   earmuffsTransitionSeconds: 0.4
