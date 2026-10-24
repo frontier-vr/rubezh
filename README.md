@@ -112,7 +112,7 @@ git config mergetool.keepBackup false
 
 ```
 Assets/_Rubezh/
-├─ Art/            Source (*.blend), Weapon, Equipment, Target, Environment, Atlas
+├─ Art/            Source~ (*.blend, Unity не импортирует), Weapon, Equipment, Target, Environment, Atlas
 ├─ Audio/          Mixer, SFX, Voice, Ambience
 ├─ Code/           Core, Gameplay, XR, UI (по asmdef на папку)
 ├─ Data/           Rules (RulesConfig), Hints (фразы и подсказки)
