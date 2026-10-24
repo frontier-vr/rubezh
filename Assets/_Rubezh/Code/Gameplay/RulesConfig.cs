@@ -20,12 +20,15 @@ namespace Rubezh.Gameplay
         [Header("Палец на спуске (NG-05, VP-06)")]
         [Tooltip("Запасной порог касания, если у контроллера нет ёмкостного датчика: нажатие сильнее — палец на спуске. Ниже порога выстрела")]
         [Range(0f, 1f)] public float touchThreshold = 0.05f;
+        [Tooltip("Касание спуска короче этого вне «Огонь» нарушением не считается, с")]
+        [Min(0f)] public float triggerTouchMinSeconds = 0.15f;
 
         public ExerciseRules ToRules() => new ExerciseRules
         {
             SeriesRounds = seriesRounds,
             SectorGraceSeconds = sectorGraceSeconds,
-            SectorJitterSeconds = sectorJitterSeconds
+            SectorJitterSeconds = sectorJitterSeconds,
+            TriggerTouchMinSeconds = triggerTouchMinSeconds
         };
     }
 }
