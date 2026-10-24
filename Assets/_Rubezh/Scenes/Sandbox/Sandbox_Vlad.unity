@@ -1594,6 +1594,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1893375914823482330, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1358593080}
+    - targetCorrespondingSourceObject: {fileID: 1893375914823482330, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1358593083}
+    - targetCorrespondingSourceObject: {fileID: 1893375914823482330, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1358593082}
   m_SourcePrefab: {fileID: 100100000, guid: 4944f52c2235b0841b24f53ca540f6c5, type: 3}
 --- !u!1 &1358593078 stripped
 GameObject:
@@ -1644,6 +1650,37 @@ MonoBehaviour:
   yawSpeed: 90
   runner: {fileID: 371393840}
   sector: {fileID: 1358593080}
+  primaryHand: 1
+--- !u!114 &1358593082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358593078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f442066d484944caca2975464bda17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.Gameplay::Rubezh.Gameplay.TriggerDisciplineDetector
+  runner: {fileID: 371393840}
+  heldWeapon: {fileID: 1358593081}
+  leftTrigger: {fileID: 1358593083}
+  rightTrigger: {fileID: 1358593083}
+--- !u!114 &1358593083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358593078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e7cde2b90370a4fb0bcfee006e6cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.Sandbox::Rubezh.Sandbox.TriggerInputStub
+  touched: 0
+  press: 0
 --- !u!1 &1670585502
 GameObject:
   m_ObjectHideFlags: 0

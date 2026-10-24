@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 namespace Rubezh.Sandbox
 {
     // Заглушка пистолета в руке для песочниц без шлема: клавиши вместо XR.
-    // H — взять/положить, L — снарядить/разрядить, Q/E — развернуть ствол, R — Restart.
+    // H — взять/положить, L — снарядить/разрядить, Q/E — развернуть ствол, R — Restart;
+    // палец на спуске — T (TriggerInputStub).
     public sealed class HeldWeaponStub : MonoBehaviour, IHeldWeapon
     {
         [SerializeField] private bool held = true;
@@ -15,7 +16,10 @@ namespace Rubezh.Sandbox
         [SerializeField] private ExerciseRunner runner;
         [SerializeField] private SectorDetector sector;
 
+        [SerializeField] private Hand primaryHand = Hand.Right;
+
         public bool IsHeld => held;
+        public Hand PrimaryHand => primaryHand;
         public WeaponState State => loaded
             ? new WeaponState(true, 4, Chamber.Loaded, false, false, Jam.None)
             : new WeaponState(false, 0, Chamber.Empty, true, true, Jam.None);
