@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 86666979}
   - component: {fileID: 86666981}
   - component: {fileID: 86666980}
+  - component: {fileID: 86666982}
   m_Layer: 0
   m_Name: Exercise
   m_TagString: Untagged
@@ -464,6 +465,22 @@ MonoBehaviour:
   facts: {fileID: 86666976}
   anchors: {fileID: 86666977}
   weapon: {fileID: 184705498}
+--- !u!114 &86666982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86666970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4f51d42cb9af6e4dab5026216c74b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.Highlighter
+  hints: {fileID: 86666981}
+  rules: {fileID: 11400000, guid: 816dcb8f7ad65f54dbdbf047b15c7444, type: 2}
+  highlight: {fileID: 2100000, guid: fe76d818a85b3da4f87ecb6cdbe11826, type: 2}
+  color: {r: 0.1215686, g: 0.7137255, b: 0.7882353, a: 1}
 --- !u!1 &90912525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,6 +1059,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1281675859538394933, guid: 18216fb3bc3059e428e646d838da46a3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 171976831}
+    - targetCorrespondingSourceObject: {fileID: 4874075857838613784, guid: 18216fb3bc3059e428e646d838da46a3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 754844909}
   m_SourcePrefab: {fileID: 100100000, guid: 18216fb3bc3059e428e646d838da46a3, type: 3}
 --- !u!4 &171976827 stripped
 Transform:
@@ -1260,7 +1280,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7592130302860915759, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1737080462}
+    - targetCorrespondingSourceObject: {fileID: 6021842342787910302, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1167204046}
+    - targetCorrespondingSourceObject: {fileID: 6160207862485998126, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1167204045}
+    - targetCorrespondingSourceObject: {fileID: 502103708215791024, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1167204044}
   m_SourcePrefab: {fileID: 100100000, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
 --- !u!135 &184705497 stripped
 SphereCollider:
@@ -1272,7 +1304,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2753239614958404071, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
   m_PrefabInstance: {fileID: 184705496}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1167204043}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a642b32767642e849b156eeb5813462a, type: 3}
@@ -1283,7 +1315,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5091544593954636497, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
   m_PrefabInstance: {fileID: 184705496}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1167204043}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23cf53425a45abf4db57649d0fa1f7a8, type: 3}
@@ -1538,14 +1570,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5231214052579465104, guid: bfc02d9acf7687840863b10f2959bf0c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 262190046}
   m_SourcePrefab: {fileID: 100100000, guid: bfc02d9acf7687840863b10f2959bf0c, type: 3}
 --- !u!114 &262190043 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5524015140312981971, guid: bfc02d9acf7687840863b10f2959bf0c, type: 3}
   m_PrefabInstance: {fileID: 262190042}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 262190045}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
@@ -1556,6 +1591,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4887199281741008170, guid: bfc02d9acf7687840863b10f2959bf0c, type: 3}
   m_PrefabInstance: {fileID: 262190042}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &262190045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5231214052579465104, guid: bfc02d9acf7687840863b10f2959bf0c, type: 3}
+  m_PrefabInstance: {fileID: 262190042}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &262190046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262190045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: Earmuffs
+  mode: 0
 --- !u!1 &265022380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1787,6 +1841,7 @@ GameObject:
   - component: {fileID: 625134525}
   - component: {fileID: 625134524}
   - component: {fileID: 625134523}
+  - component: {fileID: 625134527}
   m_Layer: 0
   m_Name: Anchor_Prep
   m_TagString: Untagged
@@ -1971,6 +2026,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625134521}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &625134527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625134521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: Anchor_A2
+  mode: 1
 --- !u!1 &645298521
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,6 +2267,25 @@ Transform:
   - {fileID: 1353181467}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &754844908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4874075857838613784, guid: 18216fb3bc3059e428e646d838da46a3, type: 3}
+  m_PrefabInstance: {fileID: 171976826}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &754844909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754844908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: TargetButton
+  mode: 0
 --- !u!4 &820863120 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5489776055812849254, guid: b310b6c38de987b4997a7782570c3d72, type: 3}
@@ -3065,6 +3153,24 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 516952087372650216, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 950756155}
+    - targetCorrespondingSourceObject: {fileID: 3029636983846688318, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 950756154}
+    - targetCorrespondingSourceObject: {fileID: 4571443141842470494, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 950756153}
+    - targetCorrespondingSourceObject: {fileID: 8206321457346770515, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 950756152}
+    - targetCorrespondingSourceObject: {fileID: 4925285332721054817, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 950756151}
+    - targetCorrespondingSourceObject: {fileID: 1190516935987022770, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1309105363}
     - targetCorrespondingSourceObject: {fileID: 952833419987035257, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -3083,6 +3189,106 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8604973202665164226, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
   m_PrefabInstance: {fileID: 950756143}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &950756145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1190516935987022770, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+  m_PrefabInstance: {fileID: 950756143}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &950756146 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4925285332721054817, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+  m_PrefabInstance: {fileID: 950756143}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &950756147 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8206321457346770515, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+  m_PrefabInstance: {fileID: 950756143}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &950756148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4571443141842470494, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+  m_PrefabInstance: {fileID: 950756143}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &950756149 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3029636983846688318, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+  m_PrefabInstance: {fileID: 950756143}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &950756150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 516952087372650216, guid: 9879e5106d19d9340b79fbfba9856c39, type: 3}
+  m_PrefabInstance: {fileID: 950756143}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &950756151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950756146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: PlaceMagazineStand
+  mode: 1
+--- !u!114 &950756152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950756147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: PlacePistolStand
+  mode: 1
+--- !u!114 &950756153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950756148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: PlaceMagazineTable
+  mode: 1
+--- !u!114 &950756154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950756149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: InspectShelf
+  mode: 1
+--- !u!114 &950756155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950756150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: InspectShelf
+  mode: 1
 --- !u!1 &961930547
 GameObject:
   m_ObjectHideFlags: 0
@@ -3488,6 +3694,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
   m_PrefabInstance: {fileID: 1482991407}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1167204040 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 502103708215791024, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
+  m_PrefabInstance: {fileID: 184705496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1167204041 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6160207862485998126, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
+  m_PrefabInstance: {fileID: 184705496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1167204042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6021842342787910302, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
+  m_PrefabInstance: {fileID: 184705496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1167204043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7592130302860915759, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
+  m_PrefabInstance: {fileID: 184705496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1167204044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167204040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: Slide
+  mode: 0
+--- !u!114 &1167204045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167204041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: SafetyLever
+  mode: 0
+--- !u!114 &1167204046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167204042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: MagRelease
+  mode: 0
 --- !u!1 &1183098879
 GameObject:
   m_ObjectHideFlags: 0
@@ -4130,7 +4398,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4936133552337784726, guid: 6eecdf3cea1eb1f4d80a5ba336b4ca2d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1300186492}
   m_SourcePrefab: {fileID: 100100000, guid: 6eecdf3cea1eb1f4d80a5ba336b4ca2d, type: 3}
 --- !u!114 &1300186488 stripped
 MonoBehaviour:
@@ -4153,6 +4424,39 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 814470435034106708, guid: 6eecdf3cea1eb1f4d80a5ba336b4ca2d, type: 3}
   m_PrefabInstance: {fileID: 1300186487}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1300186491 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4936133552337784726, guid: 6eecdf3cea1eb1f4d80a5ba336b4ca2d, type: 3}
+  m_PrefabInstance: {fileID: 1300186487}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1300186492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300186491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: TargetPlane
+  mode: 0
+--- !u!114 &1309105363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950756145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: WeaponSlot
+  mode: 1
 --- !u!1001 &1317690531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4220,14 +4524,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1680618949858515911, guid: a8537d05a39d29d42bfebe4f859eef22, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1317690535}
   m_SourcePrefab: {fileID: 100100000, guid: a8537d05a39d29d42bfebe4f859eef22, type: 3}
 --- !u!114 &1317690532 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4028638277495662411, guid: a8537d05a39d29d42bfebe4f859eef22, type: 3}
   m_PrefabInstance: {fileID: 1317690531}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1317690534}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
@@ -4238,6 +4545,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2024670034465063293, guid: a8537d05a39d29d42bfebe4f859eef22, type: 3}
   m_PrefabInstance: {fileID: 1317690531}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1317690534 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1680618949858515911, guid: a8537d05a39d29d42bfebe4f859eef22, type: 3}
+  m_PrefabInstance: {fileID: 1317690531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1317690535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317690534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: Glasses
+  mode: 0
 --- !u!64 &1333867543
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4273,6 +4599,7 @@ GameObject:
   - component: {fileID: 1353181470}
   - component: {fileID: 1353181469}
   - component: {fileID: 1353181468}
+  - component: {fileID: 1353181472}
   m_Layer: 0
   m_Name: Anchor_FiringLine
   m_TagString: Untagged
@@ -4457,6 +4784,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1353181466}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1353181472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353181466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: Anchor_A3
+  mode: 1
 --- !u!1 &1358959803
 GameObject:
   m_ObjectHideFlags: 0
@@ -5005,6 +5346,7 @@ GameObject:
   - component: {fileID: 1491230181}
   - component: {fileID: 1491230180}
   - component: {fileID: 1491230179}
+  - component: {fileID: 1491230183}
   m_Layer: 0
   m_Name: Anchor_Issue
   m_TagString: Untagged
@@ -5189,6 +5531,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491230177}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1491230183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491230177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: Anchor_A1
+  mode: 1
 --- !u!1 &1532363545
 GameObject:
   m_ObjectHideFlags: 0
@@ -5326,6 +5682,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7329357173568353077, guid: 49b7d759f5d51f94999b71381d8c95c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1602984763}
+    - targetCorrespondingSourceObject: {fileID: 7329357173568353077, guid: 49b7d759f5d51f94999b71381d8c95c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1602984764}
   m_SourcePrefab: {fileID: 100100000, guid: 49b7d759f5d51f94999b71381d8c95c7, type: 3}
 --- !u!4 &1602984761 stripped
 Transform:
@@ -5359,6 +5718,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1384598064818046468, guid: c2507d8c79b183f469595b287718fedb, type: 3}
+--- !u!114 &1602984764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602984762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: AmmoTray
+  mode: 0
 --- !u!1001 &1608118405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5775,7 +6148,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 301776979794233923, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
   m_PrefabInstance: {fileID: 184705496}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1167204043}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
@@ -5797,12 +6170,26 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1370871683542630731, guid: d1cc488dd133ef94bae9b3ff5ddb4ae0, type: 3}
   m_PrefabInstance: {fileID: 184705496}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1167204043}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a3029d3b5335b0448b3619d6c2b8ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Rubezh.XR::Rubezh.XR.ItemReturn
+--- !u!114 &1737080462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167204043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: Pistol
+  mode: 0
 --- !u!64 &1746258851
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5928,14 +6315,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7508450924998226239, guid: acea60fd0e64e174c81a8431f295ac98, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1768221718}
   m_SourcePrefab: {fileID: 100100000, guid: acea60fd0e64e174c81a8431f295ac98, type: 3}
 --- !u!114 &1758276466 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1364539443783640020, guid: acea60fd0e64e174c81a8431f295ac98, type: 3}
   m_PrefabInstance: {fileID: 1758276465}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1758276469}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 389a84da439d3f44a952f6cc76b046f1, type: 3}
@@ -5951,23 +6341,42 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3650271977890571110, guid: acea60fd0e64e174c81a8431f295ac98, type: 3}
   m_PrefabInstance: {fileID: 1758276465}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1758276469}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable
+--- !u!1 &1758276469 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7508450924998226239, guid: acea60fd0e64e174c81a8431f295ac98, type: 3}
+  m_PrefabInstance: {fileID: 1758276465}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1768221717 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 908463967413919756, guid: acea60fd0e64e174c81a8431f295ac98, type: 3}
   m_PrefabInstance: {fileID: 1758276465}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1758276469}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a3029d3b5335b0448b3619d6c2b8ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Rubezh.XR::Rubezh.XR.ItemReturn
+--- !u!114 &1768221718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758276469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d41ef0f48606247a58d682aa445ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.UI::Rubezh.UI.HighlightTarget
+  key: Magazine
+  mode: 0
 --- !u!1 &1825776706
 GameObject:
   m_ObjectHideFlags: 0
