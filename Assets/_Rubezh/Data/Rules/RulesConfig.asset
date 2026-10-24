@@ -51,6 +51,7 @@ MonoBehaviour:
     points: 5
   - violation: 12
     points: 10
+  failResultDelaySeconds: 4
   triggerPullThreshold: 0.75
   triggerReleaseThreshold: 0.4
   slideTravel: 0.03
