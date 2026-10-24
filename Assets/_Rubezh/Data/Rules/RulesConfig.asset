@@ -23,3 +23,5 @@ MonoBehaviour:
   misfireShotMin: 3
   misfireShotMax: 4
   misfireWaitSeconds: 5
+  bulletHolePoolSize: 10
+  bulletHoleDiameter: 0.03
