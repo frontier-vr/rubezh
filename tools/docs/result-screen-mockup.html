@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru"><meta charset="utf-8">
+<style>
+  body { margin: 0; background: #2a2f35; font-family: "Liberation Sans", Arial, sans-serif; }
+  .wrap { display: flex; gap: 60px; padding: 50px; align-items: flex-start; }
+  /* 1 px = 1 мм World Space Canvas: панель 1600 × 1000 мм, на макете масштаб 1:2 */
+  .panel { width: 800px; height: 500px; background: #101418; color: #F2F0EA; position: relative; border: 3px solid #4B535B; border-radius: 6px; }
+  .head { position: absolute; left: 30px; top: 22px; right: 30px; display: flex; align-items: center; gap: 18px; }
+  .verdict { font-size: 36px; font-weight: bold; letter-spacing: 1px; white-space: nowrap; }
+  .icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: bold; color: #101418; }
+  .score { margin-left: auto; text-align: right; font-size: 32px; font-weight: bold; }
+  .score small { display: block; font-size: 16px; font-weight: normal; color: #A3AAB0; }
+  .stats { position: absolute; left: 30px; top: 108px; display: flex; gap: 40px; font-size: 18px; color: #A3AAB0; }
+  .stats b { display: block; color: #F2F0EA; font-size: 26px; }
+  .target { position: absolute; left: 30px; top: 182px; width: 230px; height: 230px; background: #EDE6D3; border-radius: 4px; }
+  .target svg { width: 100%; height: 100%; }
+  .table { position: absolute; left: 290px; top: 182px; right: 30px; font-size: 16px; }
+  .table h3 { margin: 0 0 6px; font-size: 18px; color: #A3AAB0; font-weight: normal; }
+  .row { display: flex; gap: 10px; padding: 5px 0; border-top: 1px solid #2B3138; align-items: baseline; }
+  .row .t { width: 64px; color: #A3AAB0; } .row .n { flex: 1; } .row .p { width: 70px; text-align: right; }
+  .row.crit { color: #ff8a7d; } .row.crit .n::before { content: "✕ грубое · "; font-weight: bold; }
+  .btn { position: absolute; right: 30px; bottom: 22px; width: 230px; height: 60px; background: #1FB6C9; color: #101418; border-radius: 6px; font-size: 24px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+  .dims { color: #cfd5da; font: 14px/1.5 "Segoe UI", Arial; max-width: 520px; }
+  .dims h2 { margin: 0 0 8px; font-size: 20px; color: #fff; }
+  .dims table { border-collapse: collapse; } .dims td { border-top: 1px solid #444; padding: 3px 8px 3px 0; vertical-align: top; }
+  .cap { color: #cfd5da; font: 14px "Segoe UI"; margin-top: 8px; }
+</style>
+<div class="wrap">
+  <div>
+    <div class="panel" id="p1">
+      <div class="head"><div class="icon" style="background:#F2C200">!</div><div class="verdict">ЗАЧЁТ С ЗАМЕЧАНИЯМИ</div>
+        <div class="score">74<small>балл из 100</small></div></div>
+      <div class="stats"><div>Время<b>4:12</b></div><div>Точность<b>4 из 4 · 100%</b></div><div>Нарушения<b>3</b></div></div>
+      <div class="target"><svg viewBox="-50 -50 100 100">
+        <g fill="none" stroke="#151515" stroke-width="0.6"><circle r="48"/><circle r="40"/><circle r="32"/><circle r="24"/></g>
+        <circle r="16" fill="#151515"/><g fill="none" stroke="#EDE6D3" stroke-width="0.6"><circle r="8"/></g>
+        <g fill="#EDE6D3" stroke="#151515" stroke-width="0.8"><circle cx="5" cy="-3" r="2.2"/><circle cx="-9" cy="6" r="2.2"/><circle cx="14" cy="18" r="2.2"/><circle cx="-2" cy="-22" r="2.2"/></g>
+      </svg></div>
+      <div class="table"><h3>Нарушения</h3>
+        <div class="row"><span class="t">0:48</span><span class="n">Палец на спуске · 0,8 с</span><span class="p">−5</span></div>
+        <div class="row"><span class="t">2:31</span><span class="n">Ствол вне сектора · 0,6 с</span><span class="p">−10</span></div>
+        <div class="row"><span class="t">3:05</span><span class="n">Задержка устранена раньше 5 с</span><span class="p">−11</span></div>
+      </div>
+      <div class="btn">↻ Повторить</div>
+    </div>
+    <div class="cap">Экран результата R1 у шкафа · панель 1600 × 1000 мм (макет 1:2)</div>
+    <br>
+    <div class="panel" id="p2">
+      <div class="head"><div class="icon" style="background:#D23A2A">✕</div><div class="verdict">НЕ ЗАЧЁТ</div>
+        <div class="score">0<small>балл из 100</small></div></div>
+      <div class="stats"><div>Время<b>2:07</b></div><div>Точность<b>2 из 2 · 100%</b></div><div>Причина<b style="color:#ff8a7d">Ствол вне сектора</b></div></div>
+      <div class="target"><svg viewBox="-50 -50 100 100">
+        <g fill="none" stroke="#151515" stroke-width="0.6"><circle r="48"/><circle r="40"/><circle r="32"/><circle r="24"/></g>
+        <circle r="16" fill="#151515"/><g fill="#EDE6D3" stroke="#151515" stroke-width="0.8"><circle cx="3" cy="2" r="2.2"/><circle cx="-12" cy="-10" r="2.2"/></g>
+      </svg></div>
+      <div class="table"><h3>Нарушения</h3>
+        <div class="row"><span class="t">1:12</span><span class="n">Без очков на рубеже</span><span class="p">−10</span></div>
+        <div class="row crit"><span class="t">2:07</span><span class="n">Ствол вне сектора · 1,5 с</span><span class="p">стоп</span></div>
+      </div>
+      <div class="btn">↻ Повторить</div>
+    </div>
+    <div class="cap">После грубого нарушения: стоп-экран, через N с — результат с баллом 0 на том же экране</div>
+  </div>
+  <div class="dims">
+    <h2>Размеры и кегль</h2>
+    <table>
+      <tr><td>Canvas</td><td>World Space, 1600 × 1000 мм (1 ед. = 1 мм, scale 0,001)</td></tr>
+      <tr><td>Место</td><td>R1 у шкафа: (−3,5; 1,55; 0,35), к A1, 1,8 м от глаз</td></tr>
+      <tr><td>Вердикт</td><td>72 мм (≈ 40 dmm), жирный, в одну строку; значок 112 мм</td></tr>
+      <tr><td>Балл</td><td>64 мм, жирный; подпись 32 мм</td></tr>
+      <tr><td>Время, точность</td><td>значение 52 мм, подпись 36 мм</td></tr>
+      <tr><td>Мишень</td><td>460 × 460 мм, пробоины как в сцене</td></tr>
+      <tr><td>Таблица нарушений</td><td>32 мм (≈ 18 dmm) — минимум на экране</td></tr>
+      <tr><td>Кнопка «Повторить»</td><td>460 × 120 мм, текст 48 мм, poke и луч</td></tr>
+      <tr><td>Поля</td><td>60 мм, межстрочный 1,4</td></tr>
+      <tr><td>Цвета</td><td>фон #101418, текст #F2F0EA, вторичный #A3AAB0, зачёт ✓ на #3E9E4F, с замечаниями ! на #F2C200, не зачёт и грубое ✕ на #D23A2A, кнопка #1FB6C9</td></tr>
+    </table>
+  </div>
+</div>
+</html>

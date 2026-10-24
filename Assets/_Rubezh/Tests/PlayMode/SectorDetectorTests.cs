@@ -16,6 +16,7 @@ namespace Rubezh.Tests.PlayMode
             public bool Held = true;
             public bool Loaded = true;
             public bool IsHeld => Held;
+            public Hand PrimaryHand => Hand.Right;
             public WeaponState State => Loaded
                 ? new WeaponState(true, 4, Chamber.Loaded, false, false, Jam.None)
                 : new WeaponState(false, 0, Chamber.Empty, true, true, Jam.None);

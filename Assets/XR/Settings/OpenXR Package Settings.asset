@@ -874,7 +874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92efb7dda02dc484c90845a437c4784e, type: 3}
   m_Name: AutomaticDynamicResolutionFeature Android
   m_EditorClassIdentifier: Unity.XR.OpenXR::UnityEngine.XR.OpenXR.Features.AutomaticDynamicResolutionFeature
-  m_enabled: 0
+  m_enabled: 1
   nameUi: Automatic Viewport Dynamic Resolution
   version: 1.0.0
   featureIdInternal: com.unity.openxr.feature.ViewportDynamicResolution
@@ -884,7 +884,7 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
-  m_MinResolutionScalar: 0.05
+  m_MinResolutionScalar: 0.7
   m_MaxResolutionScalar: 1
 --- !u!114 &7197724559854140103
 MonoBehaviour:
