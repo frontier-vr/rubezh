@@ -60,6 +60,44 @@ VR-тренажёр безопасного обращения с оружием 
   `Scenes/Sandbox/Sandbox_<Имя>.unity` и отдают префабы.
 - Перед PR пройтись по чек-листу «Перед PR» из issue (он же в шаблоне PR).
 
+## Конфликты в сценах и префабах
+
+Сцены и префабы Unity — YAML. Обычный git сливает их построчно и часто ставит конфликт там, где
+правки на самом деле не пересекаются. **UnityYAMLMerge** из поставки Unity сливает их по
+объектам и свойствам.
+
+Конфликты в `Main.unity` исключены правилом: сцену правит только Никита (`docs/decisions.md`,
+Р-03). UnityYAMLMerge нужен для префабов, ассетов и песочниц.
+
+### Подключить один раз в клоне
+
+Путь — к своему Unity 6000.3.24f1 (`Editor/Data/Tools/UnityYAMLMerge.exe`; на macOS —
+`/Applications/Unity/Hub/Editor/6000.3.24f1/Unity.app/Contents/Tools/UnityYAMLMerge`):
+
+```bash
+git config merge.tool unityyamlmerge
+git config mergetool.unityyamlmerge.cmd "'C:/Program Files/Unity/Hub/Editor/6000.3.24f1/Editor/Data/Tools/UnityYAMLMerge.exe' merge -p \"\$BASE\" \"\$REMOTE\" \"\$LOCAL\" \"\$MERGED\""
+git config mergetool.unityyamlmerge.trustExitCode false
+git config mergetool.keepBackup false
+```
+
+В GitHub Desktop: Repository → Open in Command Prompt, команды те же.
+
+### Разобрать конфликт
+
+1. `git merge <ветка>` (или pull) сообщил `CONFLICT (content): Merge conflict in X.prefab`.
+2. Закрыть Unity, чтобы он не переимпортировал файл с маркерами конфликта.
+3. `git mergetool` — UnityYAMLMerge сольёт файлы. Если правки касаются **разных свойств**
+   (одна ветка сдвинула объект, другая поменяла масштаб), конфликт уходит сам.
+4. Если обе ветки поменяли **одно и то же свойство**, инструмент спросит, какое значение
+   оставить, или оставит выбор по `mergespecfile.txt` рядом с `UnityYAMLMerge.exe`.
+5. Проверить: `git diff --cached X.prefab` — маркеров `<<<<<<<` нет; открыть Unity, префаб
+   открывается без ошибок в консоли.
+6. `git commit` — завершить слияние.
+
+Если UnityYAMLMerge не справился, не правим YAML руками: берём одну версию целиком
+(`git checkout --ours X.prefab` или `--theirs`) и повторяем вторую правку в Unity.
+
 ## Правила проекта, которые легко нарушить
 
 - Метры: 1 единица Unity = 1 м, у моделей в Unity scale (1,1,1).
