@@ -68,6 +68,10 @@ namespace Rubezh.Gameplay
         [Tooltip("Штрафы мелких нарушений; грубое нарушение — 0 баллов и «не зачёт»")]
         public ViolationPenalty[] penalties = DefaultPenalties();
 
+        [Header("Экран результата (VP-20)")]
+        [Tooltip("После грубого нарушения стоп-экран держится столько, затем на нём же результат с баллом 0, с")]
+        [Min(0f)] public float failResultDelaySeconds = 4f;
+
         [Header("Пистолет в руке (NG-08)")]
         [Tooltip("Нажатие спуска сильнее — TriggerPull. Выше запасного порога касания")]
         [Range(0f, 1f)] public float triggerPullThreshold = 0.75f;

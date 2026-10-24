@@ -4,7 +4,8 @@
     "references": [
         "Rubezh.Core",
         "Rubezh.Gameplay",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
