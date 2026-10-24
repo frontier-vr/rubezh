@@ -38,6 +38,10 @@ namespace Rubezh.Gameplay
         [Tooltip("Камера в этом конусе вокруг оси ствола — смотрит «в ствол», а не сбоку, градусы")]
         [Range(5f, 60f)] public float muzzleLookConeDegrees = 30f;
 
+        [Header("Безопасное направление вне рубежа (#164)")]
+        [Tooltip("У шкафа и стола ствол, опущенный ниже горизонта больше чем на столько градусов, — в безопасном направлении")]
+        [Range(5f, 85f)] public float safeDownDegrees = 30f;
+
         [Header("Осечка (VP-09)")]
         [Tooltip("Осечка случается на выстреле из диапазона, выбирается генератором с зерном")]
         [Min(1)] public int misfireShotMin = 3;
