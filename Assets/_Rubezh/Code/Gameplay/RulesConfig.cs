@@ -7,6 +7,13 @@ namespace Rubezh.Gameplay
     [CreateAssetMenu(menuName = "Rubezh/Rules Config", fileName = "RulesConfig")]
     public sealed class RulesConfig : ScriptableObject
     {
+        [System.Serializable]
+        public struct ViolationPenalty
+        {
+            public Violation violation;
+            [Min(0)] public int points;
+        }
+
         [Header("Упражнение")]
         [Tooltip("Патронов в магазине на шаге 4")]
         [Min(1)] public int seriesRounds = 5;
@@ -43,6 +50,23 @@ namespace Rubezh.Gameplay
         [Min(1)] public int bulletHolePoolSize = 10;
         [Tooltip("Диаметр видимой пробоины с ободком, м: крупнее калибра, чтобы читалась с рубежа")]
         [Min(0.005f)] public float bulletHoleDiameter = 0.03f;
+
+        [Header("Балл и вердикт (VP-10, FR-40, FR-41)")]
+        [Tooltip("Лимит цикла, с: сверх него — штраф в балле, упражнение не прерывается")]
+        [Min(1f)] public float timeLimitSeconds = 360f;
+        [Tooltip("Шаг штрафа за время: за каждые начатые столько секунд сверх лимита")]
+        [Min(1f)] public float overTimeStepSeconds = 10f;
+        [Min(0)] public int overTimePenaltyPerStep = 2;
+        [Tooltip("Штраф за время не больше")]
+        [Min(0)] public int overTimePenaltyMax = 20;
+        [Tooltip("Штраф за каждый промах")]
+        [Min(0)] public int missPenalty = 3;
+        [Tooltip("Балл от этого — зачёт")]
+        [Range(0, 100)] public int passScore = 80;
+        [Tooltip("Балл от этого — зачёт с замечаниями; ниже — не зачёт")]
+        [Range(0, 100)] public int remarksScore = 60;
+        [Tooltip("Штрафы мелких нарушений; грубое нарушение — 0 баллов и «не зачёт»")]
+        public ViolationPenalty[] penalties = DefaultPenalties();
 
         [Header("Пистолет в руке (NG-08)")]
         [Tooltip("Нажатие спуска сильнее — TriggerPull. Выше запасного порога касания")]
@@ -81,7 +105,31 @@ namespace Rubezh.Gameplay
             MuzzleLookSeconds = muzzleLookSeconds,
             MisfireShotMin = misfireShotMin,
             MisfireShotMax = misfireShotMax,
-            MisfireWaitSeconds = misfireWaitSeconds
+            MisfireWaitSeconds = misfireWaitSeconds,
+            TimeLimitSeconds = timeLimitSeconds,
+            OverTimeStepSeconds = overTimeStepSeconds,
+            OverTimePenaltyPerStep = overTimePenaltyPerStep,
+            OverTimePenaltyMax = overTimePenaltyMax,
+            MissPenalty = missPenalty,
+            PassScore = passScore,
+            RemarksScore = remarksScore,
+            Penalties = PenaltyMap()
         };
+
+        private System.Collections.Generic.Dictionary<Violation, int> PenaltyMap()
+        {
+            var map = ExerciseRules.DefaultPenalties();
+            if (penalties != null)
+                foreach (var p in penalties) map[p.violation] = p.points;
+            return map;
+        }
+
+        private static ViolationPenalty[] DefaultPenalties()
+        {
+            var list = new System.Collections.Generic.List<ViolationPenalty>();
+            foreach (var kv in ExerciseRules.DefaultPenalties())
+                list.Add(new ViolationPenalty { violation = kv.Key, points = kv.Value });
+            return list.ToArray();
+        }
     }
 }
