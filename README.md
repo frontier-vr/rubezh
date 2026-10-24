@@ -129,6 +129,9 @@ docs/              план проекта, путь пользователя, �
 |---|---|
 | [`docs/team.md`](docs/team.md) | кто в команде и за что отвечает |
 | [`docs/decisions.md`](docs/decisions.md) | решения команды по репозиторию и процессу |
+| [`docs/backlog.md`](docs/backlog.md) | все задачи по ролям: вехи, приоритеты, спринты |
+| [`docs/mvp.md`](docs/mvp.md), [`docs/user-flow.md`](docs/user-flow.md), [`docs/layout.md`](docs/layout.md), [`docs/roadmap.md`](docs/roadmap.md) | план проекта: MVP и требования, путь пользователя, планировка, дорожная карта |
+| [`docs/objects.md`](docs/objects.md), [`docs/art-pipeline.md`](docs/art-pipeline.md) | карточки объектов, пайплайн моделей |
 | [`docs/mcp.md`](docs/mcp.md) | MCP-серверы для Unity и Blender |
 
 ## Команда
