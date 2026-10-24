@@ -1,0 +1,57 @@
+# Владельцы путей (ТЗ §9.9). На каждый путь два владельца: свой PR никто
+# не одобряет сам, ревью делает второй. Правило ниже перебивает правило выше.
+#   Никита — @nikossik       сцена, XR, сборка, тесты
+#   Влад   — @zevtos         логика Core / Gameplay, UI
+#   Маша   — @Maria2525007   модели оружия и снаряжения, звуки оружия
+#   Юля    — @juliaaaaaaaaaaaz окружение, UX, сценарий, документация
+
+# По умолчанию: сборка и настройки проекта
+*                                       @nikossik @zevtos
+
+# Код. PR Никиты по XR одобряет Влад, PR Влада по Core/Gameplay — Никита
+/Assets/_Rubezh/Code/Core/              @zevtos @nikossik
+/Assets/_Rubezh/Code/Gameplay/          @zevtos @nikossik
+/Assets/_Rubezh/Code/UI/                @zevtos @nikossik
+/Assets/_Rubezh/Code/XR/                @nikossik @zevtos
+/Assets/_Rubezh/Tests/                  @nikossik @zevtos
+/Assets/_Rubezh/Data/Rules/             @zevtos @nikossik
+/Assets/_Rubezh/Data/Hints/             @juliaaaaaaaaaaaz @zevtos
+
+# Сцены: Main.unity правит только Никита, песочницы — их хозяева
+/Assets/_Rubezh/Scenes/                 @nikossik @zevtos
+/Assets/_Rubezh/Scenes/Sandbox/Sandbox_Vlad.unity   @zevtos @nikossik
+/Assets/_Rubezh/Scenes/Sandbox/Sandbox_Maria.unity  @Maria2525007 @nikossik
+/Assets/_Rubezh/Scenes/Sandbox/Sandbox_Yulia.unity  @juliaaaaaaaaaaaz @nikossik
+
+# Префабы: интерактив вешает Никита, визуальные префабы — моделлеры
+/Assets/_Rubezh/Prefabs/Interactive/    @nikossik @zevtos
+/Assets/_Rubezh/Prefabs/Art/            @Maria2525007 @juliaaaaaaaaaaaz
+
+# Арт
+/Assets/_Rubezh/Art/                    @Maria2525007 @juliaaaaaaaaaaaz
+/Assets/_Rubezh/Art/Weapon/             @Maria2525007 @nikossik
+/Assets/_Rubezh/Art/Equipment/          @Maria2525007 @nikossik
+/Assets/_Rubezh/Art/Target/             @Maria2525007 @nikossik
+/Assets/_Rubezh/Art/Environment/        @juliaaaaaaaaaaaz @nikossik
+/Assets/_Rubezh/Art/Atlas/              @juliaaaaaaaaaaaz @Maria2525007
+
+# Звук
+/Assets/_Rubezh/Audio/                  @nikossik @juliaaaaaaaaaaaz
+/Assets/_Rubezh/Audio/SFX/              @Maria2525007 @nikossik
+/Assets/_Rubezh/Audio/Voice/            @juliaaaaaaaaaaaz @zevtos
+/Assets/_Rubezh/Audio/Ambience/         @juliaaaaaaaaaaaz @nikossik
+
+# Документация
+/docs/                                  @juliaaaaaaaaaaaz @zevtos
+/docs/qa/                               @nikossik @zevtos
+/docs/objects.md                        @Maria2525007 @zevtos
+/docs/refs/                             @Maria2525007 @juliaaaaaaaaaaaz
+/docs/art-pipeline.md                   @Maria2525007 @juliaaaaaaaaaaaz
+/docs/renders/                          @Maria2525007 @juliaaaaaaaaaaaz
+/README.md                              @nikossik @juliaaaaaaaaaaaz
+/CREDITS.md                             @Maria2525007 @juliaaaaaaaaaaaz
+
+# Инфраструктура репозитория
+/.github/                               @nikossik @zevtos
+/.gitattributes                         @nikossik @zevtos
+/.gitignore                             @nikossik @zevtos

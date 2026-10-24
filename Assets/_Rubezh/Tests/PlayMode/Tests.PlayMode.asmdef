@@ -2,6 +2,8 @@
     "name": "Tests.PlayMode",
     "rootNamespace": "Rubezh.Tests.PlayMode",
     "references": [
+        "Rubezh.Core",
+        "Rubezh.Gameplay",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
