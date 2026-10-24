@@ -1,3 +1,5 @@
+using Rubezh.Core;
+
 namespace Rubezh.Gameplay
 {
     public interface ITriggerInput
@@ -11,6 +13,14 @@ namespace Rubezh.Gameplay
         bool EarmuffsOn { get; }
         bool GlassesOn { get; }
         event System.Action Changed;
+    }
+
+    // Пистолет в руке и его состояние для детекторов (VP-05, VP-06). Реализует интерактивный
+    // пистолет Никиты (NG-08); IsHeld — только пока пистолет держат за Grip_Primary.
+    public interface IHeldWeapon
+    {
+        bool IsHeld { get; }
+        WeaponState State { get; }
     }
 
     public interface ICasingCounter
