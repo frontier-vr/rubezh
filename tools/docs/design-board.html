@@ -62,7 +62,7 @@
       html += `<figure><img src="moodboard/${x.file}"><figcaption><b>${c}</b> · ${x.title}</figcaption></figure>`;
     html += '</div>';
     const pal = await (await fetch('palette.md')).text();
-    const sw = [...pal.matchAll(/^\| `(#[0-9A-Fa-f]{6})` \| ([^|]+)\|/gm)].map(m => `<div class="sw"><b style="background:${m[1]}"></b>${m[1]} · ${m[2].replace(/**/g, "").trim()}</div>`);
+    const sw = [...pal.matchAll(/^\| `(#[0-9A-Fa-f]{6})` \| ([^|]+)\|/gm)].map(m => `<div class="sw"><b style="background:${m[1]}"></b>${m[1]} · ${m[2].split('*').join('').trim()}</div>`);
     html += '<h3>Палитра проекта (docs/palette.md)</h3><div class="swatches">' + sw.join('') + '</div>';
     mood.insertAdjacentHTML('beforeend', html);
   } catch (e) { mood.insertAdjacentHTML('beforeend', '<p>мудборд не найден</p>'); }
