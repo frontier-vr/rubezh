@@ -25,6 +25,8 @@ namespace Rubezh.Gameplay
         private SectorRule _rule;
 
         public bool InSector { get; private set; }
+        // Пистолет в руке: без этого сектор не судится (демо детекторов, VP-18).
+        public bool IsHeld => _held != null && _held.IsHeld;
         public SectorRule Rule => _rule;
 
         public void Configure(ExerciseRunner exerciseRunner, Transform muzzlePoint, IHeldWeapon held,
@@ -76,6 +78,18 @@ namespace Rubezh.Gameplay
 
         // Проверка сектора сейчас, вне Update: ShotResolver спрашивает в момент выстрела.
         public bool CheckNow() => muzzle != null && Cast(out _);
+
+        // Куда упирается луч сектора (демо детекторов, VP-18): false — луч ни во что не попал.
+        public bool Probe(out Vector3 point)
+        {
+            point = default;
+            if (muzzle == null) return false;
+            int mask = sectorLayers | blockerLayers;
+            if (!Physics.Raycast(muzzle.position, muzzle.forward, out var hit, maxDistance, mask, QueryTriggerInteraction.Collide))
+                return false;
+            point = hit.point;
+            return true;
+        }
 
         private bool Cast(out RaycastHit hit)
         {
