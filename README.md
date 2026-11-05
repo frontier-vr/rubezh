@@ -42,6 +42,10 @@ VR-тренажёр безопасного обращения с оружием 
 4. Открыть папку в Unity Hub → Add project from disk. Главная сцена:
    `Assets/_Rubezh/Scenes/Main.unity`. В редакторе без шлема работает XR Interaction Simulator.
 5. Тесты: Window → General → Test Runner → EditMode → Run All.
+6. Сборка APK: File → Build Profiles → Android (активная платформа проекта) → Build, файл —
+   `Builds/Rubezh.apk` (в git не попадает). Настройки под Quest уже в проекте: Vulkan, min API 29,
+   target 32, IL2CPP, ARM64, Stereo Rendering Instancing, OpenXR с Meta Quest Support
+   (`docs/decisions.md`, Р-06). Поставить на шлем: `adb install -r Builds/Rubezh.apk`.
 
 ## Как мы работаем
 
