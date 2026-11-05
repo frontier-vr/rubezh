@@ -127,7 +127,12 @@ def build_mesh(ob, bm, mat, cutters=(), bevel=0.0):
     bpy.data.meshes.remove(me)
     tbm = bmesh.new()
     tbm.from_mesh(new_me)
+    # MM-14 (#169, #170): после булевой операции — сварить микротреугольники и развернуть нормали
+    # наружу, иначе пересекающиеся куски (казённик в стволе) выходят вывернутыми.
+    bmesh.ops.remove_doubles(tbm, verts=tbm.verts[:], dist=2e-5)
+    bmesh.ops.dissolve_degenerate(tbm, dist=2e-5, edges=tbm.edges[:])
     bmesh.ops.triangulate(tbm, faces=tbm.faces, quad_method='BEAUTY', ngon_method='BEAUTY')
+    bmesh.ops.recalc_face_normals(tbm, faces=tbm.faces)
     tbm.to_mesh(new_me)
     tbm.free()
     new_me.materials.clear()

@@ -73,7 +73,7 @@ namespace Rubezh.Tests.PlayMode
             var result = new ExerciseResult
             {
                 TotalTime = 125.4, Shots = 5, Hits = 4, Score = 87, Verdict = Verdict.Passed,
-                Violations = new[] { new ViolationRecord(Violation.FingerOnTrigger, Severity.Minor, 61, 0.4) }
+                Violations = new[] { new ViolationRecord(Violation.FingerOnTrigger, Severity.Minor, 61.4, 0.4) }
             };
             _screen.Show(result, Anchor.A1);
             Assert.IsTrue(_screen.Visible);
