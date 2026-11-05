@@ -134,22 +134,24 @@ namespace Rubezh.UI
         public bool ShowReplay(int index)
         {
             var list = Shown != null ? Shown.Violations : null;
-            bool ok = replay != null && list != null && index >= 0 && index < list.Count && replay.Play(list[index]);
+            bool ok = replay != null && list != null && index >= 0 && index < list.Count
+                      && ReplayWindow.Shows(list[index].Type) && replay.Play(list[index]);
             _replayIndex = ok ? index : -1;
             if (replayBlock != null) replayBlock.SetActive(ok);
             if (!ok) return false;
+            int count = ReplayWindow.Count(list, index, out int ordinal);
             if (replayView != null) replayView.texture = replay.Texture;
-            if (replayCaption != null) replayCaption.text = ReplayCaption(list[index], index, list.Count);
-            if (replayNext != null) replayNext.gameObject.SetActive(list.Count > 1);
+            if (replayCaption != null) replayCaption.text = ReplayCaption(list[index], ordinal - 1, count);
+            if (replayNext != null) replayNext.gameObject.SetActive(count > 1);
             return true;
         }
 
-        // «Следующее»: по кругу по списку нарушений.
+        // «Следующее»: по кругу по нарушениям, которые видны в повторе (#176).
         public void NextReplay()
         {
             var list = Shown != null ? Shown.Violations : null;
-            if (list == null || list.Count == 0) return;
-            ShowReplay((_replayIndex + 1) % list.Count);
+            int next = ReplayWindow.NextIndex(list, _replayIndex);
+            if (next >= 0) ShowReplay(next);
         }
 
         public string ReplayCaption(in ViolationRecord v, int index, int count)

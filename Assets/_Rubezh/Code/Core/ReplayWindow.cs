@@ -27,14 +27,49 @@ namespace Rubezh.Core
             return new ReplayWindow(from, to);
         }
 
+        // Видно ли нарушение по движению головы, рук, пистолета и магазина (#176). СИЗ призрак не
+        // показывает, гильзы не записываются — такие эпизоды не повторяем.
+        public static bool Shows(Violation v) =>
+            v != Violation.NoEarmuffs && v != Violation.NoGlasses && v != Violation.CasingLeft;
+
         // Какой эпизод показать первым: грубое нарушение (из-за него упражнение остановлено),
-        // иначе первое по времени. −1 — нарушений нет.
+        // иначе первое по времени из тех, что видны. −1 — показывать нечего.
         public static int DefaultIndex(IReadOnlyList<ViolationRecord> violations)
         {
             if (violations == null || violations.Count == 0) return -1;
             for (int i = 0; i < violations.Count; i++)
-                if (violations[i].Severity == Severity.Critical) return i;
-            return 0;
+                if (violations[i].Severity == Severity.Critical && Shows(violations[i].Type)) return i;
+            for (int i = 0; i < violations.Count; i++)
+                if (Shows(violations[i].Type)) return i;
+            return -1;
+        }
+
+        // Следующий видимый эпизод после index по кругу; −1 — таких нет.
+        public static int NextIndex(IReadOnlyList<ViolationRecord> violations, int index)
+        {
+            if (violations == null) return -1;
+            int n = violations.Count;
+            for (int k = 1; k <= n; k++)
+            {
+                int i = ((index + k) % n + n) % n;
+                if (Shows(violations[i].Type)) return i;
+            }
+            return -1;
+        }
+
+        // Сколько эпизодов можно показать и какой по счёту index среди них (с 1).
+        public static int Count(IReadOnlyList<ViolationRecord> violations, int index, out int ordinal)
+        {
+            ordinal = 0;
+            int count = 0;
+            if (violations == null) return 0;
+            for (int i = 0; i < violations.Count; i++)
+            {
+                if (!Shows(violations[i].Type)) continue;
+                count++;
+                if (i == index) ordinal = count;
+            }
+            return count;
         }
 
         // Время внутри окна для проигрывания по кругу: playTime — секунды с начала показа.
