@@ -41,10 +41,38 @@ namespace Rubezh.Tests.EditMode
         {
             Assert.AreEqual(-1, ReplayWindow.DefaultIndex(new ViolationRecord[0]));
             Assert.AreEqual(-1, ReplayWindow.DefaultIndex(null));
-            var minor = new[] { new ViolationRecord(Violation.NoGlasses, Severity.Minor, 5, 0), new ViolationRecord(Violation.CasingLeft, Severity.Minor, 9, 0) };
+            var minor = new[] { new ViolationRecord(Violation.StepOrder, Severity.Minor, 5, 0), new ViolationRecord(Violation.FingerOnTrigger, Severity.Minor, 9, 0.4) };
             Assert.AreEqual(0, ReplayWindow.DefaultIndex(minor));
             var withCritical = new[] { minor[0], new ViolationRecord(Violation.LookIntoMuzzle, Severity.Critical, 7, 0.2) };
             Assert.AreEqual(1, ReplayWindow.DefaultIndex(withCritical), "грубое — причина остановки, его и показываем");
+        }
+
+        [Test]
+        public void NotVisibleByMotion_Skipped()
+        {
+            Assert.IsFalse(ReplayWindow.Shows(Violation.NoGlasses));
+            Assert.IsFalse(ReplayWindow.Shows(Violation.NoEarmuffs));
+            Assert.IsFalse(ReplayWindow.Shows(Violation.CasingLeft));
+            Assert.IsTrue(ReplayWindow.Shows(Violation.MuzzleOutOfSector));
+            Assert.IsTrue(ReplayWindow.Shows(Violation.ReturnedLoaded), "магазин в пистолете у шкафа виден");
+
+            var ppeOnly = new[] { new ViolationRecord(Violation.NoGlasses, Severity.Minor, 5, 0), new ViolationRecord(Violation.CasingLeft, Severity.Minor, 9, 0) };
+            Assert.AreEqual(-1, ReplayWindow.DefaultIndex(ppeOnly), "показывать нечего");
+            Assert.AreEqual(-1, ReplayWindow.NextIndex(ppeOnly, 0));
+            Assert.AreEqual(0, ReplayWindow.Count(ppeOnly, 0, out _));
+
+            var mixed = new[]
+            {
+                new ViolationRecord(Violation.NoGlasses, Severity.Minor, 5, 0),
+                new ViolationRecord(Violation.FingerOnTrigger, Severity.Minor, 9, 0.4),
+                new ViolationRecord(Violation.CasingLeft, Severity.Minor, 50, 0),
+                new ViolationRecord(Violation.StepOrder, Severity.Minor, 60, 0)
+            };
+            Assert.AreEqual(1, ReplayWindow.DefaultIndex(mixed), "первым — первое видимое");
+            Assert.AreEqual(3, ReplayWindow.NextIndex(mixed, 1), "гильзы пропущены");
+            Assert.AreEqual(1, ReplayWindow.NextIndex(mixed, 3), "по кругу, «без очков» пропущено");
+            Assert.AreEqual(2, ReplayWindow.Count(mixed, 3, out int ordinal));
+            Assert.AreEqual(2, ordinal);
         }
 
         [Test]
