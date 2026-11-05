@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 86666981}
   - component: {fileID: 86666980}
   - component: {fileID: 86666982}
+  - component: {fileID: 86666983}
   m_Layer: 0
   m_Name: Exercise
   m_TagString: Untagged
@@ -364,6 +365,7 @@ Transform:
   - {fileID: 1466166115}
   - {fileID: 1053150451}
   - {fileID: 1732247747}
+  - {fileID: 978156980}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &86666976
@@ -486,6 +488,26 @@ MonoBehaviour:
   rules: {fileID: 11400000, guid: 816dcb8f7ad65f54dbdbf047b15c7444, type: 2}
   highlight: {fileID: 2100000, guid: fe76d818a85b3da4f87ecb6cdbe11826, type: 2}
   color: {r: 0.1215686, g: 0.7137255, b: 0.7882353, a: 1}
+--- !u!114 &86666983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86666970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 750c69cee6ecb6e4dab5d38429b9f9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.Gameplay::Rubezh.Gameplay.EpisodeRecorder
+  runner: {fileID: 86666974}
+  rules: {fileID: 11400000, guid: 816dcb8f7ad65f54dbdbf047b15c7444, type: 2}
+  sources:
+  - {fileID: 1482991412}
+  - {fileID: 2132973662}
+  - {fileID: 2132973661}
+  - {fileID: 184705500}
+  - {fileID: 1758276467}
 --- !u!1 &90912525
 GameObject:
   m_ObjectHideFlags: 0
@@ -3100,6 +3122,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1591224897}
     - target: {fileID: 2650212866795327262, guid: 34ff782b98ce1344ca6086931ab364cd, type: 3}
+      propertyPath: replay
+      value: 
+      objectReference: {fileID: 978156981}
+    - target: {fileID: 2650212866795327262, guid: 34ff782b98ce1344ca6086931ab364cd, type: 3}
       propertyPath: runner
       value: 
       objectReference: {fileID: 86666974}
@@ -3139,6 +3165,14 @@ PrefabInstance:
       propertyPath: m_TextStyleHashCode
       value: -1183493901
       objectReference: {fileID: 0}
+    - target: {fileID: 5469816066643840533, guid: 34ff782b98ce1344ca6086931ab364cd, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4293587186
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469816066643840533, guid: 34ff782b98ce1344ca6086931ab364cd, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
     - target: {fileID: 6195349752161575095, guid: 34ff782b98ce1344ca6086931ab364cd, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4293587186
@@ -3152,6 +3186,22 @@ PrefabInstance:
       value: 4289768099
       objectReference: {fileID: 0}
     - target: {fileID: 6227668421126984845, guid: 34ff782b98ce1344ca6086931ab364cd, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765350028408996851, guid: 34ff782b98ce1344ca6086931ab364cd, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4293587186
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765350028408996851, guid: 34ff782b98ce1344ca6086931ab364cd, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477649608409474147, guid: 34ff782b98ce1344ca6086931ab364cd, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4293587186
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477649608409474147, guid: 34ff782b98ce1344ca6086931ab364cd, type: 3}
       propertyPath: m_TextStyleHashCode
       value: -1183493901
       objectReference: {fileID: 0}
@@ -4023,6 +4073,83 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &978156979
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 86666975}
+    m_Modifications:
+    - target: {fileID: 1890877542487372000, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: m_Name
+      value: EpisodeReplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405316089278479018, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405316089278479018, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405316089278479018, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405316089278479018, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405316089278479018, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405316089278479018, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405316089278479018, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405316089278479018, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405316089278479018, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405316089278479018, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8169257094321608944, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+      propertyPath: recorder
+      value: 
+      objectReference: {fileID: 86666983}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+--- !u!4 &978156980 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7405316089278479018, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+  m_PrefabInstance: {fileID: 978156979}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &978156981 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8169257094321608944, guid: e42c1312bfe5d934587a688221b72f05, type: 3}
+  m_PrefabInstance: {fileID: 978156979}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236f6df10fd423e4c86bcd8a5354aaa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rubezh.Gameplay::Rubezh.Gameplay.EpisodeReplay
 --- !u!1 &1017245617
 GameObject:
   m_ObjectHideFlags: 0
@@ -6722,6 +6849,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294963199
+      objectReference: {fileID: 0}
     - target: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_AllowDynamicResolution
       value: 1
