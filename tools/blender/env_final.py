@@ -102,7 +102,7 @@ class Part:
 
     def cyl(self, center, radius, length, axis, key, segments=12, radius2=None):
         bm = bmesh.new()
-        bmesh.ops.create_cone(bm, cap_ends=True, segments=segments, radius1=radius,
+        bmesh.ops.create_cone(bm, cap_ends=True, cap_tris=True, segments=segments, radius1=radius,
                               radius2=radius if radius2 is None else radius2, depth=length)
         # create_cone строит вдоль Z; переводим на нужную ось Unity
         turn = {'Z': Matrix.Identity(4), 'X': Matrix.Rotation(math.radians(90), 4, 'Y'),
@@ -135,7 +135,8 @@ class Part:
             # Перевод осей — зеркальный (det = −1): обходим грань в обратную сторону
             face = bm.faces.new([bv[i] for i in reversed(f)])
             face.material_index = mi
-        bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-6)
+        # Без сварки между примитивами: коробки, касающиеся ребром, остаются отдельными замкнутыми
+        # оболочками, иначе на общем ребре сходятся 3–4 грани (#172). Каждый примитив цельный сам.
         bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
         uv = bm.loops.layers.uv.new('UVMap')
         for face in bm.faces:
