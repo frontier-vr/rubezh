@@ -90,3 +90,19 @@ Oculus Touch, Automatic Dynamic Resolution. Пакет Unity OpenXR: Meta не �
 **Следствие.** Для сборки Android SDK Platform 32 обязателен (target API). Без Hub его ставит
 `sdkmanager "platforms;android-32"` из `AndroidPlayer/SDK/cmdline-tools`. Проверка APK:
 `aapt dump badging Builds/Rubezh.apk` — sdkVersion 29, targetSdkVersion 32.
+
+## Р-07 · 04.12 · Исключение к ТЗ §7.3 п. 4: оттенок очков постпроцессингом
+
+**Решение.** Постпроцессинг на Quest разрешён в одном месте: Color Adjustments → Color Filter, пока
+надеты очки (`NG-30`). Рисует его только On Tile Post Processing (Untethered XR); встроенный
+постпроцессинг рендерера выключен, других эффектов нет. Выключатель —
+`RulesConfig.glassesTintEnabled`.
+
+**Почему.** Дизайн-документ §7, объект 5: в очках «слегка меняется цветопередача» — это
+подтверждение, что очки надеты, без лишнего текста. On-tile цветокоррекция не создаёт
+промежуточных текстур (документация Unity 6.3, «On-tile post-processing»), поэтому укладывается в
+ограничения Quest 2 из §7.3.
+
+**Следствие.** Замер до и после — `docs/qa/perf.md`. Если на шлеме меньше 72 Гц при стрельбе,
+галка снимается и исключение отменяется. Строка 28 протокола `NG-19` проверяет оттенок в шлеме.
+

@@ -117,6 +117,12 @@ namespace Rubezh.Gameplay
         [Tooltip("Длина луча из дульного среза призрака, м")]
         [Min(0.1f)] public float replayMuzzleRayMeters = 3f;
 
+        [Header("Оттенок очков (NG-30)")]
+        [Tooltip("Оттенок стёкол при надетых очках; выключить, если на Quest 2 не держатся 72 Гц")]
+        public bool glassesTintEnabled = true;
+        [Tooltip("Переход оттенка при надевании и снятии очков, с")]
+        [Min(0f)] public float glassesTintSeconds = 0.2f;
+
         [Header("Пистолет в руке (NG-08)")]
         [Tooltip("Нажатие спуска сильнее — TriggerPull. Выше запасного порога касания")]
         [Range(0f, 1f)] public float triggerPullThreshold = 0.75f;
