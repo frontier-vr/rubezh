@@ -7,7 +7,7 @@ namespace Rubezh.Core
     public sealed class ExerciseRules
     {
         public int SeriesRounds = 5;                // патронов в магазине на шаге 4
-        public double SectorGraceSeconds = 1.5;     // занос ствола вне сектора до грубого нарушения
+        public double SectorGraceSeconds = 1.5;     // вне рубежа: занос ствола короче — прощается
         public double SectorJitterSeconds = 0.1;    // выход из сектора короче — дрожание руки, не нарушение
         public double TriggerTouchMinSeconds = 0.15; // касание спуска короче — не нарушение FingerOnTrigger
         public double MuzzleLookSeconds = 0.2;      // взгляд в ствол дольше — грубое LookIntoMuzzle

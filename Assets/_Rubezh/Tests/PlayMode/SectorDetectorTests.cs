@@ -117,12 +117,16 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator SweepSideways_LongWhileLoaded_FailsExercise()
+        public IEnumerator SweepSideways_LongWhileLoaded_OnlyMinor()
         {
             Aim(-80f);
             yield return Wait(1.8f);
-            Assert.AreEqual(Phase.Failed, _runner.Phase);
-            Assert.AreEqual(Violation.MuzzleOutOfSector, _runner.Director.Result.FailReason);
+            Assert.AreNotEqual(Phase.Failed, _runner.Phase);
+            Aim(0f); yield return Wait(0.2f);
+
+            Assert.AreEqual(1, _raised.Count);
+            Assert.AreEqual(Severity.Minor, _raised[0].Severity);
+            Assert.AreNotEqual(Phase.Failed, _runner.Phase);
         }
 
         [UnityTest]

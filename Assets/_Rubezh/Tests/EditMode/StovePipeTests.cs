@@ -146,7 +146,7 @@ namespace Rubezh.Tests.EditMode
 
             Assert.AreEqual(Violation.LookIntoMuzzle, _raised[_raised.Count - 1].Type);
             Assert.AreEqual(Severity.Critical, _raised[_raised.Count - 1].Severity);
-            Assert.AreEqual(Phase.Failed, _director.Phase);
+            Assert.IsTrue(_director.IsRunning);
         }
 
         [Test]

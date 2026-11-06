@@ -4,7 +4,8 @@ using System.Collections.Generic;
 namespace Rubezh.Core
 {
     // Директор упражнения: ведёт фазы Receive → … → Return → Done, проверяет порядок шагов,
-    // копит нарушения и переводит упражнение в Failed на грубом нарушении.
+    // копит нарушения. Грубое нарушение не останавливает упражнение (Р-09): оно доигрывается до сдачи,
+    // а итог — 0 баллов и «не зачёт» с причиной первого грубого.
     // Условия закрытия фаз — docs/user-flow.md §4.1. Время только через IClock.
     public sealed class ExerciseDirector
     {
@@ -19,6 +20,7 @@ namespace Rubezh.Core
         private bool _timerStarted;
         private bool _inspectionReported;
         private bool _ppeChecked;
+        private Violation? _criticalReason;
         private int _shots;
         private int _hits;
 
@@ -93,7 +95,7 @@ namespace Rubezh.Core
             }
         }
 
-        // Нарушение от детектора. Грубое прерывает упражнение.
+        // Нарушение от детектора. Грубое запоминается причиной итога, упражнение продолжается.
         public void Raise(Violation type, Severity severity, double duration = 0)
         {
             if (!IsRunning) return;
@@ -102,7 +104,7 @@ namespace Rubezh.Core
             _violations.Add(record);
             ViolationRaised?.Invoke(record);
 
-            if (severity == Severity.Critical) Fail(type);
+            if (severity == Severity.Critical && !_criticalReason.HasValue) _criticalReason = type;
         }
 
         // Выстрел от ShotResolver (VP-08): попадание идёт в точность.
@@ -122,6 +124,7 @@ namespace Rubezh.Core
             _timerStarted = false;
             _inspectionReported = false;
             _ppeChecked = false;
+            _criticalReason = null;
             _startTime = _endTime = 0;
             _shots = _hits = 0;
             Result = null;
@@ -162,15 +165,7 @@ namespace Rubezh.Core
             var from = Phase;
             Phase = to;
             PhaseChanged?.Invoke(from, to);
-            if (to == Phase.Done) Finish(failReason: null);
-        }
-
-        private void Fail(Violation reason)
-        {
-            var from = Phase;
-            Phase = Phase.Failed;
-            PhaseChanged?.Invoke(from, Phase.Failed);
-            Finish(reason);
+            if (to == Phase.Done) Finish(_criticalReason);
         }
 
         private void Finish(Violation? failReason)

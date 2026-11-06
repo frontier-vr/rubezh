@@ -1,7 +1,7 @@
 namespace Rubezh.Core
 {
     // Взгляд в ствол (FR-32): если пользователь смотрит в дульный срез дольше MuzzleLookSeconds —
-    // грубое LookIntoMuzzle, упражнение в Failed. Короткий порог отсекает случайный проход взгляда.
+    // грубое LookIntoMuzzle, один раз за эпизод взгляда. Короткий порог отсекает случайный проход взгляда.
     // Геометрию (луч из камеры шлема) считает MuzzleLookDetector в Gameplay.
     public sealed class MuzzleLookRule
     {
@@ -9,6 +9,7 @@ namespace Rubezh.Core
         private readonly IClock _clock;
         private bool _looking;
         private double _since;
+        private bool _raised;
 
         public MuzzleLookRule(ExerciseDirector director, IClock clock)
         {
@@ -29,12 +30,16 @@ namespace Rubezh.Core
             if (!_looking)
             {
                 _looking = true;
+                _raised = false;
                 _since = _clock.Now;
             }
 
             double duration = _clock.Now - _since;
-            if (duration >= _director.Rules.MuzzleLookSeconds)
+            if (!_raised && duration >= _director.Rules.MuzzleLookSeconds)
+            {
+                _raised = true;
                 _director.Raise(Violation.LookIntoMuzzle, Severity.Critical, duration);
+            }
         }
 
         public void Reset() => _looking = false;

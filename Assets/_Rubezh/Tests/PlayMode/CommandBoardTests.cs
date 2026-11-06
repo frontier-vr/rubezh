@@ -55,11 +55,11 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator Failed_ShowsStopCommand()
+        public IEnumerator Gross_KeepsCurrentCommand()
         {
             _runner.Raise(Violation.LookIntoMuzzle, Severity.Critical);
             yield return null;
-            Assert.AreEqual("Стоп! Упражнение прекращено", _board.Current);
+            Assert.AreEqual("Получить оружие в шкафу", _board.Current, "грубое не останавливает упражнение (Р-09)");
         }
 
         [UnityTest]

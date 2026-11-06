@@ -7,8 +7,8 @@
 Рубеж построен на XRI 3.6.1 и сэмпле Starter Assets.
 
 - **XR Origin** из Starter Assets (`XR Origin (XR Rig)`): Locomotion Mediator, Teleportation
-  Provider, Snap Turn Provider. Остальные провайдеры рига выключены: Move, Grab Move, Climb,
-  Climb Teleport, Gravity, Jump. Плавного хода нет (FR-02).
+  Provider, Snap Turn Provider, Move (плавный ход левым стиком, Р-10). Остальные провайдеры рига
+  выключены: Grab Move, Climb, Climb Teleport, Gravity, Jump.
 - **Телепорт только на якоря**: три `TeleportationAnchor` (A1–A3) с `teleportAnchorTransform`.
   `Teleportation Area` из демо-префаба `Teleportation Environment` в сцену не переносим.
 - **Левый `ControllerInputActionManager`**: снять Smooth Motion Enabled, иначе телепорт с левого

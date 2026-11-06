@@ -101,12 +101,15 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator Gross_ShowsAfterDelay_AtCurrentAnchor_WithReason()
+        public IEnumerator Gross_NoScreenUntilDone_ThenReasonShown()
         {
             _runner.Raise(Violation.LookIntoMuzzle, Severity.Critical);
-            yield return null;
-            Assert.IsFalse(_screen.Visible, "сначала стоп-экран VP-22");
             yield return new WaitForSeconds(0.35f);
+            Assert.IsFalse(_screen.Visible, "грубое не останавливает упражнение (Р-09)");
+
+            var gross = new ViolationRecord(Violation.LookIntoMuzzle, Severity.Critical, 12, 0.3);
+            _screen.Show(new ExerciseResult { Score = 0, Verdict = Verdict.NotPassed, FailedCritical = true,
+                                              FailReason = Violation.LookIntoMuzzle, Violations = new[] { gross } }, Anchor.A1);
             Assert.IsTrue(_screen.Visible);
             Assert.AreEqual("НЕ ЗАЧЁТ", Text("Verdict"));
             Assert.AreEqual("0", Text("Score"));
@@ -114,18 +117,18 @@ namespace Rubezh.Tests.PlayMode
             Assert.AreEqual("Взгляд в ствол", Text("ViolationsValue"));
             StringAssert.Contains("× грубое", Text("Table"));
             StringAssert.Contains("стоп", Text("Table"));
-            Assert.AreEqual(_r3.position, _screenGo.transform.position, "у текущего якоря A3 — экран R3");
         }
 
         [UnityTest]
         public IEnumerator Repeat_RestartsExercise_AndHides()
         {
             _runner.Raise(Violation.LookIntoMuzzle, Severity.Critical);
-            yield return new WaitForSeconds(0.35f);
-            Assert.AreEqual(Phase.Failed, _runner.Phase);
+            _screen.Show(new ExerciseResult { Verdict = Verdict.NotPassed, Violations = new ViolationRecord[0] }, Anchor.A1);
+            yield return null;
             Find<UnityEngine.UI.Button>("Repeat").onClick.Invoke();
             yield return null;
             Assert.AreEqual(Phase.Receive, _runner.Phase, "упражнение с начала без перезапуска");
+            Assert.IsEmpty(_runner.Director.Violations, "нарушения прошлого захода сброшены");
             Assert.IsFalse(_screen.Visible);
         }
     }

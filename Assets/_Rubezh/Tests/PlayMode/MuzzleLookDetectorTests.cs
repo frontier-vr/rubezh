@@ -45,12 +45,15 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator HeadInFrontOfMuzzle_LookingIn_Fails()
+        public IEnumerator HeadInFrontOfMuzzle_LookingIn_IsGross()
         {
             HeadAt(new Vector3(0f, 0.05f, 0.35f));                 // перед срезом, смотрит в ствол
             yield return Wait(0.5f);
-            Assert.AreEqual(Phase.Failed, _runner.Phase);
-            Assert.AreEqual(Violation.LookIntoMuzzle, _runner.Director.Result.FailReason);
+            var v = _runner.Director.Violations;
+            Assert.AreEqual(1, v.Count, "одно нарушение на эпизод взгляда");
+            Assert.AreEqual(Violation.LookIntoMuzzle, v[0].Type);
+            Assert.AreEqual(Severity.Critical, v[0].Severity);
+            Assert.IsTrue(_runner.Director.IsRunning, "грубое не останавливает упражнение (Р-09)");
         }
 
         [UnityTest]

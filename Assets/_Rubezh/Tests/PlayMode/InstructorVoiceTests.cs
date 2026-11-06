@@ -76,15 +76,12 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator Gross_SaysStop_ThenReason()
+        public IEnumerator Gross_NoStopCommand()
         {
             _runner.Raise(Violation.LookIntoMuzzle, Severity.Critical);
             yield return null;
-            Assert.AreEqual(_script.VoiceId(Phase.Failed), _voice.Speaking, "сначала «Стоп! Упражнение прекращено»");
-            Assert.AreEqual(1, _voice.Queued.Count);
-            _voice.Source.Stop();                     // договорили
-            yield return null;
-            Assert.AreEqual("fail_LookIntoMuzzle", _voice.Speaking, "затем причина");
+            Assert.AreNotEqual(_script.VoiceId(Phase.Failed), _voice.Speaking, "«Стоп! Упражнение прекращено» нет (Р-09)");
+            Assert.AreNotEqual("fail_LookIntoMuzzle", _voice.Speaking);
         }
 
         [UnityTest]

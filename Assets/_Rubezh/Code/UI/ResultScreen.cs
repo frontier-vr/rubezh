@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Text;
 using Rubezh.Core;
 using Rubezh.Gameplay;
@@ -45,14 +44,11 @@ namespace Rubezh.UI
 
         private HintRules _names;
         private RenderTexture _targetTexture;
-        private Coroutine _delayed;
         private int _replayIndex = -1;
 
         public bool Visible => panel != null && panel.activeSelf;
         public ExerciseResult Shown { get; private set; }
         public int ReplayIndex => _replayIndex;
-
-        private float FailDelay => rules != null ? rules.failResultDelaySeconds : 4f;
 
         public void Configure(ExerciseRunner exerciseRunner, RulesConfig rulesConfig, AnchorLocator locator,
                               Transform screen1, Transform screen2, Transform screen3,
@@ -99,19 +95,8 @@ namespace Rubezh.UI
             if (_targetTexture != null) _targetTexture.Release();
         }
 
-        private void OnFinished(ExerciseResult result)
-        {
-            if (_delayed != null) StopCoroutine(_delayed);
-            if (result.FailedCritical) _delayed = StartCoroutine(ShowLater(result));
-            else Show(result, Anchor.A1);
-        }
-
-        private IEnumerator ShowLater(ExerciseResult result)
-        {
-            yield return new WaitForSeconds(FailDelay);
-            _delayed = null;
-            Show(result, anchors != null ? anchors.Current : Anchor.A1);
-        }
+        // Упражнение всегда кончается сдачей в шкаф (Р-09), результат — у R1.
+        private void OnFinished(ExerciseResult result) => Show(result, Anchor.A1);
 
         public void Show(ExerciseResult result, Anchor at)
         {
@@ -125,7 +110,6 @@ namespace Rubezh.UI
 
         public void Hide()
         {
-            if (_delayed != null) { StopCoroutine(_delayed); _delayed = null; }
             StopReplay();
             if (panel != null) panel.SetActive(false);
         }

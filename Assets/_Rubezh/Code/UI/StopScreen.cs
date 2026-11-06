@@ -76,7 +76,8 @@ namespace Rubezh.UI
 
         private void OnFinished(ExerciseResult result)
         {
-            if (!result.FailedCritical || !result.FailReason.HasValue) return;
+            // Грубое нарушение упражнение не останавливает (Р-09): стоп-экран только для Failed.
+            if (runner.Phase != Phase.Failed || !result.FailedCritical || !result.FailReason.HasValue) return;
             Show(result.FailReason.Value, CriticalTime(result), anchors != null ? anchors.Current : Anchor.A1);
             if (_hide != null) StopCoroutine(_hide);
             _hide = StartCoroutine(HideLater());
