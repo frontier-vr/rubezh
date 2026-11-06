@@ -129,36 +129,41 @@ namespace Rubezh.Tests.PlayMode
             Assert.AreEqual(Phase.Fire, _runner.Phase, "промах — не нарушение");
         }
 
+        private ViolationRecord LastViolation => _runner.Director.Violations[_runner.Director.Violations.Count - 1];
+
         [UnityTest]
-        public IEnumerator ShotBeforeFire_Fails()
+        public IEnumerator ShotBeforeFire_IsGross_ExerciseContinues()
         {
             AimAt(new Vector3(0f, 1.5f, 11.2f));
             Shoot();
             yield return null;
-            Assert.AreEqual(Phase.Failed, _runner.Phase);
-            Assert.AreEqual(Violation.ShotBeforeFire, _runner.Director.Result.FailReason);
+            Assert.AreEqual(Violation.ShotBeforeFire, LastViolation.Type);
+            Assert.AreEqual(Severity.Critical, LastViolation.Severity);
+            Assert.IsTrue(_runner.Director.IsRunning, "грубое не останавливает упражнение (Р-09)");
         }
 
         [UnityTest]
-        public IEnumerator ShotAfterCease_Fails()
+        public IEnumerator ShotAfterCease_IsGross()
         {
             GoTo(Phase.Cease);
             AimAt(new Vector3(0f, 1.5f, 11.2f));
             Shoot();
             yield return null;
-            Assert.AreEqual(Violation.ShotAfterCease, _runner.Director.Result.FailReason);
+            Assert.AreEqual(Violation.ShotAfterCease, LastViolation.Type);
+            Assert.AreEqual(Severity.Critical, LastViolation.Severity);
         }
 
         [UnityTest]
-        public IEnumerator ShotOutOfSector_Fails()
+        public IEnumerator ShotOutOfSector_IsGross()
         {
             GoTo(Phase.Fire);
             AimAt(new Vector3(1.6f, 1.5f, 6f));           // в боковой щит
             Shoot();
             yield return null;
             Assert.IsEmpty(_hits);
-            Assert.AreEqual(Violation.ShotOutOfSector, _runner.Director.Result.FailReason);
-            Assert.AreEqual(1, _runner.Director.Result.Shots, "выстрел учтён до остановки");
+            Assert.AreEqual(Violation.ShotOutOfSector, LastViolation.Type);
+            Assert.AreEqual(Severity.Critical, LastViolation.Severity);
+            Assert.AreEqual(1, _resolver.Shots, "выстрел учтён");
         }
     }
 }

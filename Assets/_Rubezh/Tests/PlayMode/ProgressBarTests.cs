@@ -70,12 +70,12 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator Gross_Freezes_Repeat_Resets()
+        public IEnumerator Gross_DoesNotFreeze_Repeat_Resets()
         {
             _bar.Steps.OnPhaseChanged(Phase.Receive, Phase.Inspect);
             _runner.Raise(Violation.LookIntoMuzzle, Severity.Critical);
             yield return null;
-            Assert.IsTrue(_bar.Steps.Frozen, "грубое — шкала замерла");
+            Assert.IsFalse(_bar.Steps.Frozen, "грубое не останавливает упражнение (Р-09)");
             Assert.IsTrue(_bar.IsLit(0));
             _runner.Restart();
             yield return null;

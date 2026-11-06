@@ -131,7 +131,6 @@ namespace Rubezh.XR
 
         private void OnViolation(ViolationRecord v)
         {
-            if (v.Severity != Severity.Minor) return;     // грубое — стоп-экран VP-22
             _callouts.Remark(_texts != null ? _texts.ViolationName(v.Type) : v.Type.ToString(), WeaponHand, Now);
             Refresh();
         }

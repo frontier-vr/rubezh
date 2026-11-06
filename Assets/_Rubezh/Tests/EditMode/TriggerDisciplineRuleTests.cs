@@ -104,12 +104,12 @@ namespace Rubezh.Tests.EditMode
         }
 
         [Test]
-        public void AfterFailed_NothingIsRecorded()
+        public void AfterCritical_TouchesStillRecorded()
         {
             _director.Raise(Violation.LookIntoMuzzle, Severity.Critical);
             int n = _raised.Count;
             Run(1, true, true); Run(0.1, true, false);
-            Assert.AreEqual(n, _raised.Count);
+            Assert.AreEqual(n + 1, _raised.Count, "грубое не останавливает упражнение (Р-09)");
         }
     }
 }

@@ -4,7 +4,7 @@ using Rubezh.Core;
 
 namespace Rubezh.Tests.EditMode
 {
-    // Взгляд в ствол FR-32: грубое LookIntoMuzzle после короткого порога, упражнение в Failed.
+    // Взгляд в ствол FR-32: грубое LookIntoMuzzle после короткого порога, одно на эпизод, без стопа (Р-09).
     public class MuzzleLookRuleTests
     {
         private sealed class FakeClock : IClock { public double Now { get; set; } }
@@ -31,14 +31,16 @@ namespace Rubezh.Tests.EditMode
         }
 
         [Test]
-        public void LookingIntoMuzzle_FailsWithReason()
+        public void LookingIntoMuzzle_IsCritical_OncePerEpisode_WithoutStop()
         {
-            Run(0.4, true);
-            Assert.AreEqual(1, _raised.Count);
+            Run(2, true);
+            Assert.AreEqual(1, _raised.Count, "долгий взгляд — одно нарушение");
             Assert.AreEqual(Violation.LookIntoMuzzle, _raised[0].Type);
             Assert.AreEqual(Severity.Critical, _raised[0].Severity);
-            Assert.AreEqual(Phase.Failed, _director.Phase);
-            Assert.AreEqual(Violation.LookIntoMuzzle, _director.Result.FailReason);
+            Assert.IsTrue(_director.IsRunning);
+
+            Run(0.5, false); Run(0.4, true);
+            Assert.AreEqual(2, _raised.Count, "новый эпизод — новое нарушение");
         }
 
         [Test]
@@ -53,10 +55,11 @@ namespace Rubezh.Tests.EditMode
         {
             _director = new ExerciseDirector(_clock, new ExerciseRules { MuzzleLookSeconds = 1.0 });
             _rule = new MuzzleLookRule(_director, _clock);
+            _director.ViolationRaised += _raised.Add;
             Run(0.8, true);
-            Assert.AreNotEqual(Phase.Failed, _director.Phase);
+            Assert.IsEmpty(_raised);
             Run(0.3, true);
-            Assert.AreEqual(Phase.Failed, _director.Phase);
+            Assert.AreEqual(1, _raised.Count);
         }
 
         [Test]

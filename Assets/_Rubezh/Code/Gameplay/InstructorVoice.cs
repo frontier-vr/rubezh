@@ -61,7 +61,6 @@ namespace Rubezh.Gameplay
             if (runner != null)
             {
                 runner.PhaseChanged += OnPhaseChanged;
-                runner.Finished += OnFinished;
                 runner.Restarted += OnRestarted;
             }
             if (hints != null) hints.HintShown += OnHintShown;
@@ -72,7 +71,6 @@ namespace Rubezh.Gameplay
             if (runner != null)
             {
                 runner.PhaseChanged -= OnPhaseChanged;
-                runner.Finished -= OnFinished;
                 runner.Restarted -= OnRestarted;
             }
             if (hints != null) hints.HintShown -= OnHintShown;
@@ -92,18 +90,7 @@ namespace Rubezh.Gameplay
 
         public string CommandId(Phase phase) => _script != null ? _script.VoiceId(phase) : null;
 
-        private void OnPhaseChanged(Phase from, Phase to)
-        {
-            // Failed озвучивает OnFinished: команда «Стоп» и сразу причина.
-            if (to != Phase.Failed) Command(to);
-        }
-
-        private void OnFinished(ExerciseResult result)
-        {
-            if (!result.FailedCritical) return;
-            Command(Phase.Failed);
-            if (result.FailReason.HasValue) Enqueue("fail_" + result.FailReason.Value);
-        }
+        private void OnPhaseChanged(Phase from, Phase to) => Command(to);
 
         private void OnRestarted()
         {

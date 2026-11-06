@@ -19,7 +19,7 @@ namespace Rubezh.Gameplay
         [Min(1)] public int seriesRounds = 5;
 
         [Header("Сектор (VP-05)")]
-        [Tooltip("Занос ствола вне сектора, после которого при снаряжённом оружии — грубое нарушение, с")]
+        [Tooltip("Вне рубежа (у шкафа и стола): занос ствола короче этого прощается, с")]
         [Min(0f)] public float sectorGraceSeconds = 1.5f;
         [Tooltip("Выход из сектора короче этого — дрожание руки на границе, не нарушение, с")]
         [Min(0f)] public float sectorJitterSeconds = 0.1f;

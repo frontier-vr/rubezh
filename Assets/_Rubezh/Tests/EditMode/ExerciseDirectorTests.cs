@@ -333,24 +333,30 @@ namespace Rubezh.Tests.EditMode
             Assert.AreEqual(Violation.IncompleteInspection, _violations[0].Type);
         }
 
-        // Грубое нарушение: Failed с причиной.
+        // Грубое нарушение (Р-09): упражнение доигрывается, итог — 0 и «не зачёт» с причиной.
+
+        private void FinishFromLoad() { Fire(); Cease(); Unload(); ShowClear(); Return(); }
 
         [Test]
-        public void CriticalViolation_MovesToFailed_WithReason()
+        public void CriticalViolation_ExerciseContinues_ResultNotPassedAtEnd()
         {
             Receive(); Inspect();
-            _clock.Now = 130;
             _director.Raise(Violation.LookIntoMuzzle, Severity.Critical);
 
-            Assert.AreEqual(Phase.Failed, _director.Phase);
-            Assert.AreEqual(Phase.Failed, _phases[_phases.Count - 1]);
+            Assert.AreEqual(Phase.Ppe, _director.Phase);
+            Assert.IsTrue(_director.IsRunning);
+            Assert.IsEmpty(_finished);
+
+            Ppe(); LoadMagazine(); ToLine(); Load(); FinishFromLoad();
+
+            Assert.AreEqual(Phase.Done, _director.Phase);
+            Assert.IsFalse(_phases.Contains(Phase.Failed));
             Assert.AreEqual(1, _finished.Count);
             var result = _finished[0];
             Assert.IsTrue(result.FailedCritical);
             Assert.AreEqual(Violation.LookIntoMuzzle, result.FailReason);
             Assert.AreEqual(Verdict.NotPassed, result.Verdict);
             Assert.AreEqual(0, result.Score);
-            Assert.AreEqual(30, result.TotalTime, 1e-9);
             Assert.AreEqual(1, result.Violations.Count);
         }
 
@@ -362,6 +368,7 @@ namespace Rubezh.Tests.EditMode
         {
             Receive(); Inspect(); Ppe(); LoadMagazine(); ToLine(); Load();
             _director.Raise(reason, Severity.Critical);
+            FinishFromLoad();
             Assert.AreEqual(reason, _director.Result.FailReason);
         }
 
@@ -379,19 +386,17 @@ namespace Rubezh.Tests.EditMode
         }
 
         [Test]
-        public void AfterFailed_NothingIsRecorded_AndPhasesDoNotMove()
+        public void AfterCritical_ViolationsAndPhasesContinue_FirstCriticalIsReason()
         {
             Receive();
             _director.Raise(Violation.LookIntoMuzzle, Severity.Critical);
-            int violations = _violations.Count;
-
             _director.Raise(Violation.FingerOnTrigger, Severity.Minor);
-            _director.ReportAction(ExerciseAction.InsertMagazine);
-            Inspect();
+            Inspect(); Ppe(); LoadMagazine(); ToLine(); Load();
+            _director.Raise(Violation.ShotOutOfSector, Severity.Critical);
+            FinishFromLoad();
 
-            Assert.AreEqual(Phase.Failed, _director.Phase);
-            Assert.AreEqual(violations, _violations.Count);
-            Assert.AreEqual(1, _finished.Count);
+            Assert.AreEqual(3, _violations.Count);
+            Assert.AreEqual(Violation.LookIntoMuzzle, _director.Result.FailReason);
         }
 
         [Test]

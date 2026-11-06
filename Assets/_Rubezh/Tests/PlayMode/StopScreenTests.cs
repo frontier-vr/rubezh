@@ -99,24 +99,13 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator Gross_StopAtCurrentAnchor_ThenResultInSamePlace()
+        public IEnumerator Gross_NoStopScreen_ExerciseContinues()
         {
             _runner.Raise(Violation.ShotBeforeFire, Severity.Critical);
-            yield return null;
-            Assert.IsTrue(_stop.Visible, "стоп-экран сразу");
-            Assert.IsFalse(_result.Visible, "результат — после стоп-экрана");
-            Assert.AreEqual("Выстрел до команды «Огонь»", Text("Title"));
-            Assert.AreEqual("СТОП", Text("Stop"));
-            StringAssert.StartsWith("стоп-кадр · ", Text("FrameCaption"));
-            Assert.IsNotNull(_stopGo.transform.Find("Panel/StopFrame").GetComponent<UnityEngine.UI.RawImage>().texture, "стоп-кадр снят");
-            Assert.AreEqual(_r2.position, _stopGo.transform.position, "у A2 — экран R2");
-            var toScreen = _r2.position - _a2.position; toScreen.y = 0;
-            Assert.Greater(Vector3.Dot(_stopGo.transform.forward, toScreen.normalized), 0.99f, "панель смотрит на A2");
-
             yield return new WaitForSeconds(0.45f);
-            Assert.IsFalse(_stop.Visible, "стоп-экран уступил место результату");
-            Assert.IsTrue(_result.Visible);
-            Assert.AreEqual(_stopGo.transform.position, _resultGo.transform.position, "результат там же, где стоп-экран");
+            Assert.IsFalse(_stop.Visible, "грубое не останавливает упражнение (Р-09)");
+            Assert.IsFalse(_result.Visible, "результат — только при сдаче");
+            Assert.IsTrue(_runner.Director.IsRunning);
         }
 
         [UnityTest]
@@ -130,7 +119,7 @@ namespace Rubezh.Tests.PlayMode
         [UnityTest]
         public IEnumerator Restart_HidesStopScreen()
         {
-            _runner.Raise(Violation.LookIntoMuzzle, Severity.Critical);
+            _stop.Show(Violation.LookIntoMuzzle, 12, Anchor.A2);
             yield return null;
             Assert.IsTrue(_stop.Visible);
             _runner.Restart();

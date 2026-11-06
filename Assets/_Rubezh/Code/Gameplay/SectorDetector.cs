@@ -63,7 +63,7 @@ namespace Rubezh.Gameplay
             bool held = _held.IsHeld;
             bool onLine = anchors == null || anchors.Current == Anchor.A3;
             InSector = !held || Cast(out _) || (!onLine && PointsDown);
-            _rule.Tick(held, InSector, _held.State.IsLoaded, onLine);
+            _rule.Tick(held, InSector, onLine);
         }
 
         public void SetAnchors(AnchorLocator locator, RulesConfig rulesConfig)

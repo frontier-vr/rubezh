@@ -19,17 +19,17 @@
 | № | Нарушение | Как вызвать | Ожидается | Автотест | Никита | Влад | Маша | Юля | Баг |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | `MuzzleOutOfSector` мелкое | на рубеже, пистолет пустой, увести ствол в щит на 0,5 с и вернуть | замечание «Ствол вне сектора» у руки, −10 в итоге | `SectorRuleTests`, `SectorDetectorTests` | | | | | |
-| 2 | `MuzzleOutOfSector` грубое | на рубеже с магазином увести ствол в щит на 2 с | стоп-экран у R3 «Ствол вне сектора», через 4 с результат 0 | `SectorRuleTests`, `StopScreenTests` | | | | | |
+| 2 | `MuzzleOutOfSector` долгий | на рубеже с магазином увести ствол в щит на 2 с и вернуть | замечание «Ствол вне сектора», −10, упражнение продолжается (Р-08) | `SectorRuleTests`, `SectorDetectorTests` | | | | | |
 | 3 | вне рубежа | у шкафа поворачивать пустой пистолет, стволом вниз и вбок до 1 с | нарушения нет (#164) | `SectorRuleTests.OffLine_*`, `FullRunTests` | | | | | |
 | 4 | `FingerOnTrigger` | на шаге «Осмотр» положить палец на спуск на 1 с | замечание «Палец на спуске», длительность в итоге | `TriggerDisciplineRuleTests`, `TriggerDisciplineDetectorTests` | | | | | |
-| 5 | `LookIntoMuzzle` | повернуть пистолет стволом к лицу | стоп-экран «Взгляд в ствол» у текущего якоря | `MuzzleLookRuleTests`, `MuzzleLookDetectorTests` | | | | | |
+| 5 | `LookIntoMuzzle` | повернуть пистолет стволом к лицу | красное замечание «Взгляд в ствол», упражнение продолжается, в итоге «не зачёт» | `MuzzleLookRuleTests`, `MuzzleLookDetectorTests` | | | | | |
 | 6 | `NoEarmuffs` | пройти шаг СИЗ, на рубеже снять наушники и выйти на рубеж снова | замечание «Без наушников на рубеже» | `ReturnChecksTests` | | | | | |
 | 7 | `NoGlasses` | то же с очками | замечание «Без очков на рубеже» | `ReturnChecksTests` | | | | | |
 | 8 | `StepOrder` | на шаге «Осмотр» вставить патрон в магазин | замечание «Нарушен порядок шагов» | `ExerciseDirectorTests`, `MagazineSocketsTests` | | | | | |
 | 9 | `IncompleteInspection` | на «Осмотре» телепорт на A2, не отделив магазин | замечание «Осмотр не завершён» (#163) | `ExerciseDirectorTests`, `AnchorTeleportTests` | | | | | |
-| 10 | `ShotBeforeFire` | на «Заряжай» дослать и нажать спуск | стоп-экран «Выстрел до команды «Огонь»» | `ShotRuleTests`, `ShotResolverTests` | | | | | |
-| 11 | `ShotAfterCease` | после «Стой» снять с предохранителя и выстрелить | стоп-экран «Выстрел после команды «Стой»» | `ShotRuleTests`, `ShotResolverTests` | | | | | |
-| 12 | `ShotOutOfSector` | на «Огонь» выстрелить в щит | стоп-экран «Выстрел вне сектора» | `ShotRuleTests`, `ShotResolverTests`, `StopScreenTests` | | | | | |
+| 10 | `ShotBeforeFire` | на «Заряжай» дослать и нажать спуск | замечание «Выстрел до команды «Огонь»», в итоге «не зачёт» | `ShotRuleTests`, `ShotResolverTests` | | | | | |
+| 11 | `ShotAfterCease` | после «Стой» снять с предохранителя и выстрелить | замечание «Выстрел после команды «Стой»», в итоге «не зачёт» | `ShotRuleTests`, `ShotResolverTests` | | | | | |
+| 12 | `ShotOutOfSector` | на «Огонь» выстрелить в щит | замечание «Выстрел вне сектора», в итоге «не зачёт» | `ShotRuleTests`, `ShotResolverTests`, `StopScreenTests` | | | | | |
 | 13 | `ReturnedLoaded` | на сдаче вставить пистолет в шкаф с магазином | шкаф не принимает, замечание «Сдача неразряженного оружия» | `ReturnChecksTests`, `CabinetSocketTests` | | | | | |
 | 14 | `CasingLeft` | поднять гильзу с полочки и уронить на пол, сдать оружие | замечание «Гильзы вне гильзоуловителя» | `ReturnChecksTests`, `CasingTests` | | | | | |
 | 15 | `JamMishandled` (осечка) | после осечки перезарядить сразу, не выждав 5 с | замечание «Задержка устранена раньше 5 с» | `JamTests` | | | | | |

@@ -79,16 +79,14 @@ namespace Rubezh.Tests.EditMode
         }
 
         [Test]
-        public void Director_GrossViolation_ResultNotPassed_FailedCritical()
+        public void Director_GrossViolation_DoesNotStop_ResultComesAtDone()
         {
             var clock = new ManualClock();
             var d = new ExerciseDirector(clock, _rules);
             d.Raise(Violation.ShotBeforeFire, Severity.Critical);
-            Assert.AreEqual(Phase.Failed, d.Phase);
-            Assert.AreEqual(0, d.Result.Score);
-            Assert.AreEqual(Verdict.NotPassed, d.Result.Verdict);
-            Assert.IsTrue(d.Result.FailedCritical);
-            Assert.AreEqual(Violation.ShotBeforeFire, d.Result.FailReason);
+            Assert.AreEqual(Phase.Receive, d.Phase);
+            Assert.IsTrue(d.IsRunning);
+            Assert.IsNull(d.Result, "итог с 0 и «не зачёт» — при сдаче (ExerciseDirectorTests)");
         }
 
         [Test]

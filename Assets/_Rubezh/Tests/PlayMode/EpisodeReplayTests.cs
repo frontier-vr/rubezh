@@ -157,15 +157,14 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator Recorder_KeepsLastFrame_WhenExerciseStops()
+        public IEnumerator Recorder_RecordsCriticalMoment_ExerciseContinues()
         {
             _runner.UpdateFacts(new ExerciseFacts(true, new WeaponState(true, 0, Chamber.Empty, false, true, Jam.None), 0,
                                                   Place.Hand, Place.InWeapon, false, false, false));
             yield return new WaitForSeconds(0.2f);
             _runner.Raise(Violation.LookIntoMuzzle, Severity.Critical, 0.2);
             var v = _runner.Director.Violations[0];
-            yield return null;
-            yield return null;
+            yield return new WaitForSeconds(0.25f);
             Assert.GreaterOrEqual(_recorder.RecordedUntil + 1e-6, v.Time, "момент грубого нарушения записан");
             Assert.IsTrue(_replay.Play(v));
         }

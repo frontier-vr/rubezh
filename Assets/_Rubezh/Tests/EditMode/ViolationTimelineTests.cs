@@ -50,21 +50,19 @@ namespace Rubezh.Tests.EditMode
         }
 
         [Test]
-        public void Result_HasViolationsInOrder_WithTimes()
+        public void Violations_InOrder_WithTimes_AfterCritical()
         {
-            ExerciseResult result = null;
-            _director.Finished += r => result = r;
             _director.UpdateFacts(InHand());
             _clock.Now = 1010; _director.Raise(Violation.FingerOnTrigger, Severity.Minor, 0.5);
             _clock.Now = 1020; _director.Raise(Violation.MuzzleOutOfSector, Severity.Minor, 1.2);
             _clock.Now = 1030; _director.Raise(Violation.LookIntoMuzzle, Severity.Critical, 0.3);
 
-            Assert.IsNotNull(result);
-            Assert.AreEqual(3, result.Violations.Count);
-            for (int i = 1; i < result.Violations.Count; i++)
-                Assert.LessOrEqual(result.Violations[i - 1].Time, result.Violations[i].Time, "по времени");
-            Assert.AreEqual(30, result.Violations[2].Time, 1e-9);
-            Assert.AreEqual(30, result.TotalTime, 1e-9);
+            var v = _director.Violations;
+            Assert.AreEqual(3, v.Count);
+            for (int i = 1; i < v.Count; i++)
+                Assert.LessOrEqual(v[i - 1].Time, v[i].Time, "по времени");
+            Assert.AreEqual(30, v[2].Time, 1e-9);
+            Assert.AreEqual(30, _director.Elapsed, 1e-9);
         }
 
         [Test]

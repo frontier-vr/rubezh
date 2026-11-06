@@ -78,7 +78,7 @@ namespace Rubezh.Tests.PlayMode
         {
             Assert.IsTrue(_callouts.Visible);
             Assert.AreEqual(Callouts.Kind.Onboarding, _callouts.Model.Current);
-            Assert.AreEqual("Стик вперёд: телепорт на жёлтый круг", _callouts.Shown);
+            Assert.AreEqual("Левый стик: идти · правый стик вперёд: телепорт", _callouts.Shown);
         }
 
         [UnityTest]
@@ -118,13 +118,14 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator GrossViolation_NoCallout()
+        public IEnumerator GrossViolation_ShowsRemark()
         {
             _rig.position = new Vector3(0, 0, 3.25f);
             yield return null;
             _runner.Raise(Violation.LookIntoMuzzle, Severity.Critical);
             yield return null;
-            Assert.AreNotEqual(Callouts.Kind.Remark, _callouts.Model.Current, "грубое — на стоп-экране, не у руки");
+            Assert.AreEqual(Callouts.Kind.Remark, _callouts.Model.Current, "стоп-экрана нет (Р-09) — замечание у руки");
+            Assert.AreEqual("Взгляд в ствол", _callouts.Shown);
         }
     }
 }
