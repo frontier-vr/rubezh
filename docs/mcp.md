@@ -16,7 +16,7 @@
 
    Проверка: `uvx --version`. Ещё нужен git, он уже стоит для работы с репо.
 2. **Blender 5.1.2**: https://download.blender.org/release/Blender5.1/
-3. **Официальный аддон.** Скачать [mcp-1.0.3.zip](https://projects.blender.org/lab/blender_mcp/releases/download/v1.0.3/mcp-1.0.3.zip) и перетащить в окно Blender. Затем Edit → Preferences → Add-ons → **MCP** → поле **Port: 9877**.
+3. **Официальный аддон.** Скачать [mcp-1.0.3.zip](https://projects.blender.org/lab/blender_mcp/releases/download/v1.0.3/mcp-1.0.3.zip) и перетащить в окно Blender. Затем Edit → Preferences → Add-ons → **MCP** → поле **Port: 9877**. Ещё нужно включить Edit → Preferences → System → **Allow Online Access**, иначе аддон не запустит сервер.
 4. **Аддон ассетов.** Скачать [addon.py](https://raw.githubusercontent.com/ahujasid/blender-mcp/7a0373ec9199183cb460068c4f96aed9c579fb4f/addon.py) (правый клик → «Сохранить как»). Затем Preferences → Add-ons → ⌄ → Install from Disk → `addon.py` → включить **MCP for Blender**. Порт не трогать, остаётся 9876.
 5. **Unity.** Пакет приезжает из `Packages/manifest.json`, ставить ничего не надо. В Window → MCP for Unity:
    - если не подключается, выставить транспорт **stdio**;
