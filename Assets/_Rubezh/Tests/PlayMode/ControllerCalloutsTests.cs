@@ -100,7 +100,7 @@ namespace Rubezh.Tests.PlayMode
             Assert.AreNotEqual(Callouts.Kind.Onboarding, _callouts.Model.Current);
             yield return new WaitForSeconds(0.6f);
             Assert.AreEqual(Callouts.Kind.Hint, _callouts.Model.Current);
-            Assert.AreEqual("Стик вперёд: к шкафу", _callouts.Shown);
+            Assert.AreEqual("Левый стик: идти к шкафу", _callouts.Shown);
             _hints.Activity();
             yield return null;
             Assert.IsFalse(_callouts.Visible, "действие снимает подсказку");
