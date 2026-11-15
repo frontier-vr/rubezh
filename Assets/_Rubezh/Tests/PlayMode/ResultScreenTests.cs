@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 namespace Rubezh.Tests.PlayMode
 {
     // Экран результата (VP-20) по макету YG-09: вердикт словом и значком, балл, время, точность,
-    // таблица нарушений; грубое — через N с у текущего якоря; «Повторить» начинает заново.
+    // таблица нарушений; грубое — пункт с 0 баллов, первой строкой (Р-11); «Повторить» начинает заново.
     public class ResultScreenTests
     {
         private GameObject _root, _screenGo;
@@ -101,22 +101,27 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator Gross_NoScreenUntilDone_ThenReasonShown()
+        public IEnumerator Gross_NoScreenUntilDone_ThenZeroedItemsShown()
         {
             _runner.Raise(Violation.LookIntoMuzzle, Severity.Critical);
             yield return new WaitForSeconds(0.35f);
             Assert.IsFalse(_screen.Visible, "грубое не останавливает упражнение (Р-09)");
 
+            var minor = new ViolationRecord(Violation.FingerOnTrigger, Severity.Minor, 5, 0);
             var gross = new ViolationRecord(Violation.LookIntoMuzzle, Severity.Critical, 12, 0.3);
-            _screen.Show(new ExerciseResult { Score = 0, Verdict = Verdict.NotPassed, FailedCritical = true,
-                                              FailReason = Violation.LookIntoMuzzle, Violations = new[] { gross } }, Anchor.A1);
+            var again = new ViolationRecord(Violation.LookIntoMuzzle, Severity.Critical, 40, 0.3);
+            _screen.Show(new ExerciseResult { Score = 70, Verdict = Verdict.PassedWithRemarks, FailedCritical = true,
+                                              FailReason = Violation.LookIntoMuzzle, ZeroedItems = new[] { Violation.LookIntoMuzzle },
+                                              Violations = new[] { minor, gross, again } }, Anchor.A1);
             Assert.IsTrue(_screen.Visible);
-            Assert.AreEqual("НЕ ЗАЧЁТ", Text("Verdict"));
-            Assert.AreEqual("0", Text("Score"));
-            Assert.AreEqual("причина", Text("ViolationsCaption"));
-            Assert.AreEqual("Взгляд в ствол", Text("ViolationsValue"));
-            StringAssert.Contains("× грубое", Text("Table"));
-            StringAssert.Contains("стоп", Text("Table"));
+            Assert.AreEqual("ЗАЧЁТ С ЗАМЕЧАНИЯМИ", Text("Verdict"));
+            Assert.AreEqual("70", Text("Score"), "грубое не обнуляет весь балл");
+            Assert.AreEqual("пункты с 0 баллов", Text("ViolationsCaption"));
+            Assert.AreEqual("1", Text("ViolationsValue"));
+            var rows = Text("Table").Split('\n');
+            StringAssert.Contains("× 0 баллов · 00:11 · Взгляд в ствол", rows[0], "пункты с 0 баллов — первыми строками");
+            StringAssert.Contains("× повтор · ", rows[1], "тот же пункт второй раз балл не снимает");
+            StringAssert.Contains("Палец на спуске", rows[2]);
         }
 
         [UnityTest]

@@ -43,11 +43,14 @@ namespace Rubezh.Core
         public int Hits;
         public int Score;
         public Verdict Verdict;
-        public bool FailedCritical;
-        public Violation? FailReason;       // для стоп-экрана, заполнено при FailedCritical
+        public bool FailedCritical;         // были грубые нарушения; упражнение они не останавливают (Р-09)
+        public Violation? FailReason;       // первое грубое нарушение, заполнено при FailedCritical
+        // Пункты правил безопасности с 0 баллов (Р-11): грубые нарушения без повторов, по порядку.
+        public IReadOnlyList<Violation> ZeroedItems;
         public IReadOnlyList<ViolationRecord> Violations;
         // Из чего сложился балл (экран результата, VP-20): штрафы нарушений, промахов, времени.
         public int ViolationPenalty;
+        public int CriticalPenalty;         // сколько баллов сняли обнулённые пункты
         public int MissPenalty;
         public int OverTimePenalty;
     }

@@ -76,7 +76,9 @@ namespace Rubezh.Gameplay
         [Range(0, 100)] public int passScore = 80;
         [Tooltip("Балл от этого — зачёт с замечаниями; ниже — не зачёт")]
         [Range(0, 100)] public int remarksScore = 60;
-        [Tooltip("Штрафы мелких нарушений; грубое нарушение — 0 баллов и «не зачёт»")]
+        [Tooltip("Пункт правил безопасности стоит столько баллов: грубое нарушение пункта — 0 за пункт, один раз за упражнение (Р-11)")]
+        [Range(0, 100)] public int criticalPenalty = 20;
+        [Tooltip("Штрафы мелких нарушений; грубое нарушение обнуляет свой пункт — criticalPenalty")]
         public ViolationPenalty[] penalties = DefaultPenalties();
 
         [Header("Подсказки (VP-12)")]
@@ -187,6 +189,7 @@ namespace Rubezh.Gameplay
             MissPenalty = missPenalty,
             PassScore = passScore,
             RemarksScore = remarksScore,
+            CriticalPenalty = criticalPenalty,
             Penalties = PenaltyMap()
         };
 

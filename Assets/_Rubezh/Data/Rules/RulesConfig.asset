@@ -36,6 +36,7 @@ MonoBehaviour:
   missPenalty: 3
   passScore: 80
   remarksScore: 60
+  criticalPenalty: 20
   penalties:
   - violation: 0
     points: 10
