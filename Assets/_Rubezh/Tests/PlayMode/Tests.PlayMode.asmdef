@@ -10,6 +10,7 @@
         "Unity.TextMeshPro",
         "Rubezh.XR",
         "Unity.XR.Interaction.Toolkit",
+        "Unity.XR.Interaction.Toolkit.Samples.StarterAssets",
         "Unity.InputSystem",
         "UnityEngine.UI",
         "Unity.RenderPipelines.Core.Runtime",

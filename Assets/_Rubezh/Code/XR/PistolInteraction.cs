@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 namespace Rubezh.XR
 {
@@ -16,6 +17,8 @@ namespace Rubezh.XR
     // палец на рычаге задержки). Спуск этой руки — TriggerPull/TriggerRelease по порогам RulesConfig.
     // Пока пистолет в руке, стик этой руки не двигает и не поворачивает: менеджер действий руки
     // выключается, иначе он включает локомоцию снова при смене региона Near-Far.
+    // Ходить при этом всё равно можно (Р-10): если пистолет взят рукой, на стике которой плавный ход
+    // (левой), ход на это время переходит на стик свободной руки и возвращается, когда пистолет отпущен.
     [RequireComponent(typeof(XRGrabInteractable), typeof(WeaponController))]
     public sealed class PistolInteraction : MonoBehaviour
     {
@@ -39,6 +42,7 @@ namespace Rubezh.XR
         private XRGrabInteractable _grab;
         private WeaponController _weapon;
         private TriggerSqueeze _squeeze;
+        private ControllerInputActionManager _walkLentTo;   // свободная рука, которой на время отдан ход
 
         public WeaponController Weapon => _weapon;
         public XRGrabInteractable Grab => _grab;
@@ -52,6 +56,13 @@ namespace Rubezh.XR
             if (leftStick != null) left.stickActions = leftStick;
             if (rightStick != null) right.stickActions = rightStick;
             _squeeze = NewSqueeze();
+        }
+
+        // Менеджеры действий рук (ControllerInputActionManager из Starter Assets), для сцен без префаба рига.
+        public void ConfigureLocomotion(Behaviour leftManager, Behaviour rightManager)
+        {
+            left.locomotionManager = leftManager;
+            right.locomotionManager = rightManager;
         }
 
         private void Awake()
@@ -135,6 +146,7 @@ namespace Rubezh.XR
         private void SetLocomotion(Hand hand, bool enabled)
         {
             var h = Bindings(hand);
+            MoveWalk(h, Bindings(hand == Hand.Left ? Hand.Right : Hand.Left), toFreeHand: !enabled);
             if (h.locomotionManager != null)
             {
                 // Включённый менеджер сам восстановит действия по своим настройкам (OnEnable).
@@ -147,6 +159,23 @@ namespace Rubezh.XR
                 if (action == null) continue;
                 if (enabled) action.Enable(); else action.Disable();
             }
+        }
+
+        // Ход стиком не должен пропадать с пистолетом в руке: если рука с пистолетом — та, что ходит,
+        // плавный ход на время получает стик свободной руки (её телепорт и поворот на это время выключены).
+        private void MoveWalk(HandBindings holding, HandBindings free, bool toFreeHand)
+        {
+            if (!toFreeHand)
+            {
+                if (_walkLentTo != null) _walkLentTo.smoothMotionEnabled = false;
+                _walkLentTo = null;
+                return;
+            }
+            var mine = holding.locomotionManager as ControllerInputActionManager;
+            var other = free.locomotionManager as ControllerInputActionManager;
+            if (mine == null || other == null || !mine.smoothMotionEnabled || other.smoothMotionEnabled) return;
+            other.smoothMotionEnabled = true;
+            _walkLentTo = other;
         }
 
         private HandBindings Bindings(Hand hand) => hand == Hand.Left ? left : right;
