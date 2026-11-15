@@ -142,6 +142,8 @@ namespace Rubezh.Gameplay
         [Header("Магазин, патроны, места (NG-09)")]
         [Tooltip("Предмет ниже этой высоты и не в руке — упал (все столешницы выше), м")]
         [Min(0f)] public float dropHeight = 0.85f;
+        [Tooltip("Шаг между патронами в лотке O-18: вся серия лежит в ряд, м")]
+        [Min(0.02f)] public float roundSlotSpacing = 0.06f;
         [Tooltip("Упавший предмет через столько секунд возвращается на своё место у текущего якоря, с")]
         [Min(0f)] public float dropReturnSeconds = 1f;
         [Tooltip("После выпуска магазина шахта не принимает его обратно столько секунд, с")]

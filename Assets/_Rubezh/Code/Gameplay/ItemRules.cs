@@ -27,9 +27,9 @@ namespace Rubezh.Gameplay
         }
     }
 
-    // Лоток O-18 (NG-09): патроны по одному, всего на серию. Выданный и ещё не вставленный патрон
-    // (лежит в лотке или в руке) — «на руках»; вставленный в магазин — «вставлен»; упавший уходит
-    // в пул, и лоток выдаёт следующий.
+    // Лоток O-18 (NG-09): счёт серии. Все патроны серии лежат в лотке сразу; выданный и ещё не
+    // вставленный патрон (лежит в лотке или в руке) — «на руках»; вставленный в магазин — «вставлен»;
+    // упавший уходит в пул, и лоток выдаёт его заново в свободное гнездо.
     public sealed class RoundDispenser
     {
         private readonly int _series;
@@ -43,7 +43,8 @@ namespace Rubezh.Gameplay
         public int Seated { get; private set; }
         public int Out { get; private set; }
 
-        public bool ShouldSpawn(bool roundWaiting) => !roundWaiting && Seated + Out < _series;
+        // Сколько патронов выдать сейчас: всё, чего не хватает до серии, но не больше свободных гнёзд.
+        public int ToSpawn(int freeSlots) => Math.Max(0, Math.Min(freeSlots, _series - Seated - Out));
 
         public void Spawned() => Out++;
 
