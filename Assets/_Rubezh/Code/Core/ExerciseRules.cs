@@ -26,8 +26,10 @@ namespace Rubezh.Core
         public int MissPenalty = 3;                 // за каждый промах
         public int PassScore = 80;                  // от 80 — зачёт
         public int RemarksScore = 60;               // от 60 — зачёт с замечаниями
+        // Пункт правил безопасности стоит столько баллов; грубое нарушение пункта — 0 за пункт (Р-11).
+        public int CriticalPenalty = 20;
 
-        // Штраф мелкого нарушения; грубое останавливает упражнение и даёт 0.
+        // Штраф мелкого нарушения; грубое обнуляет свой пункт — CriticalPenalty.
         public Dictionary<Violation, int> Penalties = DefaultPenalties();
 
         public int PenaltyFor(Violation v) => Penalties != null && Penalties.TryGetValue(v, out int p) ? p : 0;

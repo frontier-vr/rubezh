@@ -338,7 +338,7 @@ namespace Rubezh.Tests.EditMode
         private void FinishFromLoad() { Fire(); Cease(); Unload(); ShowClear(); Return(); }
 
         [Test]
-        public void CriticalViolation_ExerciseContinues_ResultNotPassedAtEnd()
+        public void CriticalViolation_ExerciseContinues_OnlyItsItemZeroedAtEnd()
         {
             Receive(); Inspect();
             _director.Raise(Violation.LookIntoMuzzle, Severity.Critical);
@@ -355,8 +355,10 @@ namespace Rubezh.Tests.EditMode
             var result = _finished[0];
             Assert.IsTrue(result.FailedCritical);
             Assert.AreEqual(Violation.LookIntoMuzzle, result.FailReason);
-            Assert.AreEqual(Verdict.NotPassed, result.Verdict);
-            Assert.AreEqual(0, result.Score);
+            CollectionAssert.AreEqual(new[] { Violation.LookIntoMuzzle }, result.ZeroedItems);
+            Assert.AreEqual(_director.Rules.CriticalPenalty, result.CriticalPenalty);
+            Assert.AreEqual(Verdict.PassedWithRemarks, result.Verdict, "обнулён один пункт, а не всё упражнение (Р-11)");
+            Assert.AreEqual(100 - _director.Rules.CriticalPenalty - result.MissPenalty, result.Score);
             Assert.AreEqual(1, result.Violations.Count);
         }
 
@@ -397,6 +399,7 @@ namespace Rubezh.Tests.EditMode
 
             Assert.AreEqual(3, _violations.Count);
             Assert.AreEqual(Violation.LookIntoMuzzle, _director.Result.FailReason);
+            CollectionAssert.AreEqual(new[] { Violation.LookIntoMuzzle, Violation.ShotOutOfSector }, _director.Result.ZeroedItems);
         }
 
         [Test]

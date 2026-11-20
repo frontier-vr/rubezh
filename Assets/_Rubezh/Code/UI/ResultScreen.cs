@@ -9,9 +9,10 @@ namespace Rubezh.UI
 {
     // Экран результата (VP-20, FR-42) по макету YG-09 (docs/result-screen.md): вердикт со значком и
     // словом, балл, время, точность, мишень с пробоинами, нарушения со временем и штрафом, «Повторить».
+    // Грубые нарушения упражнение не останавливают (Р-09) и весь балл не обнуляют (Р-11): в таблице они
+    // идут первыми, красным, с пометкой «0 баллов», в шапке — сколько пунктов с 0 баллов.
     // Под таблицей — повтор эпизода нарушения (VP-17): первым грубое, «Следующее» листает по кругу.
-    // Во время упражнения скрыт. Done — сразу у шкафа (R1), лицом к A1. Failed — через N с
-    // (RulesConfig) у текущего якоря, на месте стоп-экрана VP-22, с баллом 0.
+    // Во время упражнения скрыт, показывается после сдачи оружия у шкафа (R1), лицом к A1.
     public sealed class ResultScreen : MonoBehaviour
     {
         private const int MaxRows = 8;
@@ -185,10 +186,11 @@ namespace Rubezh.UI
             if (time != null) time.text = FormatTime(r.TotalTime);
             if (accuracy != null) accuracy.text = r.Shots > 0 ? $"{r.Hits} из {r.Shots} · {Mathf.RoundToInt(100f * r.Hits / r.Shots)}%" : "нет выстрелов";
             int count = r.Violations != null ? r.Violations.Count : 0;
-            if (r.FailedCritical && r.FailReason.HasValue)
+            int zeroed = r.ZeroedItems != null ? r.ZeroedItems.Count : 0;
+            if (zeroed > 0)
             {
-                if (violationsCaption != null) violationsCaption.text = "причина";
-                if (violationsValue != null) { violationsValue.text = Name(r.FailReason.Value); violationsValue.color = Hex("#D23A2A"); }
+                if (violationsCaption != null) violationsCaption.text = "пункты с 0 баллов";
+                if (violationsValue != null) { violationsValue.text = zeroed.ToString(); violationsValue.color = Hex("#D23A2A"); }
             }
             else
             {
@@ -205,28 +207,38 @@ namespace Rubezh.UI
 
         private int Rows => _replayIndex >= 0 ? MaxRowsWithReplay : MaxRows;
 
+        // Строки таблицы: сначала грубые (пункты с 0 баллов), потом мелкие — те и другие по времени.
         public string Table(ExerciseResult r)
         {
             if (r.Violations == null || r.Violations.Count == 0) return "Нарушений нет";
             var rules = runner != null && runner.Director != null ? runner.Director.Rules : new ExerciseRules();
-            var sb = new StringBuilder();
-            int shown = Mathf.Min(Rows, r.Violations.Count);
+            var rows = new System.Collections.Generic.List<string>();
+            var zeroed = new System.Collections.Generic.HashSet<Violation>();
+            foreach (var v in r.Violations)
+            {
+                if (v.Severity != Severity.Critical) continue;
+                // Пункт обнуляется один раз: повторное грубое того же вида балл больше не меняет.
+                string mark = zeroed.Add(v.Type) ? "× 0 баллов · " : "× повтор · ";
+                rows.Add("<color=#D23A2A>" + mark + FormatTime(v.Start) + " · " + Name(v.Type) + "</color>");
+            }
+            foreach (var v in r.Violations)
+            {
+                if (v.Severity == Severity.Critical) continue;
+                var sb = new StringBuilder();
+                sb.Append(FormatTime(v.Start)).Append(" · ").Append(Name(v.Type));   // начало эпизода (VP-15)
+                if (v.Duration > 0.05) sb.Append($" ({v.Duration:0.0} с)");
+                sb.Append(" · −").Append(ExerciseScoring.Penalty(rules, v));
+                rows.Add(sb.ToString());
+            }
+            int shown = Mathf.Min(Rows, rows.Count);
+            var table = new StringBuilder();
             for (int i = 0; i < shown; i++)
             {
-                var v = r.Violations[i];
-                string t = FormatTime(v.Start);         // начало эпизода: у длящихся — на длительность раньше (VP-15)
-                if (v.Severity == Severity.Critical)
-                    sb.Append("<color=#D23A2A>× грубое · ").Append(t).Append(" · ").Append(Name(v.Type)).Append(" · стоп</color>");
-                else
-                {
-                    sb.Append(t).Append(" · ").Append(Name(v.Type));
-                    if (v.Duration > 0.05) sb.Append($" ({v.Duration:0.0} с)");
-                    sb.Append(" · −").Append(ExerciseScoring.Penalty(rules, v));
-                }
-                if (i < shown - 1) sb.Append('\n');
+                if (i > 0) table.Append('\n');
+                table.Append(rows[i]);
             }
-            if (r.Violations.Count > shown) sb.Append("\nещё ").Append(r.Violations.Count - shown);
-            return sb.ToString();
+            if (rows.Count > shown) table.Append("\nещё ").Append(rows.Count - shown);
+            return table.ToString();
         }
 
         public static string FormatTime(double seconds)

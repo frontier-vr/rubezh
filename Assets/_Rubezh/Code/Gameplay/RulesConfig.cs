@@ -76,7 +76,9 @@ namespace Rubezh.Gameplay
         [Range(0, 100)] public int passScore = 80;
         [Tooltip("Балл от этого — зачёт с замечаниями; ниже — не зачёт")]
         [Range(0, 100)] public int remarksScore = 60;
-        [Tooltip("Штрафы мелких нарушений; грубое нарушение — 0 баллов и «не зачёт»")]
+        [Tooltip("Пункт правил безопасности стоит столько баллов: грубое нарушение пункта — 0 за пункт, один раз за упражнение (Р-11)")]
+        [Range(0, 100)] public int criticalPenalty = 20;
+        [Tooltip("Штрафы мелких нарушений; грубое нарушение обнуляет свой пункт — criticalPenalty")]
         public ViolationPenalty[] penalties = DefaultPenalties();
 
         [Header("Подсказки (VP-12)")]
@@ -140,6 +142,8 @@ namespace Rubezh.Gameplay
         [Header("Магазин, патроны, места (NG-09)")]
         [Tooltip("Предмет ниже этой высоты и не в руке — упал (все столешницы выше), м")]
         [Min(0f)] public float dropHeight = 0.85f;
+        [Tooltip("Шаг между патронами в лотке O-18: вся серия лежит в ряд, м")]
+        [Min(0.02f)] public float roundSlotSpacing = 0.06f;
         [Tooltip("Упавший предмет через столько секунд возвращается на своё место у текущего якоря, с")]
         [Min(0f)] public float dropReturnSeconds = 1f;
         [Tooltip("После выпуска магазина шахта не принимает его обратно столько секунд, с")]
@@ -187,6 +191,7 @@ namespace Rubezh.Gameplay
             MissPenalty = missPenalty,
             PassScore = passScore,
             RemarksScore = remarksScore,
+            CriticalPenalty = criticalPenalty,
             Penalties = PenaltyMap()
         };
 

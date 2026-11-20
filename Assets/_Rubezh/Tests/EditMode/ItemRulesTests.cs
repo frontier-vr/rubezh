@@ -27,30 +27,38 @@ namespace Rubezh.Tests.EditMode
         }
 
         [Test]
-        public void Dispenser_OneWaitingAtATime_SeriesTotal()
+        public void Dispenser_WholeSeriesAtOnce_AndNoMore()
         {
             var d = new RoundDispenser(5);
-            int spawned = 0;
-            for (int i = 0; i < 20; i++)
+            Assert.AreEqual(5, d.ToSpawn(freeSlots: 5), "вся серия сразу, а не по одному");
+            for (int i = 0; i < 5; i++) d.Spawned();
+            Assert.AreEqual(0, d.ToSpawn(freeSlots: 0));
+            for (int i = 0; i < 5; i++)
             {
-                if (d.ShouldSpawn(roundWaiting: false)) { d.Spawned(); spawned++; }
-                Assert.IsFalse(d.ShouldSpawn(roundWaiting: true), "пока патрон в лотке, второй не появляется");
-                if (d.Out > 0) d.Seat();
+                d.Seat();
+                Assert.AreEqual(0, d.ToSpawn(freeSlots: i + 1), "вставленный патрон не возвращается в лоток");
             }
-            Assert.AreEqual(5, spawned);
             Assert.AreEqual(5, d.Seated);
-            Assert.IsFalse(d.ShouldSpawn(false));
+            Assert.AreEqual(0, d.Out);
+        }
+
+        [Test]
+        public void Dispenser_NeverMoreThanFreeSlots()
+        {
+            var d = new RoundDispenser(5);
+            Assert.AreEqual(2, d.ToSpawn(freeSlots: 2));
+            Assert.AreEqual(0, d.ToSpawn(freeSlots: -1));
         }
 
         [Test]
         public void Dispenser_LostRound_IsReissued()
         {
             var d = new RoundDispenser(5);
-            for (int i = 0; i < 4; i++) { d.Spawned(); d.Seat(); }
-            d.Spawned();
-            Assert.IsFalse(d.ShouldSpawn(false), "пятый на руках");
+            for (int i = 0; i < 5; i++) d.Spawned();
+            for (int i = 0; i < 4; i++) d.Seat();
+            Assert.AreEqual(0, d.ToSpawn(5), "пятый на руках");
             d.Lost();
-            Assert.IsTrue(d.ShouldSpawn(false), "упавший заменяется");
+            Assert.AreEqual(1, d.ToSpawn(5), "упавший заменяется");
         }
 
         [Test]

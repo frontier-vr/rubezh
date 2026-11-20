@@ -265,21 +265,39 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator DroppedRound_GoesToPool_NextAppears()
+        public IEnumerator WholeSeries_LiesInTrayAtOnce_InARow()
+        {
+            yield return null;
+            yield return null;
+            Assert.AreEqual(5, _tray.WaitingCount, "вся серия лежит в лотке сразу");
+            Assert.AreEqual(5, _tray.Slots.Count);
+            var rounds = _tray.Active.ToArray();
+            for (int i = 0; i < rounds.Length; i++)
+                for (int k = i + 1; k < rounds.Length; k++)
+                    Assert.Greater(Vector3.Distance(rounds[i].transform.position, rounds[k].transform.position), 0.03f,
+                                   "патроны лежат в ряд, а не друг в друге");
+            var center = Vector3.zero;
+            foreach (var slot in _tray.Slots) center += slot.transform.position;
+            Assert.Less(Vector3.Distance(center / 5f, new Vector3(3.35f, 0.93f, 1.55f)), 0.001f, "ряд — через пустышку Spawn");
+        }
+
+        [UnityTest]
+        public IEnumerator DroppedRound_GoesToPool_AppearsInTrayAgain()
         {
             yield return null;
             var round = _tray.Waiting;
             _manager.SelectEnter(HandI, round);
             yield return null;
-            var second = _tray.Waiting;
-            Assert.IsNotNull(second, "следующий патрон появился, когда предыдущий взят");
+            Assert.AreEqual(4, _tray.WaitingCount, "остальные лежат в лотке, ждать нового не надо");
             _manager.SelectExit(HandI, round);
             round.GetComponent<Rigidbody>().position = new Vector3(3f, 0.2f, 1.5f);
             round.transform.position = new Vector3(3f, 0.2f, 1.5f);
             yield return null;
             yield return null;
-            Assert.IsFalse(round.gameObject.activeSelf, "упавший патрон в пуле");
-            Assert.AreEqual(1, _tray.Out, "на руках только патрон в лотке");
+            yield return null;
+            Assert.AreEqual(5, _tray.WaitingCount, "упавший патрон снова в лотке");
+            Assert.AreEqual(5, _tray.Out, "серия не выросла: на руках те же пять");
+            Assert.AreEqual(5, _tray.Active.Count);
         }
 
         [UnityTest]
@@ -311,7 +329,8 @@ namespace Rubezh.Tests.PlayMode
             Assert.AreEqual(0, _magazine.Rounds);
             Assert.IsFalse(_weapon.IsHeld);
             Assert.AreEqual(0, _tray.Seated);
-            Assert.AreEqual(1, _tray.Out, "в лотке снова первый патрон");
+            Assert.AreEqual(5, _tray.Out, "в лотке снова вся серия");
+            Assert.AreEqual(5, _tray.WaitingCount);
             Assert.IsEmpty(_runner.Director.Violations);
         }
     }

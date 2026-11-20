@@ -4,7 +4,8 @@ using Rubezh.Core;
 
 namespace Rubezh.Tests.EditMode
 {
-    // Балл и вердикт FR-40, FR-41 на границах (NG-24): 80, 79, 60, 59 и грубое нарушение.
+    // Балл и вердикт FR-40, FR-41 на границах (NG-24): 80, 79, 60, 59 и грубое нарушение —
+    // оно обнуляет только свой пункт правил безопасности (Р-11).
     // Штрафы берутся из ExerciseRules (в проекте — из RulesConfig), чтобы тест не зависел от весов.
     public class ScoringTests
     {
@@ -26,7 +27,7 @@ namespace Rubezh.Tests.EditMode
         private static ViolationRecord Minor(Violation v) => new ViolationRecord(v, Severity.Minor, 10, 0);
 
         private ExerciseScoring.Breakdown Score(params ViolationRecord[] v) =>
-            ExerciseScoring.Calculate(_rules, v, shots: 5, hits: 5, totalSeconds: 200, failedCritical: false);
+            ExerciseScoring.Calculate(_rules, v, shots: 5, hits: 5, totalSeconds: 200);
 
         [Test]
         public void NoViolations_Is100_Passed()
@@ -68,14 +69,51 @@ namespace Rubezh.Tests.EditMode
             Assert.AreEqual(Verdict.NotPassed, s.Verdict);
         }
 
+        private static ViolationRecord Gross(Violation v, double time = 30) => new ViolationRecord(v, Severity.Critical, time, 0.3);
+
         [Test]
-        public void GrossViolation_IsZero_NotPassed_EvenWithHighScore()
+        public void GrossViolation_ZeroesOnlyItsItem_NoCleanPass()
         {
-            var gross = new ViolationRecord(Violation.LookIntoMuzzle, Severity.Critical, 30, 0.3);
-            var s = ExerciseScoring.Calculate(_rules, new[] { gross }, 5, 5, 60, failedCritical: true);
-            Assert.AreEqual(0, s.Score);
+            var gross = Gross(Violation.LookIntoMuzzle);
+            var s = Score(gross);
+            Assert.AreEqual(100 - _rules.CriticalPenalty, s.Score, "грубое снимает только свой пункт");
+            Assert.AreEqual(_rules.CriticalPenalty, s.Critical);
+            CollectionAssert.AreEqual(new[] { Violation.LookIntoMuzzle }, s.ZeroedItems);
+            Assert.AreEqual(Verdict.PassedWithRemarks, s.Verdict, "с обнулённым пунктом — не выше «зачёта с замечаниями»");
+            Assert.AreEqual(0, ExerciseScoring.Penalty(_rules, gross), "у грубого в строке «0 за пункт», штраф считается пунктом");
+        }
+
+        [Test]
+        public void SameGrossTwice_ZeroesItemOnce()
+        {
+            var s = Score(Gross(Violation.LookIntoMuzzle, 10), Gross(Violation.LookIntoMuzzle, 40));
+            Assert.AreEqual(_rules.CriticalPenalty, s.Critical);
+            Assert.AreEqual(1, s.ZeroedItems.Count);
+        }
+
+        [Test]
+        public void DifferentGross_ZeroTheirItems_InOrder()
+        {
+            var s = Score(Gross(Violation.ShotBeforeFire, 10), Gross(Violation.LookIntoMuzzle, 20), Gross(Violation.ShotBeforeFire, 30));
+            Assert.AreEqual(2 * _rules.CriticalPenalty, s.Critical);
+            CollectionAssert.AreEqual(new[] { Violation.ShotBeforeFire, Violation.LookIntoMuzzle }, s.ZeroedItems);
+            Assert.AreEqual(60, s.Score);
+            Assert.AreEqual(Verdict.PassedWithRemarks, s.Verdict);
+        }
+
+        [Test]
+        public void GrossAndMinor_BelowRemarks_IsNotPassed()
+        {
+            var s = Score(Gross(Violation.ShotOutOfSector), Minor(Violation.NoGlasses));
+            Assert.AreEqual(59, s.Score);
             Assert.AreEqual(Verdict.NotPassed, s.Verdict);
-            Assert.AreEqual(0, ExerciseScoring.Penalty(_rules, gross), "у грубого в таблице «стоп», не штраф");
+        }
+
+        [Test]
+        public void CriticalPenalty_ComesFromRules()
+        {
+            _rules.CriticalPenalty = 35;
+            Assert.AreEqual(65, Score(Gross(Violation.ShotAfterCease)).Score);
         }
 
         [Test]
@@ -86,14 +124,14 @@ namespace Rubezh.Tests.EditMode
             d.Raise(Violation.ShotBeforeFire, Severity.Critical);
             Assert.AreEqual(Phase.Receive, d.Phase);
             Assert.IsTrue(d.IsRunning);
-            Assert.IsNull(d.Result, "итог с 0 и «не зачёт» — при сдаче (ExerciseDirectorTests)");
+            Assert.IsNull(d.Result, "итог с обнулённым пунктом — при сдаче (ExerciseDirectorTests)");
         }
 
         [Test]
         public void Misses_CostMissPenaltyEach()
         {
             _rules.MissPenalty = 3;
-            var s = ExerciseScoring.Calculate(_rules, new ViolationRecord[0], shots: 5, hits: 2, totalSeconds: 100, failedCritical: false);
+            var s = ExerciseScoring.Calculate(_rules, new ViolationRecord[0], shots: 5, hits: 2, totalSeconds: 100);
             Assert.AreEqual(9, s.Misses);
             Assert.AreEqual(91, s.Score);
         }

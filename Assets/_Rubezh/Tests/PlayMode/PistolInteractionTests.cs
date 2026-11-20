@@ -277,6 +277,39 @@ namespace Rubezh.Tests.PlayMode
         }
 
         [UnityTest]
+        public IEnumerator PistolInWalkingHand_WalkMovesToFreeHand_AndBack()
+        {
+            // Р-10: левый стик — ход, правый — телепорт и поворот. Пистолет в левой руке выключает её стик,
+            // поэтому ход на это время получает правая; пистолет в правой ничего не меняет.
+            var leftManager = new GameObject("LeftActions").AddComponent<UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets.ControllerInputActionManager>();
+            var rightManager = new GameObject("RightActions").AddComponent<UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets.ControllerInputActionManager>();
+            leftManager.transform.SetParent(_root.transform, false);
+            rightManager.transform.SetParent(_root.transform, false);
+            yield return null;
+            leftManager.smoothMotionEnabled = true;
+            rightManager.smoothMotionEnabled = false;
+            _interaction.ConfigureLocomotion(leftManager, rightManager);
+
+            _manager.SelectEnter((IXRSelectInteractor)_right, _grab);
+            yield return null;
+            Assert.IsFalse(rightManager.enabled, "стик руки с пистолетом выключен");
+            Assert.IsTrue(leftManager.enabled && leftManager.smoothMotionEnabled, "ход остался на левом стике");
+            Assert.IsFalse(rightManager.smoothMotionEnabled);
+            _manager.SelectExit((IXRSelectInteractor)_right, _grab);
+            yield return null;
+            Assert.IsTrue(rightManager.enabled);
+
+            _manager.SelectEnter((IXRSelectInteractor)_left, _grab);
+            yield return null;
+            Assert.IsFalse(leftManager.enabled, "стик руки с пистолетом выключен");
+            Assert.IsTrue(rightManager.smoothMotionEnabled, "ход перешёл на стик свободной руки");
+            _manager.SelectExit((IXRSelectInteractor)_left, _grab);
+            yield return null;
+            Assert.IsTrue(leftManager.enabled && leftManager.smoothMotionEnabled, "ход вернулся на левый стик");
+            Assert.IsFalse(rightManager.smoothMotionEnabled, "правый стик — снова телепорт и поворот");
+        }
+
+        [UnityTest]
         public IEnumerator Restart_ReturnsCabinetState_KeepsSubscribers()
         {
             int changes = 0;

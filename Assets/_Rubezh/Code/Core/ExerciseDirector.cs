@@ -5,7 +5,7 @@ namespace Rubezh.Core
 {
     // Директор упражнения: ведёт фазы Receive → … → Return → Done, проверяет порядок шагов,
     // копит нарушения. Грубое нарушение не останавливает упражнение (Р-09): оно доигрывается до сдачи,
-    // а итог — 0 баллов и «не зачёт» с причиной первого грубого.
+    // а в итоге обнулён только нарушенный пункт правил безопасности (Р-11, ExerciseScoring).
     // Условия закрытия фаз — docs/user-flow.md §4.1. Время только через IClock.
     public sealed class ExerciseDirector
     {
@@ -95,7 +95,7 @@ namespace Rubezh.Core
             }
         }
 
-        // Нарушение от детектора. Грубое запоминается причиной итога, упражнение продолжается.
+        // Нарушение от детектора. Грубое запоминается для итога, упражнение продолжается.
         public void Raise(Violation type, Severity severity, double duration = 0)
         {
             if (!IsRunning) return;
@@ -173,7 +173,7 @@ namespace Rubezh.Core
             _endTime = _clock.Now;
             bool failed = failReason.HasValue;
             var violations = _violations.ToArray();
-            var score = ExerciseScoring.Calculate(_rules, violations, _shots, _hits, Elapsed, failed);
+            var score = ExerciseScoring.Calculate(_rules, violations, _shots, _hits, Elapsed);
             Result = new ExerciseResult
             {
                 TotalTime = Elapsed,
@@ -184,7 +184,9 @@ namespace Rubezh.Core
                 FailedCritical = failed,
                 FailReason = failReason,
                 Violations = violations,
+                ZeroedItems = score.ZeroedItems,
                 ViolationPenalty = score.Violations,
+                CriticalPenalty = score.Critical,
                 MissPenalty = score.Misses,
                 OverTimePenalty = score.OverTime
             };

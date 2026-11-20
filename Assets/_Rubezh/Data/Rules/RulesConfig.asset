@@ -36,6 +36,7 @@ MonoBehaviour:
   missPenalty: 3
   passScore: 80
   remarksScore: 60
+  criticalPenalty: 20
   penalties:
   - violation: 0
     points: 10
@@ -76,6 +77,7 @@ MonoBehaviour:
   slideForwardFraction: 0.2
   slideLockedFraction: 0.8
   dropHeight: 0.85
+  roundSlotSpacing: 0.06
   dropReturnSeconds: 1
   ejectLockSeconds: 0.5
   ejectSpeed: 0.6
